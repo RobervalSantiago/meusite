@@ -1,61 +1,81 @@
-/* Reset básico */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
+/* Estilização Geral */
 body {
-    background: #ffcc00;
+    background: linear-gradient(135deg, #ffcc00, #d32f2f);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     color: #333;
+    padding: 20px;
 }
 
+/* Container Principal */
 .container {
     background: #fff;
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
     width: 100%;
     text-align: center;
 }
 
+/* Título */
 h1 {
     color: #d32f2f;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Estilização do Formulário */
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .form-group {
+    flex: 1;
     text-align: left;
-    margin-bottom: 1rem;
 }
 
 label {
     font-weight: bold;
     color: #d32f2f;
+    font-size: 0.9rem;
 }
 
 input {
     width: 100%;
-    padding: 0.7rem;
+    padding: 10px;
     border: 2px solid #d32f2f;
     border-radius: 5px;
     font-size: 1rem;
+    transition: 0.3s ease-in-out;
 }
 
+input:focus {
+    border-color: #ffcc00;
+    outline: none;
+}
+
+/* Botões */
 .btn {
     width: 100%;
-    padding: 0.8rem;
+    padding: 12px;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
     margin-top: 10px;
 }
 
@@ -86,6 +106,7 @@ input {
     background: #1b9448;
 }
 
+/* Resultado */
 .resultado {
     margin-top: 20px;
     padding: 15px;
