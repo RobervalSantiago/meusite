@@ -1,7 +1,7 @@
 document.getElementById('formAcao').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const resultado = `*Solicitação de ação:*\n\nProduto: ${document.getElementById('produtoAcao').value}\nCódigo: ${document.getElementById('codProdutoAcao').value}\nQuantidade: ${document.getElementById('quantidadeAcao').value} und\nPreço sistema: R$ ${document.getElementById('precoSistema').value}\nSupervisor: ${document.getElementById('supervisor').value}\n\n*Ação*\n\nPreço solicitado: R$ ${document.getElementById('precoSolicitado').value}\nProduto Bonificado: ${document.getElementById('produtoBonificado').value}\nCódigo: ${document.getElementById('codigoBonificado').value}\n\nRazão: ${document.getElementById('razaoAcao').value}\nCódigo Cliente: ${document.getElementById('codClienteAcao').value}`;
+    const resultado = `*Solicitação de ação:*\n\nProduto: ${document.getElementById('produtoAcao').value}\nCódigo: ${document.getElementById('codProdutoAcao').value}\nQuantidade: ${document.getElementById('quantidadeAcao').value} und\nPreço sistema: R$ ${document.getElementById('precoSistema').value}\nSupervisor: ${document.getElementById('supervisor').value}\n\n*Ação*\n\nPreço solicitado: R$ ${document.getElementById('precoSolicitado').value}\nProduto Bonificado: ${document.getElementById('produtoBonificado').value}\nCódigo: ${document.getElementById('codigoBonificado').value}`;
 
     document.getElementById('resultadoAcao').textContent = resultado;
 });
