@@ -1,40 +1,7 @@
 document.getElementById('formAcao').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const dados = {
-        razao: document.getElementById('razaoAcao').value,
-        codCliente: document.getElementById('codClienteAcao').value,
-        produto: document.getElementById('produtoAcao').value,
-        codProduto: document.getElementById('codProdutoAcao').value,
-        quantidade: parseFloat(document.getElementById('quantidadeAcao').value) || 0,
-        precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
-        precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value) || 0,
-        produtoBonificado: document.getElementById('produtoBonificado').value,
-        codigoBonificado: document.getElementById('codigoBonificado').value,
-        supervisor: document.getElementById('supervisor').value
-    };
-
-    const valorPedido = dados.quantidade * dados.precoSistema;
-    const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
-    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
-    const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
-
-    const resultado = `*Solicitação de ação:*\n\n` +
-        `Produto: ${dados.produto}\n` +
-        `Código do Produto: ${dados.codProduto}\n` +
-        `Quantidade: ${dados.quantidade}\n` +
-        `Preço sistema: $ ${dados.precoSistema.toFixed(2)}\n` +
-        `Supervisor: ${dados.supervisor}\n\n` +
-        `*Ação*\n\n` +
-        `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
-        `Investimento: ${investimentoPercentual.toFixed(0)} %\n` +
-        `Quantidade bonificada: ${qtdBonificada} und\n` +
-        `Valor Bonificação: R$ ${valorBonificacao}\n` +
-        `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
-        `Produto Bonificado: ${dados.produtoBonificado}\n` +
-        `Código: ${dados.codigoBonificado}\n\n` +
-        `Razão: ${dados.razao}\n` +
-        `Cod do Cliente: ${dados.codCliente}`;
+    const resultado = `*Solicitação de ação:*\n\nProduto: ${document.getElementById('produtoAcao').value}\nCódigo: ${document.getElementById('codProdutoAcao').value}\nQuantidade: ${document.getElementById('quantidadeAcao').value} und\nPreço sistema: R$ ${document.getElementById('precoSistema').value}\nSupervisor: ${document.getElementById('supervisor').value}\n\n*Ação*\n\nPreço solicitado: R$ ${document.getElementById('precoSolicitado').value}\nProduto Bonificado: ${document.getElementById('produtoBonificado').value}\nCódigo: ${document.getElementById('codigoBonificado').value}\n\nRazão: ${document.getElementById('razaoAcao').value}\nCódigo Cliente: ${document.getElementById('codClienteAcao').value}`;
 
     document.getElementById('resultadoAcao').textContent = resultado;
 });
