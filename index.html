@@ -77,7 +77,7 @@
             color: #ddd;
         }
 
-        input {
+        input, textarea {
             width: 100%;
             padding: 8px;
             border: 1px solid #ddd;
@@ -85,7 +85,7 @@
             transition: background 0.3s, color 0.3s, border-color 0.3s;
         }
 
-        body.dark-theme input {
+        body.dark-theme input, body.dark-theme textarea {
             background: #1e1e2f;
             border-color: #444;
             color: #fff;
@@ -141,11 +141,11 @@
             background: #128c7e;
         }
 
-        .botoes button#copiarResultado {
+        .botoes button#copiarResultado, .botoes button#copiarBonificacao {
             background: #007bff;
         }
 
-        .botoes button#copiarResultado:hover {
+        .botoes button#copiarResultado:hover, .botoes button#copiarBonificacao:hover {
             background: #0056b3;
         }
 
@@ -181,7 +181,68 @@
 
         <!-- Aba Bonificação -->
         <div id="bonificacao" class="form-section">
-            <!-- Formulário original de bonificação aqui -->
+            <form id="formBonificacao">
+                <div class="form-group">
+                    <label>Razão:</label>
+                    <input type="text" id="razaoBonificacao" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Código do Cliente:</label>
+                    <input type="text" id="codClienteBonificacao" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Consultor:</label>
+                    <input type="text" id="consultorBonificacao" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Código do Consultor:</label>
+                    <input type="text" id="codConsultorBonificacao" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Código do Pedido:</label>
+                    <input type="text" id="codPedidoBonificacao" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Produto:</label>
+                    <input type="text" id="produtoBonificacao" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Código do Produto:</label>
+                    <input type="text" id="codProdutoBonificacao" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Quantidade Bonificada:</label>
+                    <input type="text" id="quantidadeBonificacao" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Valor da Bonificação:</label>
+                    <input type="text" id="valorBonificacao" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Observação:</label>
+                    <textarea id="observacaoBonificacao"></textarea>
+                </div>
+
+                <button type="submit">Gerar Resultado</button>
+            </form>
+            <div class="resultado" id="resultadoBonificacao"></div>
+            <div class="botoes">
+                <button id="copiarBonificacao">
+                    <i class="fas fa-copy"></i> Copiar Resultado
+                </button>
+                <button id="compartilharWhatsAppBonificacao">
+                    <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
+                </button>
+            </div>
         </div>
 
         <!-- Aba Solicitar Ação -->
@@ -300,9 +361,17 @@
                 `Código do Cliente: ${dados.codCliente}`;
 
             document.getElementById('resultadoAcao').textContent = resultado;
+
+            // Preencher automaticamente os campos da aba Bonificação
+            document.getElementById('razaoBonificacao').value = dados.razao;
+            document.getElementById('codClienteBonificacao').value = dados.codCliente;
+            document.getElementById('produtoBonificacao').value = dados.produto;
+            document.getElementById('codProdutoBonificacao').value = dados.codProduto;
+            document.getElementById('quantidadeBonificacao').value = Math.round(qtdBonificada);
+            document.getElementById('valorBonificacao').value = valorBonificacao;
         });
 
-        // Botão Copiar Resultado
+        // Botão Copiar Resultado (Ação)
         document.getElementById('copiarResultado').addEventListener('click', function() {
             const resultado = document.getElementById('resultadoAcao').textContent;
             navigator.clipboard.writeText(resultado)
@@ -314,13 +383,46 @@
                 });
         });
 
-        // Botão Compartilhar no WhatsApp
+        // Botão Compartilhar no WhatsApp (Ação)
         document.getElementById('compartilharWhatsApp').addEventListener('click', function() {
             const resultado = document.getElementById('resultadoAcao').textContent;
             const mensagemCodificada = encodeURIComponent(resultado);
             const linkWhatsApp = `https://wa.me/?text=${mensagemCodificada}`;
             window.open(linkWhatsApp, '_blank');
         });
-    </script>
-</body>
-</html>
+
+        // Gerar resultado na aba Bonificação
+        document.getElementById('formBonificacao').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Coletar dados
+            const dados = {
+                razao: document.getElementById('razaoBonificacao').value,
+                codCliente: document.getElementById('codClienteBonificacao').value,
+                consultor: document.getElementById('consultorBonificacao').value,
+                codConsultor: document.getElementById('codConsultorBonificacao').value,
+                codPedido: document.getElementById('codPedidoBonificacao').value,
+                produto: document.getElementById('produtoBonificacao').value,
+                codProduto: document.getElementById('codProdutoBonificacao').value,
+                quantidadeBonificada: document.getElementById('quantidadeBonificacao').value,
+                valorBonificacao: document.getElementById('valorBonificacao').value,
+                observacao: document.getElementById('observacaoBonificacao').value
+            };
+
+            // Formatar resultado
+            const resultado = `Bonificação\n\n` +
+                `Razão: ${dados.razao}\n` +
+                `Cod do Cliente: ${dados.codCliente}\n` +
+                `Consultor: ${dados.consultor}\n` +
+                `Cod do Consultor: ${dados.codConsultor}\n` +
+                `Cód do pedido: ${dados.codPedido}\n` +
+                `Produto: ${dados.produto}\n` +
+                `Cod do Produto: ${dados.codProduto}\n` +
+                `Quantidade bonificação: ${dados.quantidadeBonificada} Unidades\n` +
+                `Valor da bonificação: R$ ${dados.valorBonificacao}\n` +
+                (dados.observacao ? `Observação: ${dados.observacao}` : '');
+
+            document.getElementById('resultadoBonificacao').textContent = resultado;
+        });
+
+        // Botão Copiar Resultado (Bon
