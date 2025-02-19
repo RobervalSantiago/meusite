@@ -16,6 +16,12 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f0f2f5;
             color: #333;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.dark-theme {
+            background: #1e1e2f;
+            color: #fff;
         }
 
         .container {
@@ -48,6 +54,12 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.dark-theme .form-section {
+            background: #2a2a40;
+            color: #fff;
         }
 
         .form-group {
@@ -58,6 +70,11 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme label {
+            color: #ddd;
         }
 
         input {
@@ -65,6 +82,13 @@
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body.dark-theme input {
+            background: #1e1e2f;
+            border-color: #444;
+            color: #fff;
         }
 
         button[type="submit"] {
@@ -84,11 +108,72 @@
             border-radius: 5px;
             white-space: pre-wrap;
             font-family: monospace;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.dark-theme .resultado {
+            background: #333;
+            color: #fff;
+        }
+
+        .botoes {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .botoes button {
+            flex: 1;
+            padding: 10px;
+            background: #25d366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 14px;
+        }
+
+        .botoes button:hover {
+            background: #128c7e;
+        }
+
+        .botoes button#copiarResultado {
+            background: #007bff;
+        }
+
+        .botoes button#copiarResultado:hover {
+            background: #0056b3;
+        }
+
+        .theme-toggle {
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .theme-toggle button {
+            background: #444;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .theme-toggle button:hover {
+            background: #555;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="theme-toggle">
+            <button id="themeButton">
+                <i class="fas fa-moon"></i> Tema Escuro
+            </button>
+        </div>
         <div class="tabs">
             <button class="tab active" onclick="mostrarAba('bonificacao')">Bonificação</button>
             <button class="tab" onclick="mostrarAba('acao')">Solicitar Ação</button>
@@ -140,10 +225,31 @@
                 <button type="submit">Calcular Ação</button>
             </form>
             <div class="resultado" id="resultadoAcao"></div>
+            <div class="botoes">
+                <button id="copiarResultado">
+                    <i class="fas fa-copy"></i> Copiar Resultado
+                </button>
+                <button id="compartilharWhatsApp">
+                    <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
+        // Alternar tema escuro/claro
+        const themeButton = document.getElementById('themeButton');
+        const body = document.body;
+
+        themeButton.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            if (body.classList.contains('dark-theme')) {
+                themeButton.innerHTML = '<i class="fas fa-sun"></i> Tema Claro';
+            } else {
+                themeButton.innerHTML = '<i class="fas fa-moon"></i> Tema Escuro';
+            }
+        });
+
         // Controle das abas
         function mostrarAba(abaId) {
             document.querySelectorAll('.form-section').forEach(aba => {
@@ -173,11 +279,10 @@
             };
 
             // Cálculos
-            const diferenca = dados.precoSistema - dados.precoSolicitado;
-            const investimentoPercentual = ((diferenca / dados.precoSistema) * 100).toFixed(0);
-            const qtdBonificada = Math.round((diferenca / dados.precoSolicitado) * dados.quantidade);
-            const valorBonificacao = (qtdBonificada * dados.precoSolicitado).toFixed(2);
-            const valorPedido = (dados.quantidade * dados.precoSistema).toFixed(2);
+            const valorPedido = dados.quantidade * dados.precoSistema;
+            const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
+            const qtdBonificada = (valorPedido * (investimentoPercentual / 100)) / dados.precoSistema;
+            const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
 
             // Formatar resultado
             const resultado = `Solicitação de ação:\n\n` +
@@ -187,14 +292,34 @@
                 `Preço sistema: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
                 `Ação\n\n` +
                 `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
-                `Investimento%: ${investimentoPercentual}%\n` +
-                `Quantidade bonificada: ${qtdBonificada} und\n` +
+                `Investimento%: ${investimentoPercentual.toFixed(0)}%\n` +
+                `Quantidade bonificada: ${Math.round(qtdBonificada)} und\n` +
                 `Valor Bonificação: R$ ${valorBonificacao}\n` +
-                `Valor pedido: R$ ${valorPedido}\n\n` +
+                `Valor pedido: R$ ${valorPedido.toFixed(2)}\n\n` +
                 `Razão: ${dados.razao}\n` +
                 `Código do Cliente: ${dados.codCliente}`;
 
             document.getElementById('resultadoAcao').textContent = resultado;
+        });
+
+        // Botão Copiar Resultado
+        document.getElementById('copiarResultado').addEventListener('click', function() {
+            const resultado = document.getElementById('resultadoAcao').textContent;
+            navigator.clipboard.writeText(resultado)
+                .then(() => {
+                    alert('Resultado copiado para a área de transferência!');
+                })
+                .catch(() => {
+                    alert('Erro ao copiar o resultado.');
+                });
+        });
+
+        // Botão Compartilhar no WhatsApp
+        document.getElementById('compartilharWhatsApp').addEventListener('click', function() {
+            const resultado = document.getElementById('resultadoAcao').textContent;
+            const mensagemCodificada = encodeURIComponent(resultado);
+            const linkWhatsApp = `https://wa.me/?text=${mensagemCodificada}`;
+            window.open(linkWhatsApp, '_blank');
         });
     </script>
 </body>
