@@ -1,4 +1,4 @@
-/* Reset */
+/* Reset e Fonte */
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Estilização Geral */
+/* Fundo com gradiente neon */
 body {
     background: linear-gradient(135deg, #0d0d0d, #1a1a40, #3b2f60);
     display: flex;
@@ -16,12 +16,12 @@ body {
     padding: 20px;
 }
 
-/* Container Principal */
+/* Container Principal com Glassmorphism */
 .container {
     background: rgba(255, 255, 255, 0.1);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     max-width: 500px;
     width: 100%;
     text-align: center;
