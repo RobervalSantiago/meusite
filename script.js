@@ -1,64 +1,37 @@
-// Alternar tema escuro/claro
-const themeButton = document.getElementById('themeButton');
-const body = document.body;
-
-themeButton.addEventListener('click', () => {
-    body.classList.toggle('dark-theme');
-    if (body.classList.contains('dark-theme')) {
-        themeButton.innerHTML = '<i class="fas fa-sun"></i> Tema Claro';
-    } else {
-        themeButton.innerHTML = '<i class="fas fa-moon"></i> Tema Escuro';
-    }
-});
-
-// Envio do formulário
-document.getElementById('coletaForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    // Coleta dos dados do formulário
-    const formData = {
-        razaoSocial: document.getElementById('razaoSocial').value,
-        codigoCliente: document.getElementById('codigoCliente').value,
-        codigoPedido: document.getElementById('codigoPedido').value,
-        codigoProduto: document.getElementById('codigoProduto').value,
-        produto: document.getElementById('produto').value,
-        quantidade: document.getElementById('quantidade').value,
-        valorBonificacao: document.getElementById('valorBonificacao').value,
+document.getElementById('formAcao').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Coletar dados
+    const dados = {
+        razao: document.getElementById('razaoAcao').value,
+        codCliente: document.getElementById('codClienteAcao').value,
+        produto: document.getElementById('produtoAcao').value,
+        codProduto: document.getElementById('codProdutoAcao').value,
+        quantidade: parseFloat(document.getElementById('quantidadeAcao').value),
+        precoSistema: parseFloat(document.getElementById('precoSistema').value),
+        precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value)
     };
 
-    // Validação básica
-    if (
-        !formData.razaoSocial ||
-        !formData.codigoCliente ||
-        !formData.codigoPedido ||
-        !formData.codigoProduto ||
-        !formData.produto ||
-        !formData.quantidade ||
-        !formData.valorBonificacao
-    ) {
-        alert('Por favor, preencha todos os campos.');
-        return;
-    }
+    // Cálculos
+    const valorPedido = dados.quantidade * dados.precoSistema;
+    const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
+    const qtdBonificada = (valorPedido * (investimentoPercentual / 100)) / dados.precoSistema;
+    const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
 
-    // Formatar a mensagem
-    const mensagem = `Bonificação\n\n` +
-        `Razão: ${formData.razaoSocial}\n` +
-        `Cod do Cliente: ${formData.codigoCliente}\n` +
-        `Consultor: Roberval Santiago\n` +
-        `Cod do Consultor: 1453647\n` +
-        `Cód do pedido: ${formData.codigoPedido}\n` +
-        `Produto: ${formData.produto}\n` +
-        `Cod do Produto: ${formData.codigoProduto}\n` +
-        `Quantidade: ${formData.quantidade} Unidades\n` +
-        `Valor da bonificação: R$ ${parseFloat(formData.valorBonificacao).toFixed(2)}`;
+    // Formatar resultado
+    const resultado = `Solicitação de ação:\n\n` +
+        `Produto: ${dados.produto}\n` +
+        `Código do Produto: ${dados.codProduto}\n` +
+        `Quantidade: ${dados.quantidade} und\n` +
+        `Preço sistema: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
+        `Ação\n\n` +
+        `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
+        `Investimento%: ${investimentoPercentual.toFixed(0)}%\n` +
+        `Quantidade bonificada: ${Math.round(qtdBonificada)} und\n` +
+        `Valor Bonificação: R$ ${valorBonificacao}\n` +
+        `Valor pedido: R$ ${valorPedido.toFixed(2)}\n\n` +
+        `Razão: ${dados.razao}\n` +
+        `Código do Cliente: ${dados.codCliente}`;
 
-    // Codificar a mensagem para uso na URL
-    const mensagemCodificada = encodeURIComponent(mensagem);
-
-    // Redirecionar para o WhatsApp
-    const linkWhatsApp = `https://wa.me/5588992848215?text=${mensagemCodificada}`;
-    window.open(linkWhatsApp, '_blank');
-
-    // Mensagem de confirmação
-    alert('Dados enviados com sucesso!');
+    document.getElementById('resultadoAcao').textContent = resultado;
 });

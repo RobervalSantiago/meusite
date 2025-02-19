@@ -3,61 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coleta de Informações</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Adicionando Font Awesome para ícones -->
+    <title>Sistema de Ações Comerciais</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: #25d366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: #128c7e;
+        }
+
+        .form-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background: #25d366;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="theme-toggle">
-            <button id="themeButton">
-                <i class="fas fa-moon"></i> Tema Escuro
-            </button>
+        <div class="tabs">
+            <button class="tab active" onclick="mostrarAba('bonificacao')">Bonificação</button>
+            <button class="tab" onclick="mostrarAba('acao')">Solicitar Ação</button>
         </div>
-        <h1>Coleta de Informações</h1>
-        <form id="coletaForm">
-            <div class="form-group">
-                <label for="razaoSocial">Razão Social:</label>
-                <input type="text" id="razaoSocial" name="razaoSocial" required>
-            </div>
 
-            <div class="form-group">
-                <label for="codigoCliente">Código do Cliente:</label>
-                <input type="text" id="codigoCliente" name="codigoCliente" required>
-            </div>
+        <!-- Aba Bonificação -->
+        <div id="bonificacao" class="form-section">
+            <!-- Formulário original de bonificação aqui -->
+        </div>
 
-            <div class="form-group">
-                <label for="codigoPedido">Código do Pedido:</label>
-                <input type="text" id="codigoPedido" name="codigoPedido" required>
-            </div>
+        <!-- Aba Solicitar Ação -->
+        <div id="acao" class="form-section" style="display: none;">
+            <form id="formAcao">
+                <div class="form-group">
+                    <label>Razão Social:</label>
+                    <input type="text" id="razaoAcao" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Código do Cliente:</label>
+                    <input type="number" id="codClienteAcao" required>
+                </div>
 
-            <div class="form-group">
-                <label for="codigoProduto">Código do Produto:</label>
-                <input type="text" id="codigoProduto" name="codigoProduto" required>
-            </div>
+                <div class="form-group">
+                    <label>Produto:</label>
+                    <input type="text" id="produtoAcao" required>
+                </div>
 
-            <div class="form-group">
-                <label for="produto">Produto:</label>
-                <input type="text" id="produto" name="produto" required>
-            </div>
+                <div class="form-group">
+                    <label>Código do Produto:</label>
+                    <input type="number" id="codProdutoAcao" required>
+                </div>
 
-            <div class="form-group">
-                <label for="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" name="quantidade" required>
-            </div>
+                <div class="form-group">
+                    <label>Quantidade:</label>
+                    <input type="number" id="quantidadeAcao" required>
+                </div>
 
-            <div class="form-group">
-                <label for="valorBonificacao">Valor da Bonificação:</label>
-                <input type="number" id="valorBonificacao" name="valorBonificacao" step="0.01" required>
-            </div>
+                <div class="form-group">
+                    <label>Preço no Sistema:</label>
+                    <input type="number" id="precoSistema" step="0.01" required>
+                </div>
 
-            <button type="submit" id="submitButton">
-                <i class="fab fa-whatsapp"></i> Enviar via WhatsApp
-            </button>
-        </form>
+                <div class="form-group">
+                    <label>Preço Solicitado:</label>
+                    <input type="number" id="precoSolicitado" step="0.01" required>
+                </div>
+
+                <button type="submit">Calcular Ação</button>
+            </form>
+            <div class="resultado" id="resultadoAcao"></div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Controle das abas
+        function mostrarAba(abaId) {
+            document.querySelectorAll('.form-section').forEach(aba => {
+                aba.style.display = 'none';
+            });
+            document.getElementById(abaId).style.display = 'block';
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Cálculos da ação
+        document.getElementById('formAcao').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Coletar dados
+            const dados = {
+                razao: document.getElementById('razaoAcao').value,
+                codCliente: document.getElementById('codClienteAcao').value,
+                produto: document.getElementById('produtoAcao').value,
+                codProduto: document.getElementById('codProdutoAcao').value,
+                quantidade: parseFloat(document.getElementById('quantidadeAcao').value),
+                precoSistema: parseFloat(document.getElementById('precoSistema').value),
+                precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value)
+            };
+
+            // Cálculos
+            const diferenca = dados.precoSistema - dados.precoSolicitado;
+            const investimentoPercentual = ((diferenca / dados.precoSistema) * 100).toFixed(0);
+            const qtdBonificada = Math.round((diferenca / dados.precoSolicitado) * dados.quantidade);
+            const valorBonificacao = (qtdBonificada * dados.precoSolicitado).toFixed(2);
+            const valorPedido = (dados.quantidade * dados.precoSistema).toFixed(2);
+
+            // Formatar resultado
+            const resultado = `Solicitação de ação:\n\n` +
+                `Produto: ${dados.produto}\n` +
+                `Código do Produto: ${dados.codProduto}\n` +
+                `Quantidade: ${dados.quantidade} und\n` +
+                `Preço sistema: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
+                `Ação\n\n` +
+                `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
+                `Investimento%: ${investimentoPercentual}%\n` +
+                `Quantidade bonificada: ${qtdBonificada} und\n` +
+                `Valor Bonificação: R$ ${valorBonificacao}\n` +
+                `Valor pedido: R$ ${valorPedido}\n\n` +
+                `Razão: ${dados.razao}\n` +
+                `Código do Cliente: ${dados.codCliente}`;
+
+            document.getElementById('resultadoAcao').textContent = resultado;
+        });
+    </script>
 </body>
 </html>
