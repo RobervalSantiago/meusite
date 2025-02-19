@@ -1,5 +1,19 @@
+// Alternar tema escuro/claro
+const themeButton = document.getElementById('themeButton');
+const body = document.body;
+
+themeButton.addEventListener('click', () => {
+    body.classList.toggle('dark-theme');
+    if (body.classList.contains('dark-theme')) {
+        themeButton.innerHTML = '<i class="fas fa-sun"></i> Tema Claro';
+    } else {
+        themeButton.innerHTML = '<i class="fas fa-moon"></i> Tema Escuro';
+    }
+});
+
+// Envio do formulário
 document.getElementById('coletaForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Evita o envio padrão do formulário
+    event.preventDefault();
 
     // Coleta dos dados do formulário
     const formData = {
@@ -12,7 +26,7 @@ document.getElementById('coletaForm').addEventListener('submit', function (event
         valorBonificacao: document.getElementById('valorBonificacao').value,
     };
 
-    // Validação básica (exemplo: campos não podem estar vazios)
+    // Validação básica
     if (
         !formData.razaoSocial ||
         !formData.codigoCliente ||
@@ -44,4 +58,7 @@ document.getElementById('coletaForm').addEventListener('submit', function (event
     // Redirecionar para o WhatsApp
     const linkWhatsApp = `https://wa.me/5588992848215?text=${mensagemCodificada}`;
     window.open(linkWhatsApp, '_blank');
+
+    // Mensagem de confirmação
+    alert('Dados enviados com sucesso!');
 });

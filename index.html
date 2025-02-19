@@ -10,6 +10,11 @@
 </head>
 <body>
     <div class="container">
+        <div class="theme-toggle">
+            <button id="themeButton">
+                <i class="fas fa-moon"></i> Tema Escuro
+            </button>
+        </div>
         <h1>Coleta de Informações</h1>
         <form id="coletaForm">
             <div class="form-group">
@@ -47,7 +52,7 @@
                 <input type="number" id="valorBonificacao" name="valorBonificacao" step="0.01" required>
             </div>
 
-            <button type="submit">
+            <button type="submit" id="submitButton">
                 <i class="fab fa-whatsapp"></i> Enviar via WhatsApp
             </button>
         </form>
