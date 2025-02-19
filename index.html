@@ -4,137 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Ações Comerciais</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Ações Comerciais</h1>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
-            color: #333;
-            transition: background 0.3s, color 0.3s;
-        }
+        <form id="formAcao">
+            <div class="form-group">
+                <label for="razaoAcao">Razão:</label>
+                <input type="text" id="razaoAcao" required>
+            </div>
+            <div class="form-group">
+                <label for="codClienteAcao">Código Cliente:</label>
+                <input type="text" id="codClienteAcao" required>
+            </div>
+            <div class="form-group">
+                <label for="produtoAcao">Produto:</label>
+                <input type="text" id="produtoAcao" required>
+            </div>
+            <div class="form-group">
+                <label for="codProdutoAcao">Código Produto:</label>
+                <input type="text" id="codProdutoAcao" required>
+            </div>
+            <div class="form-group">
+                <label for="quantidadeAcao">Quantidade:</label>
+                <input type="number" id="quantidadeAcao" required>
+            </div>
+            <div class="form-group">
+                <label for="precoSistema">Preço Sistema:</label>
+                <input type="number" id="precoSistema" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="precoSolicitado">Preço Solicitado:</label>
+                <input type="number" id="precoSolicitado" step="0.01" required>
+            </div>
+            <button type="submit">Calcular</button>
+        </form>
 
-        body.dark-theme {
-            background: #1e1e2f;
-            color: #fff;
-        }
+        <div id="resultadoAcao" class="resultado"></div>
+    </div>
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab {
-            padding: 10px 20px;
-            background: #25d366;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .tab.active {
-            background: #128c7e;
-        }
-
-        .form-section {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: background 0.3s, color 0.3s;
-        }
-
-        body.dark-theme .form-section {
-            background: #2a2a40;
-            color: #fff;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        body.dark-theme label {
-            color: #ddd;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            transition: background 0.3s, color 0.3s, border-color 0.3s;
-        }
-
-        body.dark-theme input, body.dark-theme textarea {
-            background: #1e1e2f;
-            border-color: #444;
-            color: #fff;
-        }
-
-        button[type="submit"] {
-            background: #25d366;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-            cursor: pointer;
-        }
-
-        .resultado {
-            margin-top: 20px;
-            padding: 15px;
-            background: #e3f2fd;
-            border-radius: 5px;
-            white-space: pre-wrap;
-            font-family: monospace;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        body.dark-theme .resultado {
-            background: #333;
-            color: #fff;
-        }
-
-        .botoes {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .botoes button {
-            flex: 1;
-            padding: 10px;
-            background: #25d366;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            font-size: 14px;
-        }
-
-        .boto
+    <script src="script.js"></script>
+</body>
+</html>
