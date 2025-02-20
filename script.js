@@ -15,7 +15,7 @@ document.getElementById('formAcao').addEventListener('submit', function(e) {
         supervisor: document.getElementById('supervisor').value
     };
 
-    // Verifica se os campos necessários foram preenchidos
+    // Verifica se os campos foram preenchidos
     if (!dados.razao || !dados.codCliente || !dados.produto || !dados.codProduto || !dados.quantidade ||
         !dados.precoSistema || !dados.precoSolicitado || !dados.produtoBonificado || !dados.codigoBonificado || !dados.supervisor) {
         alert("Preencha todos os campos!");
@@ -28,22 +28,21 @@ document.getElementById('formAcao').addEventListener('submit', function(e) {
     const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
     const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
 
-    // Formatar resultado
+    // Formatar resultado no modelo correto
     const resultado = `*Solicitação de ação:*\n\n` +
-        `Produto: ${dados.produto}\n` +
+        `Nome do Produto: ${dados.produto}\n` +
         `Código do Produto: ${dados.codProduto}\n` +
-        `Quantidade: ${dados.quantidade} und\n` +
-        `Preço sistema: R$ ${dados.precoSistema.toFixed(2)}\n` +
-        `Supervisor: ${dados.supervisor}\n\n` +
+        `Quantidade do Produto: ${dados.quantidade}\n` +
+        `Preço do Palm: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
         `*Ação*\n\n` +
         `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
-        `Investimento: ${investimentoPercentual.toFixed(2)} %\n` + // Informação do investimento corrigida
+        `Investimento: ${investimentoPercentual.toFixed(0)} %\n` +
         `Quantidade bonificada: ${qtdBonificada} und\n` +
         `Valor Bonificação: R$ ${valorBonificacao}\n` +
         `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
-        `Produto Bonificado: ${dados.produtoBonificado}\n` +
-        `Código: ${dados.codigoBonificado}\n\n` +
-        `Razão: ${dados.razao}\n` +
+        `Produto (BNF): ${dados.produtoBonificado}\n` +
+        `Código (BNF): ${dados.codigoBonificado}\n\n` +
+        `Razão do Cliente: ${dados.razao}\n` +
         `Código do Cliente: ${dados.codCliente}`;
 
     document.getElementById('resultadoAcao').textContent = resultado;
