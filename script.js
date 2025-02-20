@@ -1,34 +1,33 @@
 document.getElementById('formAcao').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Coletar dados
+    // Coletar dados do formulário
     const dados = {
-        razao: document.getElementById('razaoAcao').value,
-        codCliente: document.getElementById('codClienteAcao').value,
-        produto: document.getElementById('produtoAcao').value,
-        codProduto: document.getElementById('codProdutoAcao').value,
+        razao: document.getElementById('razaoAcao').value.trim(),
+        codCliente: document.getElementById('codClienteAcao').value.trim(),
+        produto: document.getElementById('produtoAcao').value.trim(),
+        codProduto: document.getElementById('codProdutoAcao').value.trim(),
         quantidade: parseFloat(document.getElementById('quantidadeAcao').value) || 0,
         precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
         precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value) || 0,
-        produtoBonificado: document.getElementById('produtoBonificado').value,
-        codigoBonificado: document.getElementById('codigoBonificado').value,
-        supervisor: document.getElementById('supervisor').value
+        produtoBonificado: document.getElementById('produtoBonificado').value.trim(),
+        codigoBonificado: document.getElementById('codigoBonificado').value.trim(),
+        supervisor: document.getElementById('supervisor').value.trim()
     };
 
-    // Verifica se os campos foram preenchidos
-    if (!dados.razao || !dados.codCliente || !dados.produto || !dados.codProduto || !dados.quantidade ||
-        !dados.precoSistema || !dados.precoSolicitado || !dados.produtoBonificado || !dados.codigoBonificado || !dados.supervisor) {
-        alert("Preencha todos os campos!");
+    // Validar se os campos obrigatórios foram preenchidos
+    if (Object.values(dados).some(valor => valor === "" || valor === 0)) {
+        alert("Preencha todos os campos corretamente!");
         return;
     }
 
-    // Cálculos
+    // Cálculos necessários
     const valorPedido = dados.quantidade * dados.precoSistema;
     const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
     const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
     const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
 
-    // Formatar resultado no modelo correto
+    // Formatar resultado no modelo solicitado
     const resultado = `*Solicitação de ação:*\n\n` +
         `Nome do Produto: ${dados.produto}\n` +
         `Código do Produto: ${dados.codProduto}\n` +
@@ -45,6 +44,7 @@ document.getElementById('formAcao').addEventListener('submit', function(e) {
         `Razão do Cliente: ${dados.razao}\n` +
         `Código do Cliente: ${dados.codCliente}`;
 
+    // Exibir resultado formatado na tela
     document.getElementById('resultadoAcao').textContent = resultado;
 });
 
@@ -56,5 +56,7 @@ document.getElementById('copiar').addEventListener('click', function() {
 
 // Função para compartilhar no WhatsApp
 document.getElementById('compartilhar').addEventListener('click', function() {
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(document.getElementById('resultadoAcao').textContent)}`, '_blank');
+    const mensagem = document.getElementById('resultadoAcao').textContent;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
 });
