@@ -139,4 +139,60 @@ input:focus {
 }
 
 /* Layout Responsivo */
-@media (max
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    .resultado {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    label {
+        font-size: 0.85rem;
+    }
+
+    input {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+        padding: 10px;
+    }
+
+    .resultado {
+        font-size: 0.85rem;
+    }
+}
