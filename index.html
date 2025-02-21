@@ -67,6 +67,23 @@
 
         <div id="resultadoAcao" class="resultado"></div>
 
+        <!-- Campos adicionais para a bonificação -->
+        <div id="bonificacaoCampos" style="display: none;">
+            <div class="form-group">
+                <label for="codPedido">Código do Pedido:</label>
+                <input type="text" id="codPedido" required aria-describedby="codPedidoHelp">
+                <small id="codPedidoHelp" class="error-message"></small>
+            </div>
+            <div class="form-group">
+                <label for="observacao">Observação:</label>
+                <input type="text" id="observacao" aria-describedby="observacaoHelp">
+                <small id="observacaoHelp" class="error-message"></small>
+            </div>
+            <button id="gerarBonificacao" class="btn bonificacao">Gerar Bonificação</button>
+        </div>
+
+        <div id="resultadoBonificacao" class="resultado"></div>
+
         <div class="botoes">
             <button id="copiar" class="btn copiar">Copiar</button>
             <button id="compartilhar" class="btn whatsapp">Compartilhar</button>
