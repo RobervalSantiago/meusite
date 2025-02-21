@@ -16,10 +16,37 @@ document.getElementById('formAcao').addEventListener('submit', function(e) {
     };
 
     // Validar se os campos obrigatórios foram preenchidos
-    if (Object.values(dados).some(valor => valor === "" || valor === 0)) {
-        alert("Preencha todos os campos corretamente!");
-        return;
-    }
+    let isValid = true;
+    const fields = [
+        { id: 'razaoAcao', value: dados.razao, help: 'razaoAcaoHelp' },
+        { id: 'codClienteAcao', value: dados.codCliente, help: 'codClienteAcaoHelp', pattern: /^\d+$/ },
+        { id: 'produtoAcao', value: dados.produto, help: 'produtoAcaoHelp' },
+        { id: 'codProdutoAcao', value: dados.codProduto, help: 'codProdutoAcaoHelp', pattern: /^\d+$/ },
+        { id: 'quantidadeAcao', value: dados.quantidade, help: 'quantidadeAcaoHelp', min: 1 },
+        { id: 'precoSistema', value: dados.precoSistema, help: 'precoSistemaHelp', min: 0 },
+        { id: 'precoSolicitado', value: dados.precoSolicitado, help: 'precoSolicitadoHelp', min: 0 },
+        { id: 'produtoBonificado', value: dados.produtoBonificado, help: 'produtoBonificadoHelp' },
+        { id: 'codigoBonificado', value: dados.codigoBonificado, help: 'codigoBonificadoHelp', pattern: /^\d+$/ },
+        { id: 'supervisor', value: dados.supervisor, help: 'supervisorHelp' }
+    ];
+
+    fields.forEach(field => {
+        const errorMessage = document.getElementById(field.help);
+        if (field.value === "" || field.value === 0) {
+            errorMessage.textContent = "Este campo é obrigatório.";
+            isValid = false;
+        } else if (field.pattern && !field.pattern.test(field.value)) {
+            errorMessage.textContent = "Valor inválido.";
+            isValid = false;
+        } else if (field.min !== undefined && field.value < field.min) {
+            errorMessage.textContent = `O valor deve ser maior ou igual a ${field.min}.`;
+            isValid = false;
+        } else {
+            errorMessage.textContent = "";
+        }
+    });
+
+    if (!isValid) return;
 
     // Cálculos necessários
     const valorPedido = dados.quantidade * dados.precoSistema;
