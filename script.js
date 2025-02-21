@@ -73,6 +73,49 @@ document.getElementById('formAcao').addEventListener('submit', function(e) {
 
     // Exibir resultado formatado na tela
     document.getElementById('resultadoAcao').textContent = resultado;
+
+    // Mostrar campos de bonificação
+    document.getElementById('bonificacaoCampos').style.display = 'block';
+});
+
+// Função para gerar a bonificação
+document.getElementById('gerarBonificacao').addEventListener('click', function() {
+    const codPedido = document.getElementById('codPedido').value.trim();
+    const observacao = document.getElementById('observacao').value.trim();
+
+    if (codPedido === "") {
+        document.getElementById('codPedidoHelp').textContent = "Este campo é obrigatório.";
+        return;
+    } else {
+        document.getElementById('codPedidoHelp').textContent = "";
+    }
+
+    const dados = {
+        razao: document.getElementById('razaoAcao').value.trim(),
+        codCliente: document.getElementById('codClienteAcao').value.trim(),
+        supervisor: document.getElementById('supervisor').value.trim(),
+        codPedido: codPedido,
+        produto: document.getElementById('produtoAcao').value.trim(),
+        codProduto: document.getElementById('codProdutoAcao').value.trim(),
+        quantidade: document.getElementById('quantidadeAcao').value.trim(),
+        valorBonificacao: document.getElementById('resultadoAcao').textContent.match(/Valor Bonificação: R\$\s*([\d,.]+)/)[1],
+        observacao: observacao
+    };
+
+    // Formatar resultado da bonificação
+    const resultadoBonificacao = `*Bonificação*\n\n` +
+        `*Razão:* ${dados.razao}\n` +
+        `*Cod do Cliente:* ${dados.codCliente}\n` +
+        `*Consultor:* ${dados.supervisor}\n` +
+        `*Cód do pedido:* ${dados.codPedido}\n` +
+        `*Produto:* ${dados.produto}\n` +
+        `*Cod do Produto:* ${dados.codProduto}\n` +
+        `*Quantidade:* ${dados.quantidade} UND\n` +
+        `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
+        `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
+
+    // Exibir resultado da bonificação
+    document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
 });
 
 // Função para copiar o resultado
