@@ -73,6 +73,10 @@ document.getElementById('formAcao').addEventListener('submit', function(e) {
 
     // Exibir resultado formatado na tela
     document.getElementById('resultadoAcao').textContent = resultado;
+    document.getElementById('resultadoAcao').style.display = 'block';
+
+    // Mostrar botões de ação (Copiar e Compartilhar)
+    document.getElementById('botoesAcao').style.display = 'block';
 
     // Mostrar campos de bonificação
     document.getElementById('bonificacaoCampos').style.display = 'block';
@@ -116,6 +120,7 @@ document.getElementById('gerarBonificacao').addEventListener('click', function()
 
     // Exibir resultado da bonificação
     document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
+    document.getElementById('resultadoBonificacao').style.display = 'block';
 
     // Mostrar botões da bonificação
     document.getElementById('botoesBonificacao').style.display = 'block';
