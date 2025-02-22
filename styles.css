@@ -1,3 +1,19 @@
+:root {
+    --cor-primaria: #6200ea;
+    --cor-secundaria: #3f51b5;
+    --cor-sucesso: #00e676;
+    --cor-erro: #ff6b6b;
+    --cor-whatsapp: #25d366;
+    --cor-bonificacao: #ff9800;
+    --cor-limpar: #ff5252;
+    --cor-fundo: linear-gradient(135deg, #1a1a40, #3b2f60, #0d0d0d);
+    --cor-texto: #fff;
+    --cor-texto-secundario: rgba(255, 255, 255, 0.8);
+    --cor-fundo-input: rgba(255, 255, 255, 0.2);
+    --cor-fundo-input-foco: rgba(255, 255, 255, 0.3);
+    --sombra: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
 /* Reset e Fonte */
 * {
     margin: 0;
@@ -8,7 +24,7 @@
 
 /* Fundo com gradiente moderno */
 body {
-    background: linear-gradient(135deg, #1a1a40, #3b2f60, #0d0d0d);
+    background: var(--cor-fundo);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,13 +37,13 @@ body {
     background: rgba(255, 255, 255, 0.1);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--sombra);
     max-width: 800px;
     width: 100%;
     text-align: center;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
+    color: var(--cor-texto);
 }
 
 /* Cabeçalho */
@@ -37,14 +53,14 @@ header {
 
 header h1 {
     font-size: 2rem;
-    color: #fff;
+    color: var(--cor-texto);
     margin-bottom: 10px;
     font-weight: 600;
 }
 
 header p {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--cor-texto-secundario);
 }
 
 /* Estilo para as seções do formulário */
@@ -60,7 +76,7 @@ header p {
 /* Títulos das seções */
 .form-section h2 {
     font-size: 1.4rem;
-    color: #fff;
+    color: var(--cor-texto);
     margin-bottom: 15px;
     font-weight: 600;
     display: flex;
@@ -84,28 +100,28 @@ input {
     border: none;
     border-radius: 8px;
     font-size: 1rem;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+    background: var(--cor-fundo-input);
+    color: var(--cor-texto);
     outline: none;
     transition: background 0.3s, box-shadow 0.3s;
     margin-top: 5px; /* Adiciona um pequeno espaço entre o label e o input */
 }
 
 input:focus {
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--cor-fundo-input-foco);
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
 input:valid {
-    border-color: #00e676;
+    border-color: var(--cor-sucesso);
 }
 
 input:invalid {
-    border-color: #ff6b6b;
+    border-color: var(--cor-erro);
 }
 
 .error-message {
-    color: #ff6b6b;
+    color: var(--cor-erro);
     font-size: 0.875rem;
     margin-top: 5px;
     display: block;
@@ -129,7 +145,7 @@ input:invalid {
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
     margin-top: 10px;
-    color: #fff;
+    color: var(--cor-texto);
 }
 
 .btn i {
@@ -141,48 +157,48 @@ input:invalid {
 }
 
 .calcular {
-    background: linear-gradient(90deg, #6200ea, #3f51b5);
+    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
     box-shadow: 0px 4px 6px rgba(98, 0, 234, 0.3);
 }
 
 .calcular:hover {
-    background: linear-gradient(90deg, #3f51b5, #6200ea);
+    background: linear-gradient(90deg, var(--cor-secundaria), var(--cor-primaria));
 }
 
 .copiar {
-    background: linear-gradient(90deg, #00e676, #00b248);
+    background: linear-gradient(90deg, var(--cor-sucesso), #00b248);
     box-shadow: 0px 4px 6px rgba(0, 230, 118, 0.3);
 }
 
 .copiar:hover {
-    background: linear-gradient(90deg, #00b248, #00e676);
+    background: linear-gradient(90deg, #00b248, var(--cor-sucesso));
 }
 
 .whatsapp {
-    background: linear-gradient(90deg, #25d366, #1b9448);
+    background: linear-gradient(90deg, var(--cor-whatsapp), #1b9448);
     box-shadow: 0px 4px 6px rgba(37, 211, 102, 0.3);
 }
 
 .whatsapp:hover {
-    background: linear-gradient(90deg, #1b9448, #25d366);
+    background: linear-gradient(90deg, #1b9448, var(--cor-whatsapp));
 }
 
 .bonificacao {
-    background: linear-gradient(90deg, #ff9800, #f57c00);
+    background: linear-gradient(90deg, var(--cor-bonificacao), #f57c00);
     box-shadow: 0px 4px 6px rgba(255, 152, 0, 0.3);
 }
 
 .bonificacao:hover {
-    background: linear-gradient(90deg, #f57c00, #ff9800);
+    background: linear-gradient(90deg, #f57c00, var(--cor-bonificacao));
 }
 
 .limpar {
-    background: linear-gradient(90deg, #ff5252, #d32f2f);
+    background: linear-gradient(90deg, var(--cor-limpar), #d32f2f);
     box-shadow: 0px 4px 6px rgba(255, 82, 82, 0.3);
 }
 
 .limpar:hover {
-    background: linear-gradient(90deg, #d32f2f, #ff5252);
+    background: linear-gradient(90deg, #d32f2f, var(--cor-limpar));
 }
 
 /* Resultado */
@@ -195,7 +211,7 @@ input:invalid {
     font-family: monospace;
     text-align: left;
     font-size: 1rem;
-    color: #fff;
+    color: var(--cor-texto);
 }
 
 /* Spinner de carregamento */
@@ -208,11 +224,17 @@ input:invalid {
 
 .spinner {
     border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #fff;
+    border-top: 4px solid var(--cor-texto);
     border-radius: 50%;
     width: 40px;
     height: 40px;
     animation: spin 1s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .spinner {
+        animation: none;
+    }
 }
 
 @keyframes spin {
@@ -286,23 +308,23 @@ input:invalid {
         font-size: 0.85rem;
     }
     /* Botões de Copiar e Compartilhar */
-.botoes-resultado {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
+    .botoes-resultado {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
 
-.botoes-resultado .btn {
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    width: auto;
-}
+    .botoes-resultado .btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        width: auto;
+    }
 
-.botoes-resultado .copiar {
-    background: linear-gradient(90deg, #00e676, #00b248);
-}
+    .botoes-resultado .copiar {
+        background: linear-gradient(90deg, var(--cor-sucesso), #00b248);
+    }
 
-.botoes-resultado .whatsapp {
-    background: linear-gradient(90deg, #25d366, #1b9448);
-}
+    .botoes-resultado .whatsapp {
+        background: linear-gradient(90deg, var(--cor-whatsapp), #1b9448);
+    }
 }
