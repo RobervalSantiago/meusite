@@ -65,7 +65,14 @@
             <button type="submit" class="btn calcular">Calcular</button>
         </form>
 
+        <!-- Resultado do cálculo inicial -->
         <div id="resultadoAcao" class="resultado"></div>
+
+        <!-- Botões para o resultado do cálculo inicial -->
+        <div class="botoes">
+            <button id="copiarAcao" class="btn copiar">Copiar Resultado</button>
+            <button id="compartilharAcao" class="btn whatsapp">Compartilhar no WhatsApp</button>
+        </div>
 
         <!-- Campos adicionais para a bonificação -->
         <div id="bonificacaoCampos" style="display: none;">
@@ -76,17 +83,19 @@
             </div>
             <div class="form-group">
                 <label for="observacao">Observação:</label>
-                <input type="text" id="observacao" aria-describedby="observacaoHelp" maxlength="200">
+                <input type="text" id="observacao" aria-describedby="observacaoHelp">
                 <small id="observacaoHelp" class="error-message"></small>
             </div>
             <button id="gerarBonificacao" class="btn bonificacao">Gerar Bonificação</button>
         </div>
 
+        <!-- Resultado da bonificação -->
         <div id="resultadoBonificacao" class="resultado"></div>
 
-        <div class="botoes">
-            <button id="copiarAcao" class="btn copiar">Copiar</button>
-            <button id="compartilharAcao" class="btn whatsapp">Compartilhar</button>
+        <!-- Botões para o resultado da bonificação -->
+        <div class="botoes" id="botoesBonificacao" style="display: none;">
+            <button id="copiarBonificacao" class="btn copiar">Copiar Bonificação</button>
+            <button id="compartilharBonificacao" class="btn whatsapp">Compartilhar Bonificação</button>
         </div>
     </div>
 
