@@ -116,17 +116,33 @@ document.getElementById('gerarBonificacao').addEventListener('click', function()
 
     // Exibir resultado da bonificação
     document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
+
+    // Mostrar botões da bonificação
+    document.getElementById('botoesBonificacao').style.display = 'block';
 });
 
-// Função para copiar o resultado
-document.getElementById('copiar').addEventListener('click', function() {
+// Função para copiar o resultado da ação
+document.getElementById('copiarAcao').addEventListener('click', function() {
     navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent);
-    alert("Texto copiado!");
+    alert("Resultado copiado!");
 });
 
-// Função para compartilhar no WhatsApp
-document.getElementById('compartilhar').addEventListener('click', function() {
+// Função para compartilhar o resultado da ação no WhatsApp
+document.getElementById('compartilharAcao').addEventListener('click', function() {
     const mensagem = document.getElementById('resultadoAcao').textContent;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
+});
+
+// Função para copiar o resultado da bonificação
+document.getElementById('copiarBonificacao').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('resultadoBonificacao').textContent);
+    alert("Bonificação copiada!");
+});
+
+// Função para compartilhar o resultado da bonificação no WhatsApp
+document.getElementById('compartilharBonificacao').addEventListener('click', function() {
+    const mensagem = document.getElementById('resultadoBonificacao').textContent;
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
     window.open(url, '_blank');
 });
