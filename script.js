@@ -74,9 +74,6 @@ document.getElementById('formAcao').addEventListener('submit', function(e) {
     // Exibir resultado formatado na tela
     document.getElementById('resultadoAcao').textContent = resultado;
 
-    // Mostrar botões de ação (Copiar e Compartilhar)
-    document.getElementById('botoesAcao').style.display = 'block';
-
     // Mostrar campos de bonificação
     document.getElementById('bonificacaoCampos').style.display = 'block';
 });
