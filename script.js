@@ -46,17 +46,6 @@ document.getElementById('limpar').addEventListener('click', function () {
     document.getElementById('bonificacaoCampos').style.display = 'none';
 });
 
-document.getElementById('copiar').addEventListener('click', function () {
-    navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent);
-    alert("Texto copiado!");
-});
-
-document.getElementById('compartilhar').addEventListener('click', function () {
-    const mensagem = document.getElementById('resultadoAcao').textContent;
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-});
-
 function validarCampos() {
     const precoSistema = parseFloat(document.getElementById('precoSistema').value);
     const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
