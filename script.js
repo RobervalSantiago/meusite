@@ -1,146 +1,281 @@
-document.getElementById('formAcao').addEventListener('submit', function (e) {
-    e.preventDefault();
-    mostrarLoading(true);
+/* Reset e Fonte */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-    if (!validarCampos()) {
-        mostrarLoading(false);
-        return;
+/* Fundo com gradiente moderno */
+body {
+    background: linear-gradient(135deg, #1a1a40, #3b2f60, #0d0d0d);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Container Principal com Glassmorphism */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+/* Cabeçalho */
+header {
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+header p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Estilo para as seções do formulário */
+.form-section {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Títulos das seções */
+.form-section h2 {
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-section h2 i {
+    font-size: 1.2rem;
+}
+
+/* Espaçamento entre os grupos de formulário */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Ajuste no espaçamento dos inputs */
+input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    outline: none;
+    transition: background 0.3s, box-shadow 0.3s;
+    margin-top: 5px; /* Adiciona um pequeno espaço entre o label e o input */
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+input:valid {
+    border-color: #00e676;
+}
+
+input:invalid {
+    border-color: #ff6b6b;
+}
+
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Ajuste no espaçamento dos botões */
+.form-actions {
+    display: flex;
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 20px;
+}
+
+/* Botões responsivos */
+.btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.calcular {
+    background: linear-gradient(90deg, #6200ea, #3f51b5);
+    box-shadow: 0px 4px 6px rgba(98, 0, 234, 0.3);
+}
+
+.calcular:hover {
+    background: linear-gradient(90deg, #3f51b5, #6200ea);
+}
+
+.copiar {
+    background: linear-gradient(90deg, #00e676, #00b248);
+    box-shadow: 0px 4px 6px rgba(0, 230, 118, 0.3);
+}
+
+.copiar:hover {
+    background: linear-gradient(90deg, #00b248, #00e676);
+}
+
+.whatsapp {
+    background: linear-gradient(90deg, #25d366, #1b9448);
+    box-shadow: 0px 4px 6px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp:hover {
+    background: linear-gradient(90deg, #1b9448, #25d366);
+}
+
+.bonificacao {
+    background: linear-gradient(90deg, #ff9800, #f57c00);
+    box-shadow: 0px 4px 6px rgba(255, 152, 0, 0.3);
+}
+
+.bonificacao:hover {
+    background: linear-gradient(90deg, #f57c00, #ff9800);
+}
+
+.limpar {
+    background: linear-gradient(90deg, #ff5252, #d32f2f);
+    box-shadow: 0px 4px 6px rgba(255, 82, 82, 0.3);
+}
+
+.limpar:hover {
+    background: linear-gradient(90deg, #d32f2f, #ff5252);
+}
+
+/* Resultado */
+.resultado {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    white-space: pre-wrap;
+    font-family: monospace;
+    text-align: left;
+    font-size: 1rem;
+    color: #fff;
+}
+
+/* Spinner de carregamento */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Layout Responsivo */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1.5rem;
     }
 
-    const dados = coletarDadosFormulario();
-    const resultado = calcularResultado(dados);
-    exibirResultado(resultado);
-
-    mostrarLoading(false);
-    document.getElementById('bonificacaoCampos').style.display = 'block';
-});
-
-document.getElementById('gerarBonificacao').addEventListener('click', function () {
-    const codPedido = document.getElementById('codPedido').value.trim();
-
-    // Validação do campo obrigatório
-    if (codPedido === "") {
-        document.getElementById('codPedidoHelp').textContent = "Este campo é obrigatório.";
-        return;
-    } else {
-        document.getElementById('codPedidoHelp').textContent = "";
+    h1 {
+        font-size: 1.8rem;
     }
 
-    // Coletar dados e gerar bonificação
-    const dados = coletarDadosBonificacao();
-    const resultadoBonificacao = gerarBonificacao(dados);
-
-    // Exibir o resultado da bonificação
-    document.getElementById('resultadoBonificacaoSection').style.display = 'block';
-    document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
-});
-
-document.getElementById('limpar').addEventListener('click', function () {
-    // Reseta o formulário
-    document.getElementById('formAcao').reset();
-    // Oculta as seções de resultados
-    document.getElementById('resultadoAcaoSection').style.display = 'none';
-    document.getElementById('resultadoBonificacaoSection').style.display = 'none';
-    document.getElementById('resultadoAcao').textContent = "";
-    document.getElementById('resultadoBonificacao').textContent = "";
-    document.getElementById('bonificacaoCampos').style.display = 'none';
-});
-
-document.getElementById('copiar').addEventListener('click', function () {
-    navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent);
-    alert("Texto copiado!");
-});
-
-document.getElementById('compartilhar').addEventListener('click', function () {
-    const mensagem = document.getElementById('resultadoAcao').textContent;
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-});
-
-function validarCampos() {
-    const precoSistema = parseFloat(document.getElementById('precoSistema').value);
-    const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
-
-    if (precoSolicitado >= precoSistema) {
-        document.getElementById('precoSolicitadoHelp').textContent = "O preço solicitado deve ser menor que o preço do sistema.";
-        return false;
+    legend {
+        font-size: 1.1rem;
     }
 
-    return true;
+    label {
+        font-size: 0.9rem;
+    }
+
+    input {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    .resultado {
+        font-size: 0.9rem;
+    }
 }
 
-function coletarDadosFormulario() {
-    return {
-        razao: document.getElementById('razaoAcao').value.trim(),
-        codCliente: document.getElementById('codClienteAcao').value.trim(),
-        produto: document.getElementById('produtoAcao').value.trim(),
-        codProduto: document.getElementById('codProdutoAcao').value.trim(),
-        quantidade: parseFloat(document.getElementById('quantidadeAcao').value) || 0,
-        precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
-        precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value) || 0,
-        produtoBonificado: document.getElementById('produtoBonificado').value.trim(),
-        codigoBonificado: document.getElementById('codigoBonificado').value.trim(),
-        supervisor: document.getElementById('supervisor').value.trim()
-    };
-}
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 1rem;
+    }
 
-function calcularResultado(dados) {
-    const valorPedido = dados.quantidade * dados.precoSistema;
-    const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
-    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
-    const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
+    h1 {
+        font-size: 1.5rem;
+    }
 
-    return `*Solicitação de ação:*\n\n` +
-        `Nome do Produto: ${dados.produto}\n` +
-        `Código do Produto: ${dados.codProduto}\n` +
-        `Quantidade do Produto: ${dados.quantidade}\n` +
-        `Preço do Palm: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
-        `*Ação*\n\n` +
-        `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
-        `Investimento: ${investimentoPercentual.toFixed(0)} %\n` +
-        `Quantidade bonificada: ${qtdBonificada} und\n` +
-        `Valor Bonificação: R$ ${valorBonificacao}\n` +
-        `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
-        `Produto (BNF): ${dados.produtoBonificado}\n` +
-        `Código (BNF): ${dados.codigoBonificado}\n\n` +
-        `Razão do Cliente: ${dados.razao}\n` +
-        `Código do Cliente: ${dados.codCliente}`;
-}
+    legend {
+        font-size: 1rem;
+    }
 
-function exibirResultado(resultado) {
-    // Mostra a seção de resultados da ação
-    document.getElementById('resultadoAcaoSection').style.display = 'block';
-    // Preenche o conteúdo do resultado
-    document.getElementById('resultadoAcao').textContent = resultado;
-}
+    label {
+        font-size: 0.85rem;
+    }
 
-function coletarDadosBonificacao() {
-    return {
-        razao: document.getElementById('razaoAcao').value.trim(),
-        codCliente: document.getElementById('codClienteAcao').value.trim(),
-        supervisor: document.getElementById('supervisor').value.trim(),
-        codPedido: document.getElementById('codPedido').value.trim(),
-        produto: document.getElementById('produtoAcao').value.trim(),
-        codProduto: document.getElementById('codProdutoAcao').value.trim(),
-        quantidade: document.getElementById('quantidadeAcao').value.trim(),
-        valorBonificacao: document.getElementById('resultadoAcao').textContent.match(/Valor Bonificação: R\$\s*([\d,.]+)/)[1],
-        observacao: document.getElementById('observacao').value.trim()
-    };
-}
+    input {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
 
-function gerarBonificacao(dados) {
-    return `*Bonificação*\n\n` +
-        `*Razão:* ${dados.razao}\n` +
-        `*Cod do Cliente:* ${dados.codCliente}\n` +
-        `*Consultor:* ${dados.supervisor}\n` +
-        `*Cód do pedido:* ${dados.codPedido}\n` +
-        `*Produto:* ${dados.produto}\n` +
-        `*Cod do Produto:* ${dados.codProduto}\n` +
-        `*Quantidade:* ${dados.quantidade} UND\n` +
-        `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
-        `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
-}
-
-function mostrarLoading(mostrar) {
-    document.getElementById('loading').style.display = mostrar ? 'block' : 'none';
-}
+    .btn {
+        font-size:
