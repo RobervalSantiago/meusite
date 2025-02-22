@@ -17,13 +17,20 @@ document.getElementById('formAcao').addEventListener('submit', function (e) {
 
 document.getElementById('gerarBonificacao').addEventListener('click', function () {
     const codPedido = document.getElementById('codPedido').value.trim();
+
+    // Validação do campo obrigatório
     if (codPedido === "") {
         document.getElementById('codPedidoHelp').textContent = "Este campo é obrigatório.";
         return;
+    } else {
+        document.getElementById('codPedidoHelp').textContent = "";
     }
 
+    // Coletar dados e gerar bonificação
     const dados = coletarDadosBonificacao();
     const resultadoBonificacao = gerarBonificacao(dados);
+
+    // Exibir o resultado na tela
     document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
 });
 
