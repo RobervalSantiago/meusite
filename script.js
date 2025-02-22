@@ -156,7 +156,7 @@ function gerarBonificacao(dados) {
         `*Cód do pedido:* ${dados.codPedido}\n` +
         `*Produto:* ${dados.produtoBonificado}\n` +
         `*Cod do Produto:* ${dados.codigoBonificado}\n` +
-        `*Quantidade:* ${dados.codigoBonificado} UND\n` +
+        `*Quantidade:* ${dados.quantidade} UND\n` +
         `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
         `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
 }
