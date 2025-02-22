@@ -1,281 +1,31 @@
-/* Reset e Fonte */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+document.getElementById('formAcao').addEventListener('submit', function (e) {
+    e.preventDefault();
+    mostrarLoading(true);
 
-/* Fundo com gradiente moderno */
-body {
-    background: linear-gradient(135deg, #1a1a40, #3b2f60, #0d0d0d);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-/* Container Principal com Glassmorphism */
-.container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    max-width: 800px;
-    width: 100%;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-}
-
-/* Cabeçalho */
-header {
-    margin-bottom: 20px;
-}
-
-header h1 {
-    font-size: 2rem;
-    color: #fff;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-header p {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-/* Estilo para as seções do formulário */
-.form-section {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Títulos das seções */
-.form-section h2 {
-    font-size: 1.4rem;
-    color: #fff;
-    margin-bottom: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.form-section h2 i {
-    font-size: 1.2rem;
-}
-
-/* Espaçamento entre os grupos de formulário */
-.form-group {
-    margin-bottom: 15px;
-}
-
-/* Ajuste no espaçamento dos inputs */
-input {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    outline: none;
-    transition: background 0.3s, box-shadow 0.3s;
-    margin-top: 5px; /* Adiciona um pequeno espaço entre o label e o input */
-}
-
-input:focus {
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-}
-
-input:valid {
-    border-color: #00e676;
-}
-
-input:invalid {
-    border-color: #ff6b6b;
-}
-
-.error-message {
-    color: #ff6b6b;
-    font-size: 0.875rem;
-    margin-top: 5px;
-    display: block;
-}
-
-/* Ajuste no espaçamento dos botões */
-.form-actions {
-    display: flex;
-    gap: 10px; /* Espaço entre os botões */
-    margin-top: 20px;
-}
-
-/* Botões responsivos */
-.btn {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
-    margin-top: 10px;
-    color: #fff;
-}
-
-.btn i {
-    margin-right: 8px;
-}
-
-.btn:hover {
-    transform: scale(1.05);
-}
-
-.calcular {
-    background: linear-gradient(90deg, #6200ea, #3f51b5);
-    box-shadow: 0px 4px 6px rgba(98, 0, 234, 0.3);
-}
-
-.calcular:hover {
-    background: linear-gradient(90deg, #3f51b5, #6200ea);
-}
-
-.copiar {
-    background: linear-gradient(90deg, #00e676, #00b248);
-    box-shadow: 0px 4px 6px rgba(0, 230, 118, 0.3);
-}
-
-.copiar:hover {
-    background: linear-gradient(90deg, #00b248, #00e676);
-}
-
-.whatsapp {
-    background: linear-gradient(90deg, #25d366, #1b9448);
-    box-shadow: 0px 4px 6px rgba(37, 211, 102, 0.3);
-}
-
-.whatsapp:hover {
-    background: linear-gradient(90deg, #1b9448, #25d366);
-}
-
-.bonificacao {
-    background: linear-gradient(90deg, #ff9800, #f57c00);
-    box-shadow: 0px 4px 6px rgba(255, 152, 0, 0.3);
-}
-
-.bonificacao:hover {
-    background: linear-gradient(90deg, #f57c00, #ff9800);
-}
-
-.limpar {
-    background: linear-gradient(90deg, #ff5252, #d32f2f);
-    box-shadow: 0px 4px 6px rgba(255, 82, 82, 0.3);
-}
-
-.limpar:hover {
-    background: linear-gradient(90deg, #d32f2f, #ff5252);
-}
-
-/* Resultado */
-.resultado {
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    white-space: pre-wrap;
-    font-family: monospace;
-    text-align: left;
-    font-size: 1rem;
-    color: #fff;
-}
-
-/* Spinner de carregamento */
-.loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #fff;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Layout Responsivo */
-@media (max-width: 768px) {
-    .container {
-        width: 95%;
-        padding: 1.5rem;
+    if (!validarCampos()) {
+        mostrarLoading(false);
+        return;
     }
 
-    h1 {
-        font-size: 1.8rem;
+    const dados = coletarDadosFormulario();
+    const resultado = calcularResultado(dados);
+    exibirResultado(resultado);
+
+    mostrarLoading(false);
+    document.getElementById('bonificacaoCampos').style.display = 'block';
+});
+
+document.getElementById('gerarBonificacao').addEventListener('click', function () {
+    const codPedido = document.getElementById('codPedido').value.trim();
+
+    // Validação do campo obrigatório
+    if (codPedido === "") {
+        document.getElementById('codPedidoHelp').textContent = "Este campo é obrigatório.";
+        return;
+    } else {
+        document.getElementById('codPedidoHelp').textContent = "";
     }
 
-    legend {
-        font-size: 1.1rem;
-    }
-
-    label {
-        font-size: 0.9rem;
-    }
-
-    input {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-
-    .btn {
-        font-size: 0.9rem;
-        padding: 12px;
-    }
-
-    .resultado {
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        width: 100%;
-        padding: 1rem;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    legend {
-        font-size: 1rem;
-    }
-
-    label {
-        font-size: 0.85rem;
-    }
-
-    input {
-        font-size: 0.85rem;
-        padding: 8px;
-    }
-
-    .btn {
-        font-size:
+    // Coletar dados e gerar bonificação
+    const dados = coletarDadosBonificacao();
+    const
