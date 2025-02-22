@@ -154,8 +154,8 @@ function gerarBonificacao(dados) {
         `*Cod do Cliente:* ${dados.codCliente}\n` +
         `*Consultor:* 1473647 - Roberval Santiago\n` +
         `*Cód do pedido:* ${dados.codPedido}\n` +
-        `*Produto:* ${dados.produto}\n` +
-        `*Cod do Produto:* ${dados.codProduto}\n` +
+        `*Produto:* ${dados.produtoBonificado}\n` +
+        `*Cod do Produto:* ${dados.codigoBonificado}\n` +
         `*Quantidade:* ${dados.codigoBonificado} UND\n` +
         `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
         `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
