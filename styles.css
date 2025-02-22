@@ -48,13 +48,13 @@ body {
 
 /* Cabeçalho */
 header {
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Aumentei o espaçamento inferior */
 }
 
 header h1 {
     font-size: 2rem;
     color: var(--cor-texto);
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* Aumentei o espaçamento inferior */
     font-weight: 600;
 }
 
@@ -68,8 +68,8 @@ header p {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 25px; /* Aumentei o padding interno */
+    margin-bottom: 25px; /* Aumentei o espaçamento entre seções */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -77,7 +77,7 @@ header p {
 .form-section h2 {
     font-size: 1.4rem;
     color: var(--cor-texto);
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Aumentei o espaçamento inferior */
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -90,7 +90,7 @@ header p {
 
 /* Espaçamento entre os grupos de formulário */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Aumentei o espaçamento entre os grupos */
 }
 
 /* Ajuste no espaçamento dos inputs */
@@ -104,7 +104,7 @@ input {
     color: var(--cor-texto);
     outline: none;
     transition: background 0.3s, box-shadow 0.3s;
-    margin-top: 5px; /* Adiciona um pequeno espaço entre o label e o input */
+    margin-top: 8px; /* Aumentei o espaçamento entre o label e o input */
 }
 
 input:focus {
@@ -123,15 +123,15 @@ input:invalid {
 .error-message {
     color: var(--cor-erro);
     font-size: 0.875rem;
-    margin-top: 5px;
+    margin-top: 8px; /* Aumentei o espaçamento superior */
     display: block;
 }
 
 /* Ajuste no espaçamento dos botões */
 .form-actions {
     display: flex;
-    gap: 10px; /* Espaço entre os botões */
-    margin-top: 20px;
+    gap: 15px; /* Aumentei o espaçamento entre os botões */
+    margin-top: 25px; /* Aumentei o espaçamento superior */
 }
 
 /* Botões responsivos */
@@ -144,7 +144,7 @@ input:invalid {
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
-    margin-top: 10px;
+    margin-top: 15px; /* Aumentei o espaçamento superior */
     color: var(--cor-texto);
 }
 
@@ -203,8 +203,8 @@ input:invalid {
 
 /* Resultado */
 .resultado {
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: 25px; /* Aumentei o espaçamento superior */
+    padding: 20px; /* Aumentei o padding interno */
     background: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     white-space: pre-wrap;
@@ -219,7 +219,7 @@ input:invalid {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 25px; /* Aumentei o espaçamento superior */
 }
 
 .spinner {
