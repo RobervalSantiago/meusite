@@ -12,7 +12,7 @@
     <div class="container">
         <!-- Cabeçalho -->
         <header>
-            <h1><i class="fas fa-file-alt"></i> Solicitação de Ação</h1>
+            <h1><i class="fas fa-file-alt" aria-label="Ícone de documento"></i> Solicitação de Ação</h1>
             <p>Preencha os campos abaixo para solicitar uma ação comercial.</p>
         </header>
 
@@ -20,7 +20,7 @@
         <form id="formAcao">
             <!-- Seção: Informações do Cliente -->
             <section class="form-section">
-                <h2><i class="fas fa-user"></i> Informações do Cliente</h2>
+                <h2><i class="fas fa-user" aria-label="Ícone de usuário"></i> Informações do Cliente</h2>
                 <div class="form-group">
                     <label for="razaoAcao">Razão do Cliente:</label>
                     <input type="text" id="razaoAcao" required aria-describedby="razaoAcaoHelp">
@@ -35,7 +35,7 @@
 
             <!-- Seção: Detalhes do Produto -->
             <section class="form-section">
-                <h2><i class="fas fa-box"></i> Detalhes do Produto</h2>
+                <h2><i class="fas fa-box" aria-label="Ícone de caixa"></i> Detalhes do Produto</h2>
                 <div class="form-group">
                     <label for="produtoAcao">Nome do Produto:</label>
                     <input type="text" id="produtoAcao" required aria-describedby="produtoAcaoHelp">
@@ -55,7 +55,7 @@
 
             <!-- Seção: Preços -->
             <section class="form-section">
-                <h2><i class="fas fa-dollar-sign"></i> Preços</h2>
+                <h2><i class="fas fa-dollar-sign" aria-label="Ícone de dólar"></i> Preços</h2>
                 <div class="form-group">
                     <label for="precoSistema">Preço do Palm:</label>
                     <input type="number" id="precoSistema" step="0.01" required aria-describedby="precoSistemaHelp" min="0">
@@ -70,7 +70,7 @@
 
             <!-- Seção: Bonificação -->
             <section class="form-section">
-                <h2><i class="fas fa-gift"></i> Bonificação</h2>
+                <h2><i class="fas fa-gift" aria-label="Ícone de presente"></i> Bonificação</h2>
                 <div class="form-group">
                     <label for="produtoBonificado">Produto (BNF):</label>
                     <input type="text" id="produtoBonificado" required aria-describedby="produtoBonificadoHelp">
@@ -85,7 +85,7 @@
 
             <!-- Seção: Supervisor -->
             <section class="form-section">
-                <h2><i class="fas fa-user-tie"></i> Supervisor</h2>
+                <h2><i class="fas fa-user-tie" aria-label="Ícone de supervisor"></i> Supervisor</h2>
                 <div class="form-group">
                     <label for="supervisor">Supervisor:</label>
                     <input type="text" id="supervisor" required aria-describedby="supervisorHelp">
@@ -102,7 +102,7 @@
 
         <!-- Resultado da Ação (Oculto Inicialmente) -->
         <section class="result-section" id="resultadoAcaoSection" style="display: none;">
-            <h2><i class="fas fa-chart-line"></i> Resultado da Ação</h2>
+            <h2><i class="fas fa-chart-line" aria-label="Ícone de gráfico"></i> Resultado da Ação</h2>
             <div id="resultadoAcao" class="resultado"></div>
 
             <!-- Botões de Copiar e Compartilhar (Ocultos Inicialmente) -->
@@ -114,7 +114,7 @@
 
         <!-- Campos de Bonificação (Ocultos Inicialmente) -->
         <section id="bonificacaoCampos" class="form-section" style="display: none;">
-            <h2><i class="fas fa-gift"></i> Detalhes da Bonificação</h2>
+            <h2><i class="fas fa-gift" aria-label="Ícone de presente"></i> Detalhes da Bonificação</h2>
             <div class="form-group">
                 <label for="codPedido">Código do Pedido:</label>
                 <input type="text" id="codPedido" required aria-describedby="codPedidoHelp">
@@ -130,7 +130,7 @@
 
         <!-- Resultado da Bonificação (Oculto Inicialmente) -->
         <section class="result-section" id="resultadoBonificacaoSection" style="display: none;">
-            <h2><i class="fas fa-chart-pie"></i> Resultado da Bonificação</h2>
+            <h2><i class="fas fa-chart-pie" aria-label="Ícone de gráfico de pizza"></i> Resultado da Bonificação</h2>
             <div id="resultadoBonificacao" class="resultado"></div>
 
             <!-- Botões de Copiar e Compartilhar (Ocultos Inicialmente) -->
