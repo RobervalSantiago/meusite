@@ -1,4 +1,4 @@
-document.getElementById('formAcao').addEventListener('submit', function (e) {
+document.getElementById('formAcao').addEventListener('submit', function(e) {
     e.preventDefault();
 
     // Coletar dados do formulário
@@ -31,39 +31,27 @@ document.getElementById('formAcao').addEventListener('submit', function (e) {
     ];
 
     fields.forEach(field => {
-        const inputElement = document.getElementById(field.id);
         const errorMessage = document.getElementById(field.help);
         if (field.value === "" || field.value === 0) {
             errorMessage.textContent = "Este campo é obrigatório.";
-            inputElement.setAttribute('aria-invalid', 'true');
             isValid = false;
         } else if (field.pattern && !field.pattern.test(field.value)) {
             errorMessage.textContent = "Valor inválido.";
-            inputElement.setAttribute('aria-invalid', 'true');
             isValid = false;
         } else if (field.min !== undefined && field.value < field.min) {
             errorMessage.textContent = `O valor deve ser maior ou igual a ${field.min}.`;
-            inputElement.setAttribute('aria-invalid', 'true');
             isValid = false;
         } else {
             errorMessage.textContent = "";
-            inputElement.setAttribute('aria-invalid', 'false');
         }
     });
-
-    // Verificar se o preço solicitado é menor que o preço do sistema
-    if (dados.precoSolicitado >= dados.precoSistema) {
-        document.getElementById('precoSolicitadoHelp').textContent = "O preço solicitado deve ser menor que o preço do sistema.";
-        document.getElementById('precoSolicitado').setAttribute('aria-invalid', 'true');
-        isValid = false;
-    }
 
     if (!isValid) return;
 
     // Cálculos necessários
     const valorPedido = dados.quantidade * dados.precoSistema;
     const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
-    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema;
+    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
     const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
 
     // Formatar resultado no modelo solicitado
@@ -91,17 +79,15 @@ document.getElementById('formAcao').addEventListener('submit', function (e) {
 });
 
 // Função para gerar a bonificação
-document.getElementById('gerarBonificacao').addEventListener('click', function () {
+document.getElementById('gerarBonificacao').addEventListener('click', function() {
     const codPedido = document.getElementById('codPedido').value.trim();
     const observacao = document.getElementById('observacao').value.trim();
 
     if (codPedido === "") {
         document.getElementById('codPedidoHelp').textContent = "Este campo é obrigatório.";
-        document.getElementById('codPedido').setAttribute('aria-invalid', 'true');
         return;
     } else {
         document.getElementById('codPedidoHelp').textContent = "";
-        document.getElementById('codPedido').setAttribute('aria-invalid', 'false');
     }
 
     const dados = {
@@ -132,19 +118,14 @@ document.getElementById('gerarBonificacao').addEventListener('click', function (
     document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
 });
 
-// Função para copiar o resultado da ação
-document.getElementById('copiarAcao').addEventListener('click', function () {
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent)
-            .then(() => alert("Resultado copiado!"))
-            .catch(() => alert("Erro ao copiar o resultado."));
-    } else {
-        alert("Seu navegador não suporta a funcionalidade de copiar.");
-    }
+// Função para copiar o resultado
+document.getElementById('copiar').addEventListener('click', function() {
+    navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent);
+    alert("Texto copiado!");
 });
 
-// Função para compartilhar o resultado da ação no WhatsApp
-document.getElementById('compartilharAcao').addEventListener('click', function () {
+// Função para compartilhar no WhatsApp
+document.getElementById('compartilhar').addEventListener('click', function() {
     const mensagem = document.getElementById('resultadoAcao').textContent;
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
     window.open(url, '_blank');
