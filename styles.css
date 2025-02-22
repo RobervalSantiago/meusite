@@ -6,9 +6,9 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Fundo com gradiente neon */
+/* Fundo com gradiente moderno */
 body {
-    background: linear-gradient(135deg, #0d0d0d, #1a1a40, #3b2f60);
+    background: linear-gradient(135deg, #1a1a40, #3b2f60, #0d0d0d);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,9 +21,9 @@ body {
     background: rgba(255, 255, 255, 0.1);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    max-width: 500px;
-    width: 90%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
     text-align: center;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -32,21 +32,44 @@ body {
 
 /* Título */
 h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: #fff;
     margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+h1 i {
+    margin-right: 10px;
 }
 
 /* Estilização do Formulário */
+fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    color: #fff;
+    padding: 0 10px;
+    font-size: 1.2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
 .form-group {
     text-align: left;
     margin-bottom: 15px;
 }
 
 label {
-    font-weight: bold;
+    font-weight: 500;
     color: #fff;
     font-size: 1rem;
+    margin-bottom: 5px;
+    display: block;
 }
 
 input {
@@ -64,6 +87,14 @@ input {
 input:focus {
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+input:valid {
+    border-color: #00e676;
+}
+
+input:invalid {
+    border-color: #ff6b6b;
 }
 
 .error-message {
@@ -84,6 +115,11 @@ input:focus {
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
     margin-top: 10px;
+    color: #fff;
+}
+
+.btn i {
+    margin-right: 8px;
 }
 
 .btn:hover {
@@ -92,8 +128,7 @@ input:focus {
 
 .calcular {
     background: linear-gradient(90deg, #6200ea, #3f51b5);
-    color: white;
-    box-shadow: 0px 0px 8px #6200ea;
+    box-shadow: 0px 4px 6px rgba(98, 0, 234, 0.3);
 }
 
 .calcular:hover {
@@ -102,8 +137,7 @@ input:focus {
 
 .copiar {
     background: linear-gradient(90deg, #00e676, #00b248);
-    color: white;
-    box-shadow: 0px 0px 8px #00e676;
+    box-shadow: 0px 4px 6px rgba(0, 230, 118, 0.3);
 }
 
 .copiar:hover {
@@ -112,8 +146,7 @@ input:focus {
 
 .whatsapp {
     background: linear-gradient(90deg, #25d366, #1b9448);
-    color: white;
-    box-shadow: 0px 0px 8px #25d366;
+    box-shadow: 0px 4px 6px rgba(37, 211, 102, 0.3);
 }
 
 .whatsapp:hover {
@@ -122,8 +155,7 @@ input:focus {
 
 .bonificacao {
     background: linear-gradient(90deg, #ff9800, #f57c00);
-    color: white;
-    box-shadow: 0px 0px 8px #ff9800;
+    box-shadow: 0px 4px 6px rgba(255, 152, 0, 0.3);
 }
 
 .bonificacao:hover {
@@ -132,8 +164,7 @@ input:focus {
 
 .limpar {
     background: linear-gradient(90deg, #ff5252, #d32f2f);
-    color: white;
-    box-shadow: 0px 0px 8px #ff5252;
+    box-shadow: 0px 4px 6px rgba(255, 82, 82, 0.3);
 }
 
 .limpar:hover {
@@ -150,6 +181,7 @@ input:focus {
     font-family: monospace;
     text-align: left;
     font-size: 1rem;
+    color: #fff;
 }
 
 /* Spinner de carregamento */
@@ -182,7 +214,11 @@ input:focus {
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    legend {
+        font-size: 1.1rem;
     }
 
     label {
@@ -211,7 +247,11 @@ input:focus {
     }
 
     h1 {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+    }
+
+    legend {
+        font-size: 1rem;
     }
 
     label {
