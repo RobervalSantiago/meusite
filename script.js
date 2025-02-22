@@ -53,29 +53,26 @@ document.getElementById('limpar').addEventListener('click', function () {
     document.getElementById('bonificacaoCampos').style.display = 'none';
 });
 
-document.getElementById('copiar').addEventListener('click', function () {
-    navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent);
-    alert("Texto copiado!");
-});
+// Função genérica para copiar texto
+function copiarTexto(elementId) {
+    navigator.clipboard.writeText(document.getElementById(elementId).textContent)
+        .then(() => alert("Texto copiado!"))
+        .catch(() => alert("Erro ao copiar texto!"));
+}
 
-document.getElementById('compartilhar').addEventListener('click', function () {
-    const mensagem = document.getElementById('resultadoAcao').textContent;
+// Função genérica para compartilhar no WhatsApp
+function compartilharWhatsApp(elementId) {
+    const mensagem = document.getElementById(elementId).textContent;
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
     window.open(url, '_blank');
-});
+}
 
-// Adicionar evento de clique para copiar o resultado da bonificação
-document.getElementById('copiarBonificacao').addEventListener('click', function () {
-    navigator.clipboard.writeText(document.getElementById('resultadoBonificacao').textContent);
-    alert("Texto copiado!");
-});
+// Adicionar eventos de clique para copiar e compartilhar
+document.getElementById('copiar').addEventListener('click', () => copiarTexto('resultadoAcao'));
+document.getElementById('compartilhar').addEventListener('click', () => compartilharWhatsApp('resultadoAcao'));
 
-// Adicionar evento de clique para compartilhar no WhatsApp
-document.getElementById('compartilharBonificacao').addEventListener('click', function () {
-    const mensagem = document.getElementById('resultadoBonificacao').textContent;
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-});
+document.getElementById('copiarBonificacao').addEventListener('click', () => copiarTexto('resultadoBonificacao'));
+document.getElementById('compartilharBonificacao').addEventListener('click', () => compartilharWhatsApp('resultadoBonificacao'));
 
 function validarCampos() {
     const precoSistema = parseFloat(document.getElementById('precoSistema').value);
