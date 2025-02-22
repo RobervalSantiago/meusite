@@ -63,7 +63,7 @@ document.getElementById('formAcao').addEventListener('submit', function (e) {
     // Cálculos necessários
     const valorPedido = dados.quantidade * dados.precoSistema;
     const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
-    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
+    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema;
     const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
 
     // Formatar resultado no modelo solicitado
@@ -75,4 +75,77 @@ document.getElementById('formAcao').addEventListener('submit', function (e) {
         `*Ação*\n\n` +
         `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
         `Investimento: ${investimentoPercentual.toFixed(0)} %\n` +
-        `Quantidade bonificada: ${
+        `Quantidade bonificada: ${qtdBonificada} und\n` +
+        `Valor Bonificação: R$ ${valorBonificacao}\n` +
+        `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
+        `Produto (BNF): ${dados.produtoBonificado}\n` +
+        `Código (BNF): ${dados.codigoBonificado}\n\n` +
+        `Razão do Cliente: ${dados.razao}\n` +
+        `Código do Cliente: ${dados.codCliente}`;
+
+    // Exibir resultado formatado na tela
+    document.getElementById('resultadoAcao').textContent = resultado;
+
+    // Mostrar campos de bonificação
+    document.getElementById('bonificacaoCampos').style.display = 'block';
+});
+
+// Função para gerar a bonificação
+document.getElementById('gerarBonificacao').addEventListener('click', function () {
+    const codPedido = document.getElementById('codPedido').value.trim();
+    const observacao = document.getElementById('observacao').value.trim();
+
+    if (codPedido === "") {
+        document.getElementById('codPedidoHelp').textContent = "Este campo é obrigatório.";
+        document.getElementById('codPedido').setAttribute('aria-invalid', 'true');
+        return;
+    } else {
+        document.getElementById('codPedidoHelp').textContent = "";
+        document.getElementById('codPedido').setAttribute('aria-invalid', 'false');
+    }
+
+    const dados = {
+        razao: document.getElementById('razaoAcao').value.trim(),
+        codCliente: document.getElementById('codClienteAcao').value.trim(),
+        supervisor: document.getElementById('supervisor').value.trim(),
+        codPedido: codPedido,
+        produto: document.getElementById('produtoAcao').value.trim(),
+        codProduto: document.getElementById('codProdutoAcao').value.trim(),
+        quantidade: document.getElementById('quantidadeAcao').value.trim(),
+        valorBonificacao: document.getElementById('resultadoAcao').textContent.match(/Valor Bonificação: R\$\s*([\d,.]+)/)[1],
+        observacao: observacao
+    };
+
+    // Formatar resultado da bonificação
+    const resultadoBonificacao = `*Bonificação*\n\n` +
+        `*Razão:* ${dados.razao}\n` +
+        `*Cod do Cliente:* ${dados.codCliente}\n` +
+        `*Consultor:* ${dados.supervisor}\n` +
+        `*Cód do pedido:* ${dados.codPedido}\n` +
+        `*Produto:* ${dados.produto}\n` +
+        `*Cod do Produto:* ${dados.codProduto}\n` +
+        `*Quantidade:* ${dados.quantidade} UND\n` +
+        `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
+        `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
+
+    // Exibir resultado da bonificação
+    document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
+});
+
+// Função para copiar o resultado da ação
+document.getElementById('copiarAcao').addEventListener('click', function () {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent)
+            .then(() => alert("Resultado copiado!"))
+            .catch(() => alert("Erro ao copiar o resultado."));
+    } else {
+        alert("Seu navegador não suporta a funcionalidade de copiar.");
+    }
+});
+
+// Função para compartilhar o resultado da ação no WhatsApp
+document.getElementById('compartilharAcao').addEventListener('click', function () {
+    const mensagem = document.getElementById('resultadoAcao').textContent;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
+});
