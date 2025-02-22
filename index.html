@@ -1,144 +1,145 @@
-document.getElementById('formAcao').addEventListener('submit', function (e) {
-    e.preventDefault();
-    mostrarLoading(true);
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Ação Donizete</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Ícones do Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header>
+            <h1><i class="fas fa-file-alt"></i> Solicitação de Ação</h1>
+            <p>Preencha os campos abaixo para solicitar uma ação comercial.</p>
+        </header>
 
-    if (!validarCampos()) {
-        mostrarLoading(false);
-        return;
-    }
+        <!-- Formulário Principal -->
+        <form id="formAcao">
+            <!-- Seção: Informações do Cliente -->
+            <section class="form-section">
+                <h2><i class="fas fa-user"></i> Informações do Cliente</h2>
+                <div class="form-group">
+                    <label for="razaoAcao">Razão do Cliente:</label>
+                    <input type="text" id="razaoAcao" required aria-describedby="razaoAcaoHelp">
+                    <small id="razaoAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="codClienteAcao">Código do Cliente:</label>
+                    <input type="text" id="codClienteAcao" required aria-describedby="codClienteAcaoHelp" pattern="\d+">
+                    <small id="codClienteAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+            </section>
 
-    const dados = coletarDadosFormulario();
-    const resultado = calcularResultado(dados);
-    exibirResultado(resultado);
+            <!-- Seção: Detalhes do Produto -->
+            <section class="form-section">
+                <h2><i class="fas fa-box"></i> Detalhes do Produto</h2>
+                <div class="form-group">
+                    <label for="produtoAcao">Nome do Produto:</label>
+                    <input type="text" id="produtoAcao" required aria-describedby="produtoAcaoHelp">
+                    <small id="produtoAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="codProdutoAcao">Código do Produto:</label>
+                    <input type="text" id="codProdutoAcao" required aria-describedby="codProdutoAcaoHelp" pattern="\d+">
+                    <small id="codProdutoAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="quantidadeAcao">Quantidade do Produto:</label>
+                    <input type="number" id="quantidadeAcao" required aria-describedby="quantidadeAcaoHelp" min="1">
+                    <small id="quantidadeAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+            </section>
 
-    mostrarLoading(false);
-    document.getElementById('bonificacaoCampos').style.display = 'block';
-});
+            <!-- Seção: Preços -->
+            <section class="form-section">
+                <h2><i class="fas fa-dollar-sign"></i> Preços</h2>
+                <div class="form-group">
+                    <label for="precoSistema">Preço do Palm:</label>
+                    <input type="number" id="precoSistema" step="0.01" required aria-describedby="precoSistemaHelp" min="0">
+                    <small id="precoSistemaHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="precoSolicitado">Preço Solicitado:</label>
+                    <input type="number" id="precoSolicitado" step="0.01" required aria-describedby="precoSolicitadoHelp" min="0">
+                    <small id="precoSolicitadoHelp" class="error-message" role="alert"></small>
+                </div>
+            </section>
 
-document.getElementById('gerarBonificacao').addEventListener('click', function () {
-    const codPedido = document.getElementById('codPedido').value.trim();
+            <!-- Seção: Bonificação -->
+            <section class="form-section">
+                <h2><i class="fas fa-gift"></i> Bonificação</h2>
+                <div class="form-group">
+                    <label for="produtoBonificado">Produto (BNF):</label>
+                    <input type="text" id="produtoBonificado" required aria-describedby="produtoBonificadoHelp">
+                    <small id="produtoBonificadoHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="codigoBonificado">Código (BNF):</label>
+                    <input type="text" id="codigoBonificado" required aria-describedby="codigoBonificadoHelp" pattern="\d+">
+                    <small id="codigoBonificadoHelp" class="error-message" role="alert"></small>
+                </div>
+            </section>
 
-    // Validação do campo obrigatório
-    if (codPedido === "") {
-        document.getElementById('codPedidoHelp').textContent = "Este campo é obrigatório.";
-        return;
-    } else {
-        document.getElementById('codPedidoHelp').textContent = "";
-    }
+            <!-- Seção: Supervisor -->
+            <section class="form-section">
+                <h2><i class="fas fa-user-tie"></i> Supervisor</h2>
+                <div class="form-group">
+                    <label for="supervisor">Supervisor:</label>
+                    <input type="text" id="supervisor" required aria-describedby="supervisorHelp">
+                    <small id="supervisorHelp" class="error-message" role="alert"></small>
+                </div>
+            </section>
 
-    // Coletar dados e gerar bonificação
-    const dados = coletarDadosBonificacao();
-    const resultadoBonificacao = gerarBonificacao(dados);
+            <!-- Botões de Ação -->
+            <div class="form-actions">
+                <button type="submit" class="btn calcular"><i class="fas fa-calculator"></i> Calcular</button>
+                <button type="button" id="limpar" class="btn limpar"><i class="fas fa-eraser"></i> Limpar</button>
+            </div>
+        </form>
 
-    // Exibir o resultado na tela
-    document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
-});
+        <!-- Resultado da Ação (Oculto Inicialmente) -->
+        <section class="result-section" id="resultadoAcaoSection" style="display: none;">
+            <h2><i class="fas fa-chart-line"></i> Resultado da Ação</h2>
+            <div id="resultadoAcao" class="resultado"></div>
+        </section>
 
-document.getElementById('limpar').addEventListener('click', function () {
-    // Reseta o formulário
-    document.getElementById('formAcao').reset();
-    // Oculta a seção de resultados
-    document.getElementById('resultadoAcaoSection').style.display = 'none';
-    document.getElementById('resultadoAcao').textContent = "";
-    document.getElementById('resultadoBonificacao').textContent = "";
-    document.getElementById('bonificacaoCampos').style.display = 'none';
-});
+        <!-- Campos de Bonificação (Ocultos Inicialmente) -->
+        <section id="bonificacaoCampos" class="form-section" style="display: none;">
+            <h2><i class="fas fa-gift"></i> Detalhes da Bonificação</h2>
+            <div class="form-group">
+                <label for="codPedido">Código do Pedido:</label>
+                <input type="text" id="codPedido" required aria-describedby="codPedidoHelp">
+                <small id="codPedidoHelp" class="error-message" role="alert"></small>
+            </div>
+            <div class="form-group">
+                <label for="observacao">Observação:</label>
+                <input type="text" id="observacao" aria-describedby="observacaoHelp">
+                <small id="observacaoHelp" class="error-message" role="alert"></small>
+            </div>
+            <button id="gerarBonificacao" class="btn bonificacao"><i class="fas fa-check"></i> Gerar Bonificação</button>
+        </section>
 
-document.getElementById('copiar').addEventListener('click', function () {
-    navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent);
-    alert("Texto copiado!");
-});
+        <!-- Resultado da Bonificação (Oculto Inicialmente) -->
+        <section class="result-section" id="resultadoBonificacaoSection" style="display: none;">
+            <h2><i class="fas fa-chart-pie"></i> Resultado da Bonificação</h2>
+            <div id="resultadoBonificacao" class="resultado"></div>
+        </section>
 
-document.getElementById('compartilhar').addEventListener('click', function () {
-    const mensagem = document.getElementById('resultadoAcao').textContent;
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-});
+        <!-- Botões de Copiar e Compartilhar -->
+        <div class="form-actions">
+            <button id="copiar" class="btn copiar"><i class="fas fa-copy"></i> Copiar</button>
+            <button id="compartilhar" class="btn whatsapp"><i class="fab fa-whatsapp"></i> Compartilhar</button>
+        </div>
 
-function validarCampos() {
-    const precoSistema = parseFloat(document.getElementById('precoSistema').value);
-    const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
+        <!-- Spinner de Carregamento -->
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+        </div>
+    </div>
 
-    if (precoSolicitado >= precoSistema) {
-        document.getElementById('precoSolicitadoHelp').textContent = "O preço solicitado deve ser menor que o preço do sistema.";
-        return false;
-    }
-
-    return true;
-}
-
-function coletarDadosFormulario() {
-    return {
-        razao: document.getElementById('razaoAcao').value.trim(),
-        codCliente: document.getElementById('codClienteAcao').value.trim(),
-        produto: document.getElementById('produtoAcao').value.trim(),
-        codProduto: document.getElementById('codProdutoAcao').value.trim(),
-        quantidade: parseFloat(document.getElementById('quantidadeAcao').value) || 0,
-        precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
-        precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value) || 0,
-        produtoBonificado: document.getElementById('produtoBonificado').value.trim(),
-        codigoBonificado: document.getElementById('codigoBonificado').value.trim(),
-        supervisor: document.getElementById('supervisor').value.trim()
-    };
-}
-
-function calcularResultado(dados) {
-    const valorPedido = dados.quantidade * dados.precoSistema;
-    const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
-    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
-    const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
-
-    return `*Solicitação de ação:*\n\n` +
-        `Nome do Produto: ${dados.produto}\n` +
-        `Código do Produto: ${dados.codProduto}\n` +
-        `Quantidade do Produto: ${dados.quantidade}\n` +
-        `Preço do Palm: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
-        `*Ação*\n\n` +
-        `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
-        `Investimento: ${investimentoPercentual.toFixed(0)} %\n` +
-        `Quantidade bonificada: ${qtdBonificada} und\n` +
-        `Valor Bonificação: R$ ${valorBonificacao}\n` +
-        `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
-        `Produto (BNF): ${dados.produtoBonificado}\n` +
-        `Código (BNF): ${dados.codigoBonificado}\n\n` +
-        `Razão do Cliente: ${dados.razao}\n` +
-        `Código do Cliente: ${dados.codCliente}`;
-}
-
-function exibirResultado(resultado) {
-    // Mostra a seção de resultados
-    document.getElementById('resultadoAcaoSection').style.display = 'block';
-    // Preenche o conteúdo do resultado
-    document.getElementById('resultadoAcao').textContent = resultado;
-}
-
-function coletarDadosBonificacao() {
-    return {
-        razao: document.getElementById('razaoAcao').value.trim(),
-        codCliente: document.getElementById('codClienteAcao').value.trim(),
-        supervisor: document.getElementById('supervisor').value.trim(),
-        codPedido: document.getElementById('codPedido').value.trim(),
-        produto: document.getElementById('produtoAcao').value.trim(),
-        codProduto: document.getElementById('codProdutoAcao').value.trim(),
-        quantidade: document.getElementById('quantidadeAcao').value.trim(),
-        valorBonificacao: document.getElementById('resultadoAcao').textContent.match(/Valor Bonificação: R\$\s*([\d,.]+)/)[1],
-        observacao: document.getElementById('observacao').value.trim()
-    };
-}
-
-function gerarBonificacao(dados) {
-    return `*Bonificação*\n\n` +
-        `*Razão:* ${dados.razao}\n` +
-        `*Cod do Cliente:* ${dados.codCliente}\n` +
-        `*Consultor:* ${dados.supervisor}\n` +
-        `*Cód do pedido:* ${dados.codPedido}\n` +
-        `*Produto:* ${dados.produto}\n` +
-        `*Cod do Produto:* ${dados.codProduto}\n` +
-        `*Quantidade:* ${dados.quantidade} UND\n` +
-        `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
-        `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
-}
-
-function mostrarLoading(mostrar) {
-    document.getElementById('loading').style.display = mostrar ? 'block' : 'none';
-}
+    <script src="script.js"></script>
+</body>
+</html>
