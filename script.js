@@ -1,4 +1,4 @@
-document.getElementById('formAcao').addEventListener('submit', function(e) {
+document.getElementById('formAcao').addEventListener('submit', function (e) {
     e.preventDefault();
 
     // Coletar dados do formulário
@@ -31,20 +31,32 @@ document.getElementById('formAcao').addEventListener('submit', function(e) {
     ];
 
     fields.forEach(field => {
+        const inputElement = document.getElementById(field.id);
         const errorMessage = document.getElementById(field.help);
         if (field.value === "" || field.value === 0) {
             errorMessage.textContent = "Este campo é obrigatório.";
+            inputElement.setAttribute('aria-invalid', 'true');
             isValid = false;
         } else if (field.pattern && !field.pattern.test(field.value)) {
             errorMessage.textContent = "Valor inválido.";
+            inputElement.setAttribute('aria-invalid', 'true');
             isValid = false;
         } else if (field.min !== undefined && field.value < field.min) {
             errorMessage.textContent = `O valor deve ser maior ou igual a ${field.min}.`;
+            inputElement.setAttribute('aria-invalid', 'true');
             isValid = false;
         } else {
             errorMessage.textContent = "";
+            inputElement.setAttribute('aria-invalid', 'false');
         }
     });
+
+    // Verificar se o preço solicitado é menor que o preço do sistema
+    if (dados.precoSolicitado >= dados.precoSistema) {
+        document.getElementById('precoSolicitadoHelp').textContent = "O preço solicitado deve ser menor que o preço do sistema.";
+        document.getElementById('precoSolicitado').setAttribute('aria-invalid', 'true');
+        isValid = false;
+    }
 
     if (!isValid) return;
 
@@ -63,86 +75,4 @@ document.getElementById('formAcao').addEventListener('submit', function(e) {
         `*Ação*\n\n` +
         `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
         `Investimento: ${investimentoPercentual.toFixed(0)} %\n` +
-        `Quantidade bonificada: ${qtdBonificada} und\n` +
-        `Valor Bonificação: R$ ${valorBonificacao}\n` +
-        `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
-        `Produto (BNF): ${dados.produtoBonificado}\n` +
-        `Código (BNF): ${dados.codigoBonificado}\n\n` +
-        `Razão do Cliente: ${dados.razao}\n` +
-        `Código do Cliente: ${dados.codCliente}`;
-
-    // Exibir resultado formatado na tela
-    document.getElementById('resultadoAcao').textContent = resultado;
-
-    // Mostrar campos de bonificação
-    document.getElementById('bonificacaoCampos').style.display = 'block';
-});
-
-// Função para gerar a bonificação
-document.getElementById('gerarBonificacao').addEventListener('click', function() {
-    const codPedido = document.getElementById('codPedido').value.trim();
-    const observacao = document.getElementById('observacao').value.trim();
-
-    if (codPedido === "") {
-        document.getElementById('codPedidoHelp').textContent = "Este campo é obrigatório.";
-        return;
-    } else {
-        document.getElementById('codPedidoHelp').textContent = "";
-    }
-
-    const dados = {
-        razao: document.getElementById('razaoAcao').value.trim(),
-        codCliente: document.getElementById('codClienteAcao').value.trim(),
-        supervisor: document.getElementById('supervisor').value.trim(),
-        codPedido: codPedido,
-        produto: document.getElementById('produtoAcao').value.trim(),
-        codProduto: document.getElementById('codProdutoAcao').value.trim(),
-        quantidade: document.getElementById('quantidadeAcao').value.trim(),
-        valorBonificacao: document.getElementById('resultadoAcao').textContent.match(/Valor Bonificação: R\$\s*([\d,.]+)/)[1],
-        observacao: observacao
-    };
-
-    // Formatar resultado da bonificação
-    const resultadoBonificacao = `*Bonificação*\n\n` +
-        `*Razão:* ${dados.razao}\n` +
-        `*Cod do Cliente:* ${dados.codCliente}\n` +
-        `*Consultor:* ${dados.supervisor}\n` +
-        `*Cód do pedido:* ${dados.codPedido}\n` +
-        `*Produto:* ${dados.produto}\n` +
-        `*Cod do Produto:* ${dados.codProduto}\n` +
-        `*Quantidade:* ${dados.quantidade} UND\n` +
-        `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
-        `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
-
-    // Exibir resultado da bonificação
-    document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
-
-    // Mostrar botões da bonificação
-    document.getElementById('botoesBonificacao').style.display = 'block';
-});
-
-// Função para copiar o resultado da ação
-document.getElementById('copiarAcao').addEventListener('click', function() {
-    navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent);
-    alert("Resultado copiado!");
-});
-
-// Função para compartilhar o resultado da ação no WhatsApp
-document.getElementById('compartilharAcao').addEventListener('click', function() {
-    const mensagem = document.getElementById('resultadoAcao').textContent;
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-});
-
-// Função para copiar o resultado da bonificação
-document.getElementById('copiarBonificacao').addEventListener('click', function() {
-    navigator.clipboard.writeText(document.getElementById('resultadoBonificacao').textContent);
-    alert("Bonificação copiada!");
-});
-
-// Função para compartilhar o resultado da bonificação no WhatsApp
-document.getElementById('compartilharBonificacao').addEventListener('click', function() {
-    const mensagem = document.getElementById('resultadoBonificacao').textContent;
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-});
+        `Quantidade bonificada: ${
