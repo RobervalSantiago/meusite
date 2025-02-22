@@ -35,7 +35,7 @@ body {
 /* Container Principal com Glassmorphism */
 .container {
     background: rgba(255, 255, 255, 0.1);
-    padding: 2.5rem; /* Aumentei o padding */
+    padding: 2rem;
     border-radius: 15px;
     box-shadow: var(--sombra);
     max-width: 800px;
@@ -48,20 +48,19 @@ body {
 
 /* Cabeçalho */
 header {
-    margin-bottom: 40px; /* Aumentei o espaçamento inferior */
+    margin-bottom: 30px;
 }
 
 header h1 {
     font-size: 2rem;
     color: var(--cor-texto);
-    margin-bottom: 20px; /* Aumentei o espaçamento inferior */
+    margin-bottom: 15px;
     font-weight: 600;
 }
 
 header p {
     font-size: 1rem;
     color: var(--cor-texto-secundario);
-    margin-bottom: 0; /* Removi o espaçamento inferior */
 }
 
 /* Estilo para as seções do formulário */
@@ -69,8 +68,8 @@ header p {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    padding: 30px; /* Aumentei o padding interno */
-    margin-bottom: 30px; /* Aumentei o espaçamento entre seções */
+    padding: 25px;
+    margin-bottom: 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -78,7 +77,7 @@ header p {
 .form-section h2 {
     font-size: 1.4rem;
     color: var(--cor-texto);
-    margin-bottom: 25px; /* Aumentei o espaçamento inferior */
+    margin-bottom: 20px;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -91,13 +90,13 @@ header p {
 
 /* Espaçamento entre os grupos de formulário */
 .form-group {
-    margin-bottom: 25px; /* Aumentei o espaçamento entre os grupos */
+    margin-bottom: 20px;
 }
 
 /* Ajuste no espaçamento dos inputs */
 input {
     width: 100%;
-    padding: 14px; /* Aumentei o padding */
+    padding: 12px;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
@@ -105,7 +104,7 @@ input {
     color: var(--cor-texto);
     outline: none;
     transition: background 0.3s, box-shadow 0.3s;
-    margin-top: 10px; /* Aumentei o espaçamento entre o label e o input */
+    margin-top: 8px;
 }
 
 input:focus {
@@ -124,33 +123,33 @@ input:invalid {
 .error-message {
     color: var(--cor-erro);
     font-size: 0.875rem;
-    margin-top: 10px; /* Aumentei o espaçamento superior */
+    margin-top: 8px;
     display: block;
 }
 
 /* Ajuste no espaçamento dos botões */
 .form-actions {
     display: flex;
-    gap: 20px; /* Aumentei o espaçamento entre os botões */
-    margin-top: 30px; /* Aumentei o espaçamento superior */
+    gap: 15px;
+    margin-top: 25px;
 }
 
 /* Botões responsivos */
 .btn {
     width: 100%;
-    padding: 16px; /* Aumentei o padding */
+    padding: 14px;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
-    margin-top: 20px; /* Aumentei o espaçamento superior */
+    margin-top: 15px;
     color: var(--cor-texto);
 }
 
 .btn i {
-    margin-right: 10px; /* Aumentei o espaçamento entre o ícone e o texto */
+    margin-right: 8px;
 }
 
 .btn:hover {
@@ -204,8 +203,8 @@ input:invalid {
 
 /* Resultado */
 .resultado {
-    margin-top: 30px; /* Aumentei o espaçamento superior */
-    padding: 25px; /* Aumentei o padding interno */
+    margin-top: 25px;
+    padding: 20px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     white-space: pre-wrap;
@@ -220,7 +219,7 @@ input:invalid {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px; /* Aumentei o espaçamento superior */
+    margin-top: 25px;
 }
 
 .spinner {
@@ -247,7 +246,7 @@ input:invalid {
 @media (max-width: 768px) {
     .container {
         width: 95%;
-        padding: 2rem; /* Ajustei o padding para telas menores */
+        padding: 1.5rem;
     }
 
     h1 {
@@ -264,12 +263,12 @@ input:invalid {
 
     input {
         font-size: 0.9rem;
-        padding: 12px; /* Ajustei o padding para telas menores */
+        padding: 10px;
     }
 
     .btn {
         font-size: 0.9rem;
-        padding: 14px; /* Ajustei o padding para telas menores */
+        padding: 12px;
     }
 
     .resultado {
@@ -280,7 +279,7 @@ input:invalid {
 @media (max-width: 480px) {
     .container {
         width: 100%;
-        padding: 1.5rem; /* Ajustei o padding para telas menores */
+        padding: 1rem;
     }
 
     h1 {
@@ -297,26 +296,27 @@ input:invalid {
 
     input {
         font-size: 0.85rem;
-        padding: 10px; /* Ajustei o padding para telas menores */
+        padding: 8px;
     }
 
     .btn {
         font-size: 0.85rem;
-        padding: 12px; /* Ajustei o padding para telas menores */
+        padding: 10px;
     }
 
     .resultado {
         font-size: 0.85rem;
     }
+
     /* Botões de Copiar e Compartilhar */
     .botoes-resultado {
         display: flex;
         gap: 10px;
-        margin-top: 15px; /* Ajustei o espaçamento superior */
+        margin-top: 15px;
     }
 
     .botoes-resultado .btn {
-        padding: 10px 14px; /* Ajustei o padding para telas menores */
+        padding: 10px 14px;
         font-size: 0.9rem;
         width: auto;
     }
