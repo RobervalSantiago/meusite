@@ -28,4 +28,119 @@ document.getElementById('gerarBonificacao').addEventListener('click', function (
 
     // Coletar dados e gerar bonificação
     const dados = coletarDadosBonificacao();
-    const
+    const resultadoBonificacao = gerarBonificacao(dados);
+
+    // Exibir o resultado da bonificação
+    document.getElementById('resultadoBonificacaoSection').style.display = 'block';
+    document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
+});
+
+document.getElementById('limpar').addEventListener('click', function () {
+    // Reseta o formulário
+    document.getElementById('formAcao').reset();
+    // Oculta as seções de resultados
+    document.getElementById('resultadoAcaoSection').style.display = 'none';
+    document.getElementById('resultadoBonificacaoSection').style.display = 'none';
+    document.getElementById('resultadoAcao').textContent = "";
+    document.getElementById('resultadoBonificacao').textContent = "";
+    document.getElementById('bonificacaoCampos').style.display = 'none';
+});
+
+document.getElementById('copiar').addEventListener('click', function () {
+    navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent);
+    alert("Texto copiado!");
+});
+
+document.getElementById('compartilhar').addEventListener('click', function () {
+    const mensagem = document.getElementById('resultadoAcao').textContent;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
+});
+
+function validarCampos() {
+    const precoSistema = parseFloat(document.getElementById('precoSistema').value);
+    const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
+
+    if (precoSolicitado >= precoSistema) {
+        document.getElementById('precoSolicitadoHelp').textContent = "O preço solicitado deve ser menor que o preço do sistema.";
+        return false;
+    }
+
+    return true;
+}
+
+function coletarDadosFormulario() {
+    return {
+        razao: document.getElementById('razaoAcao').value.trim(),
+        codCliente: document.getElementById('codClienteAcao').value.trim(),
+        produto: document.getElementById('produtoAcao').value.trim(),
+        codProduto: document.getElementById('codProdutoAcao').value.trim(),
+        quantidade: parseFloat(document.getElementById('quantidadeAcao').value) || 0,
+        precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
+        precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value) || 0,
+        produtoBonificado: document.getElementById('produtoBonificado').value.trim(),
+        codigoBonificado: document.getElementById('codigoBonificado').value.trim(),
+        supervisor: document.getElementById('supervisor').value.trim()
+    };
+}
+
+function calcularResultado(dados) {
+    const valorPedido = dados.quantidade * dados.precoSistema;
+    const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
+    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
+    const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
+
+    return `*Solicitação de ação:*\n\n` +
+        `Nome do Produto: ${dados.produto}\n` +
+        `Código do Produto: ${dados.codProduto}\n` +
+        `Quantidade do Produto: ${dados.quantidade}\n` +
+        `Preço do Palm: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
+        `*Ação*\n\n` +
+        `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
+        `Investimento: ${investimentoPercentual.toFixed(0)} %\n` +
+        `Quantidade bonificada: ${qtdBonificada} und\n` +
+        `Valor Bonificação: R$ ${valorBonificacao}\n` +
+        `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
+        `Produto (BNF): ${dados.produtoBonificado}\n` +
+        `Código (BNF): ${dados.codigoBonificado}\n\n` +
+        `Razão do Cliente: ${dados.razao}\n` +
+        `Código do Cliente: ${dados.codCliente}`;
+}
+
+function exibirResultado(resultado) {
+    // Mostra a seção de resultados da ação
+    document.getElementById('resultadoAcaoSection').style.display = 'block';
+    // Preenche o conteúdo do resultado
+    document.getElementById('resultadoAcao').textContent = resultado;
+}
+
+function coletarDadosBonificacao() {
+    return {
+        razao: document.getElementById('razaoAcao').value.trim(),
+        codCliente: document.getElementById('codClienteAcao').value.trim(),
+        supervisor: document.getElementById('supervisor').value.trim(),
+        codPedido: document.getElementById('codPedido').value.trim(),
+        produto: document.getElementById('produtoAcao').value.trim(),
+        codProduto: document.getElementById('codProdutoAcao').value.trim(),
+        quantidade: document.getElementById('quantidadeAcao').value.trim(),
+        valorBonificacao: document.getElementById('resultadoAcao').textContent.match(/Valor Bonificação: R\$\s*([\d,.]+)/)[1],
+        observacao: document.getElementById('observacao').value.trim()
+    };
+}
+
+function gerarBonificacao(dados) {
+    return `*Bonificação*\n\n` +
+        `*Razão:* ${dados.razao}\n` +
+        `*Cod do Cliente:* ${dados.codCliente}\n` +
+        `*Consultor:* ${dados.supervisor}\n` +
+        `*Cód do pedido:* ${dados.codPedido}\n` +
+        `*Produto:* ${dados.produto}\n` +
+        `*Cod do Produto:* ${dados.codProduto}\n` +
+        `*Quantidade:* ${dados.quantidade} UND\n` +
+        `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
+        `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
+}
+
+function mostrarLoading(mostrar) {
+    document.getElementById('loading').style.display = mostrar ? 'block' : 'none';
+}
