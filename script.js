@@ -30,12 +30,17 @@ document.getElementById('gerarBonificacao').addEventListener('click', function (
     const dados = coletarDadosBonificacao();
     const resultadoBonificacao = gerarBonificacao(dados);
 
-    // Exibir o resultado na tela
+    // Exibir o resultado da bonificação
+    document.getElementById('resultadoBonificacaoSection').style.display = 'block';
     document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
 });
 
 document.getElementById('limpar').addEventListener('click', function () {
+    // Reseta o formulário
     document.getElementById('formAcao').reset();
+    // Oculta as seções de resultados
+    document.getElementById('resultadoAcaoSection').style.display = 'none';
+    document.getElementById('resultadoBonificacaoSection').style.display = 'none';
     document.getElementById('resultadoAcao').textContent = "";
     document.getElementById('resultadoBonificacao').textContent = "";
     document.getElementById('bonificacaoCampos').style.display = 'none';
@@ -103,6 +108,9 @@ function calcularResultado(dados) {
 }
 
 function exibirResultado(resultado) {
+    // Mostra a seção de resultados da ação
+    document.getElementById('resultadoAcaoSection').style.display = 'block';
+    // Preenche o conteúdo do resultado
     document.getElementById('resultadoAcao').textContent = resultado;
 }
 
