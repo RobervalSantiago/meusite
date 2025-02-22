@@ -152,7 +152,7 @@ function gerarBonificacao(dados) {
     return `*Bonificação*\n\n` +
         `*Razão:* ${dados.razao}\n` +
         `*Cod do Cliente:* ${dados.codCliente}\n` +
-        `*Consultor:* ${dados.supervisor}\n` +
+        `*Consultor:* 1473647 - Roberval Santiago\n` +
         `*Cód do pedido:* ${dados.codPedido}\n` +
         `*Produto:* ${dados.produto}\n` +
         `*Cod do Produto:* ${dados.codProduto}\n` +
