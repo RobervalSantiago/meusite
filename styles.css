@@ -79,7 +79,36 @@ header p {
 
 /* Ajuste no espaçamento dos inputs */
 input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    outline: none;
+    transition: background 0.3s, box-shadow 0.3s;
     margin-top: 5px; /* Adiciona um pequeno espaço entre o label e o input */
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+input:valid {
+    border-color: #00e676;
+}
+
+input:invalid {
+    border-color: #ff6b6b;
+}
+
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    display: block;
 }
 
 /* Ajuste no espaçamento dos botões */
@@ -87,30 +116,6 @@ input {
     display: flex;
     gap: 10px; /* Espaço entre os botões */
     margin-top: 20px;
-}
-
-/* Ajuste no espaçamento dos resultados */
-.result-section {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.result-section h2 {
-    font-size: 1.4rem;
-    color: #fff;
-    margin-bottom: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.result-section h2 i {
-    font-size: 1.2rem;
 }
 
 /* Botões responsivos */
@@ -178,6 +183,19 @@ input {
 
 .limpar:hover {
     background: linear-gradient(90deg, #d32f2f, #ff5252);
+}
+
+/* Resultado */
+.resultado {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    white-space: pre-wrap;
+    font-family: monospace;
+    text-align: left;
+    font-size: 1rem;
+    color: #fff;
 }
 
 /* Spinner de carregamento */
@@ -265,4 +283,6 @@ input {
     }
 
     .resultado {
-        font-size: 0.85rem
+        font-size: 0.85rem;
+    }
+}
