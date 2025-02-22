@@ -11,6 +11,9 @@ document.getElementById('formAcao').addEventListener('submit', function (e) {
     const resultado = calcularResultado(dados);
     exibirResultado(resultado);
 
+    // Mostra os botões de copiar e compartilhar
+    document.getElementById('botoesResultado').style.display = 'flex';
+
     mostrarLoading(false);
     document.getElementById('bonificacaoCampos').style.display = 'block';
 });
@@ -38,12 +41,24 @@ document.getElementById('gerarBonificacao').addEventListener('click', function (
 document.getElementById('limpar').addEventListener('click', function () {
     // Reseta o formulário
     document.getElementById('formAcao').reset();
-    // Oculta as seções de resultados
+    // Oculta as seções de resultados e botões
     document.getElementById('resultadoAcaoSection').style.display = 'none';
     document.getElementById('resultadoBonificacaoSection').style.display = 'none';
+    document.getElementById('botoesResultado').style.display = 'none';
     document.getElementById('resultadoAcao').textContent = "";
     document.getElementById('resultadoBonificacao').textContent = "";
     document.getElementById('bonificacaoCampos').style.display = 'none';
+});
+
+document.getElementById('copiar').addEventListener('click', function () {
+    navigator.clipboard.writeText(document.getElementById('resultadoAcao').textContent);
+    alert("Texto copiado!");
+});
+
+document.getElementById('compartilhar').addEventListener('click', function () {
+    const mensagem = document.getElementById('resultadoAcao').textContent;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
 });
 
 function validarCampos() {
