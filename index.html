@@ -5,92 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitação de Ação Donizete</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Ícones do Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Solicitação de Ação</h1>
+        <h1><i class="fas fa-file-alt"></i> Solicitação de Ação</h1>
 
+        <!-- Formulário Principal -->
         <form id="formAcao">
-            <div class="form-group">
-                <label for="razaoAcao">Razão do Cliente:</label>
-                <input type="text" id="razaoAcao" required aria-describedby="razaoAcaoHelp">
-                <small id="razaoAcaoHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="codClienteAcao">Código do Cliente:</label>
-                <input type="text" id="codClienteAcao" required aria-describedby="codClienteAcaoHelp" pattern="\d+">
-                <small id="codClienteAcaoHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="produtoAcao">Nome do Produto:</label>
-                <input type="text" id="produtoAcao" required aria-describedby="produtoAcaoHelp">
-                <small id="produtoAcaoHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="codProdutoAcao">Código do Produto:</label>
-                <input type="text" id="codProdutoAcao" required aria-describedby="codProdutoAcaoHelp" pattern="\d+">
-                <small id="codProdutoAcaoHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="quantidadeAcao">Quantidade do Produto:</label>
-                <input type="number" id="quantidadeAcao" required aria-describedby="quantidadeAcaoHelp" min="1">
-                <small id="quantidadeAcaoHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="precoSistema">Preço do Palm:</label>
-                <input type="number" id="precoSistema" step="0.01" required aria-describedby="precoSistemaHelp" min="0">
-                <small id="precoSistemaHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="precoSolicitado">Preço Solicitado:</label>
-                <input type="number" id="precoSolicitado" step="0.01" required aria-describedby="precoSolicitadoHelp" min="0">
-                <small id="precoSolicitadoHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="produtoBonificado">Produto (BNF):</label>
-                <input type="text" id="produtoBonificado" required aria-describedby="produtoBonificadoHelp">
-                <small id="produtoBonificadoHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="codigoBonificado">Código (BNF):</label>
-                <input type="text" id="codigoBonificado" required aria-describedby="codigoBonificadoHelp" pattern="\d+">
-                <small id="codigoBonificadoHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="supervisor">Supervisor:</label>
-                <input type="text" id="supervisor" required aria-describedby="supervisorHelp">
-                <small id="supervisorHelp" class="error-message" role="alert"></small>
-            </div>
+            <!-- Seção: Informações do Cliente -->
+            <fieldset>
+                <legend><i class="fas fa-user"></i> Informações do Cliente</legend>
+                <div class="form-group">
+                    <label for="razaoAcao">Razão do Cliente:</label>
+                    <input type="text" id="razaoAcao" required aria-describedby="razaoAcaoHelp">
+                    <small id="razaoAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="codClienteAcao">Código do Cliente:</label>
+                    <input type="text" id="codClienteAcao" required aria-describedby="codClienteAcaoHelp" pattern="\d+">
+                    <small id="codClienteAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+            </fieldset>
 
-            <button type="submit" class="btn calcular">Calcular</button>
-            <button type="button" id="limpar" class="btn limpar">Limpar</button>
+            <!-- Seção: Detalhes do Produto -->
+            <fieldset>
+                <legend><i class="fas fa-box"></i> Detalhes do Produto</legend>
+                <div class="form-group">
+                    <label for="produtoAcao">Nome do Produto:</label>
+                    <input type="text" id="produtoAcao" required aria-describedby="produtoAcaoHelp">
+                    <small id="produtoAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="codProdutoAcao">Código do Produto:</label>
+                    <input type="text" id="codProdutoAcao" required aria-describedby="codProdutoAcaoHelp" pattern="\d+">
+                    <small id="codProdutoAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="quantidadeAcao">Quantidade do Produto:</label>
+                    <input type="number" id="quantidadeAcao" required aria-describedby="quantidadeAcaoHelp" min="1">
+                    <small id="quantidadeAcaoHelp" class="error-message" role="alert"></small>
+                </div>
+            </fieldset>
+
+            <!-- Seção: Preços -->
+            <fieldset>
+                <legend><i class="fas fa-dollar-sign"></i> Preços</legend>
+                <div class="form-group">
+                    <label for="precoSistema">Preço do Palm:</label>
+                    <input type="number" id="precoSistema" step="0.01" required aria-describedby="precoSistemaHelp" min="0">
+                    <small id="precoSistemaHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="precoSolicitado">Preço Solicitado:</label>
+                    <input type="number" id="precoSolicitado" step="0.01" required aria-describedby="precoSolicitadoHelp" min="0">
+                    <small id="precoSolicitadoHelp" class="error-message" role="alert"></small>
+                </div>
+            </fieldset>
+
+            <!-- Seção: Bonificação -->
+            <fieldset>
+                <legend><i class="fas fa-gift"></i> Bonificação</legend>
+                <div class="form-group">
+                    <label for="produtoBonificado">Produto (BNF):</label>
+                    <input type="text" id="produtoBonificado" required aria-describedby="produtoBonificadoHelp">
+                    <small id="produtoBonificadoHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="codigoBonificado">Código (BNF):</label>
+                    <input type="text" id="codigoBonificado" required aria-describedby="codigoBonificadoHelp" pattern="\d+">
+                    <small id="codigoBonificadoHelp" class="error-message" role="alert"></small>
+                </div>
+            </fieldset>
+
+            <!-- Seção: Supervisor -->
+            <fieldset>
+                <legend><i class="fas fa-user-tie"></i> Supervisor</legend>
+                <div class="form-group">
+                    <label for="supervisor">Supervisor:</label>
+                    <input type="text" id="supervisor" required aria-describedby="supervisorHelp">
+                    <small id="supervisorHelp" class="error-message" role="alert"></small>
+                </div>
+            </fieldset>
+
+            <!-- Botões de Ação -->
+            <div class="botoes">
+                <button type="submit" class="btn calcular"><i class="fas fa-calculator"></i> Calcular</button>
+                <button type="button" id="limpar" class="btn limpar"><i class="fas fa-eraser"></i> Limpar</button>
+            </div>
         </form>
 
+        <!-- Resultado da Ação -->
         <div id="resultadoAcao" class="resultado"></div>
 
-        <!-- Campos adicionais para a bonificação -->
+        <!-- Campos de Bonificação (Ocultos Inicialmente) -->
         <div id="bonificacaoCampos" style="display: none;">
-            <div class="form-group">
-                <label for="codPedido">Código do Pedido:</label>
-                <input type="text" id="codPedido" required aria-describedby="codPedidoHelp">
-                <small id="codPedidoHelp" class="error-message" role="alert"></small>
-            </div>
-            <div class="form-group">
-                <label for="observacao">Observação:</label>
-                <input type="text" id="observacao" aria-describedby="observacaoHelp">
-                <small id="observacaoHelp" class="error-message" role="alert"></small>
-            </div>
-            <button id="gerarBonificacao" class="btn bonificacao">Gerar Bonificação</button>
+            <fieldset>
+                <legend><i class="fas fa-gift"></i> Detalhes da Bonificação</legend>
+                <div class="form-group">
+                    <label for="codPedido">Código do Pedido:</label>
+                    <input type="text" id="codPedido" required aria-describedby="codPedidoHelp">
+                    <small id="codPedidoHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="observacao">Observação:</label>
+                    <input type="text" id="observacao" aria-describedby="observacaoHelp">
+                    <small id="observacaoHelp" class="error-message" role="alert"></small>
+                </div>
+                <button id="gerarBonificacao" class="btn bonificacao"><i class="fas fa-check"></i> Gerar Bonificação</button>
+            </fieldset>
         </div>
 
+        <!-- Resultado da Bonificação -->
         <div id="resultadoBonificacao" class="resultado"></div>
 
+        <!-- Botões de Copiar e Compartilhar -->
         <div class="botoes">
-            <button id="copiar" class="btn copiar" aria-label="Copiar resultado">Copiar</button>
-            <button id="compartilhar" class="btn whatsapp" aria-label="Compartilhar no WhatsApp">Compartilhar</button>
+            <button id="copiar" class="btn copiar"><i class="fas fa-copy"></i> Copiar</button>
+            <button id="compartilhar" class="btn whatsapp"><i class="fab fa-whatsapp"></i> Compartilhar</button>
         </div>
 
-        <!-- Spinner de carregamento -->
+        <!-- Spinner de Carregamento -->
         <div id="loading" class="loading" style="display: none;">
             <div class="spinner"></div>
         </div>
