@@ -154,11 +154,11 @@ function gerarBonificacao(dados) {
         `*Cod do Cliente:* ${dados.codCliente}\n` +
         `*Consultor:* 1473647 - Roberval Santiago\n` +
         `*Cód do pedido:* ${dados.codPedido}\n` +
-        `*Produto:* ${dados.produtoBonificado}\n` +
-        `*Cod do Produto:* ${dados.codigoBonificado}\n` +
+        `*Produto Bonificado:* ${document.getElementById('produtoBonificado').value.trim()}\n` + // Ajuste aqui
+        `*Código:* ${document.getElementById('codigoBonificado').value.trim()}\n` + // Ajuste aqui
         `*Quantidade:* ${dados.quantidade} UND\n` +
         `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
-        `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
+        `*Observação:* ${dados.observacao || "  "}`;
 }
 
 function mostrarLoading(mostrar) {
