@@ -117,6 +117,7 @@ function validarCampos() {
         return false;
     }
 
+    console.log("Todos os campos estão válidos.");
     return true;
 }
 
@@ -135,15 +136,17 @@ function coletarDadosFormulario() {
 
 // Função para calcular o resultado
 function calcularResultado(dados) {
+    console.log("Dados recebidos para cálculo:", dados);
+
     const valorPedido = dados.quantidade * dados.precoSistema;
     const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
 
-    // A quantidade bonificada é a porcentagem de desconto aplicada ao valor do pedido
-    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema;
+    // A quantidade bonificada é a porcentagem de desconto aplicada à quantidade do produto
+    const qtdBonificada = Math.round((dados.quantidade * (investimentoPercentual / 100)));
 
     const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
 
-    return `*Solicitação de ação:*\n\n` +
+    const resultado = `*Solicitação de ação:*\n\n` +
         `Código/Produto: ${dados.codProduto}\n` +
         `Quantidade do Produto: ${dados.quantidade}\n` +
         `Preço do Palm: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
@@ -155,10 +158,14 @@ function calcularResultado(dados) {
         `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
         `Código/Produto Bonificado: ${dados.codProdutoBonificado}\n\n` +
         `Código/Razão do Cliente: ${dados.codRazaoCliente}`;
+
+    console.log("Resultado calculado:", resultado);
+    return resultado;
 }
 
 // Função para exibir o resultado
 function exibirResultado(resultado) {
+    console.log("Exibindo resultado:", resultado);
     // Mostra a seção de resultados da ação
     document.getElementById('resultadoAcaoSection').style.display = 'block';
     // Preenche o conteúdo do resultado
@@ -198,6 +205,7 @@ function mostrarLoading(mostrar) {
 // Evento de envio do formulário
 document.getElementById('formAcao').addEventListener('submit', function (e) {
     e.preventDefault();
+    console.log("Formulário enviado. Validando campos...");
     mostrarLoading(true);
 
     if (!validarCampos()) {
