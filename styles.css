@@ -337,11 +337,16 @@ input:invalid {
     z-index: 1000;
     width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Inicialmente oculto */
+    margin-top: 5px;
+    border-radius: 4px;
 }
 
 .sugestao-item {
     padding: 8px;
     cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
 }
 
 .sugestao-item:hover {
