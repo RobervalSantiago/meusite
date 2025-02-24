@@ -23,8 +23,8 @@
                 <h2><i class="fas fa-user" aria-label="Ícone de usuário"></i> Informações do Cliente</h2>
                 <div class="form-group">
                     <label for="codRazaoCliente">Código/Razão do Cliente:</label>
-                    <input type="text" id="codRazaoCliente" list="sugestoesCliente" required aria-describedby="codRazaoClienteHelp">
-                    <datalist id="sugestoesCliente"></datalist>
+                    <input type="text" id="codRazaoCliente" required aria-describedby="codRazaoClienteHelp">
+                    <div id="sugestoesCliente" class="sugestoes"></div>
                     <small id="codRazaoClienteHelp" class="error-message" role="alert"></small>
                 </div>
             </section>
@@ -34,8 +34,8 @@
                 <h2><i class="fas fa-box" aria-label="Ícone de caixa"></i> Detalhes do Produto</h2>
                 <div class="form-group">
                     <label for="codProduto">Código/Produto:</label>
-                    <input type="text" id="codProduto" list="sugestoesProduto" required aria-describedby="codProdutoHelp">
-                    <datalist id="sugestoesProduto"></datalist>
+                    <input type="text" id="codProduto" required aria-describedby="codProdutoHelp">
+                    <div id="sugestoesProduto" class="sugestoes"></div>
                     <small id="codProdutoHelp" class="error-message" role="alert"></small>
                 </div>
                 <div class="form-group">
@@ -65,8 +65,8 @@
                 <h2><i class="fas fa-gift" aria-label="Ícone de presente"></i> Bonificação</h2>
                 <div class="form-group">
                     <label for="codProdutoBonificado">Código/Produto Bonificado:</label>
-                    <input type="text" id="codProdutoBonificado" list="sugestoesBonificado" required aria-describedby="codProdutoBonificadoHelp">
-                    <datalist id="sugestoesBonificado"></datalist>
+                    <input type="text" id="codProdutoBonificado" required aria-describedby="codProdutoBonificadoHelp">
+                    <div id="sugestoesBonificado" class="sugestoes"></div>
                     <small id="codProdutoBonificadoHelp" class="error-message" role="alert"></small>
                 </div>
             </section>
