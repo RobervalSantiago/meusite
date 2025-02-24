@@ -93,8 +93,7 @@ function coletarDadosFormulario() {
         quantidade: parseFloat(document.getElementById('quantidadeAcao').value) || 0,
         precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
         precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value) || 0,
-        produtoBonificado: document.getElementById('produtoBonificado').value.trim(),
-        codigoBonificado: document.getElementById('codigoBonificado').value.trim(),
+        codProdutoBonificado: document.getElementById('codProdutoBonificado').value.trim(),
         supervisor: document.getElementById('supervisor').value.trim()
     };
 }
@@ -118,8 +117,7 @@ function calcularResultado(dados) {
         `Quantidade bonificada: ${qtdBonificada} und\n` +
         `Valor Bonificação: R$ ${valorBonificacao}\n` +
         `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
-        `Produto (BNF): ${dados.produtoBonificado}\n` +
-        `Código (BNF): ${dados.codigoBonificado}\n\n` +
+        `Código/Produto Bonificado: ${dados.codProdutoBonificado}\n\n` +
         `Código/Razão do Cliente: ${dados.codRazaoCliente}`;
 }
 
@@ -147,8 +145,7 @@ function gerarBonificacao(dados) {
         `*Código/Razão do Cliente:* ${dados.codRazaoCliente}\n` +
         `*Consultor:* 1473647 - Roberval Santiago\n` +
         `*Cód do pedido:* ${dados.codPedido}\n` +
-        `*Produto Bonificado:* ${document.getElementById('produtoBonificado').value.trim()}\n` +
-        `*Código:* ${document.getElementById('codigoBonificado').value.trim()}\n` +
+        `*Código/Produto Bonificado:* ${document.getElementById('codProdutoBonificado').value.trim()}\n` +
         `*Quantidade:* ${dados.quantidade} UND\n` +
         `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
         `*Observação:* ${dados.observacao || "  "}`;
