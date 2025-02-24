@@ -328,4 +328,23 @@ input:invalid {
     .botoes-resultado .whatsapp {
         background: linear-gradient(90deg, var(--cor-whatsapp), #1b9448);
     }
+    .sugestoes {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sugestao-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.sugestao-item:hover {
+    background-color: #f0f0f0;
+}
 }
