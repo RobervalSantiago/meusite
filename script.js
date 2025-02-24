@@ -67,60 +67,60 @@ document.getElementById("codProdutoBonificado").addEventListener("change", funct
     salvarDadosLocalStorage("codProdutoBonificado", this.value);
 });
 
-// Restante do código (funções existentes)
-document.getElementById('formAcao').addEventListener('submit', function (e) {
-    e.preventDefault();
-    mostrarLoading(true);
-
-    if (!validarCampos()) {
-        mostrarLoading(false);
-        return;
-    }
-
-    const dados = coletarDadosFormulario();
-    const resultado = calcularResultado(dados);
-    exibirResultado(resultado);
-
-    // Mostra os botões de copiar e compartilhar
-    document.getElementById('botoesResultado').style.display = 'flex';
-
-    mostrarLoading(false);
-    document.getElementById('bonificacaoCampos').style.display = 'block';
-});
-
-// Função genérica para copiar texto
-function copiarTexto(elementId) {
-    navigator.clipboard.writeText(document.getElementById(elementId).textContent)
-        .then(() => alert("Texto copiado!"))
-        .catch(() => alert("Erro ao copiar texto!"));
-}
-
-// Função genérica para compartilhar no WhatsApp
-function compartilharWhatsApp(elementId) {
-    const mensagem = document.getElementById(elementId).textContent;
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-}
-
-// Adicionar eventos de clique para copiar e compartilhar
-document.getElementById('copiar').addEventListener('click', () => copiarTexto('resultadoAcao'));
-document.getElementById('compartilhar').addEventListener('click', () => compartilharWhatsApp('resultadoAcao'));
-
-document.getElementById('copiarBonificacao').addEventListener('click', () => copiarTexto('resultadoBonificacao'));
-document.getElementById('compartilharBonificacao').addEventListener('click', () => compartilharWhatsApp('resultadoBonificacao'));
-
+// Função para validar campos
 function validarCampos() {
+    const codRazaoCliente = document.getElementById('codRazaoCliente').value.trim();
+    const codProduto = document.getElementById('codProduto').value.trim();
+    const quantidade = document.getElementById('quantidadeAcao').value.trim();
     const precoSistema = parseFloat(document.getElementById('precoSistema').value);
     const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
+    const codProdutoBonificado = document.getElementById('codProdutoBonificado').value.trim();
+    const supervisor = document.getElementById('supervisor').value.trim();
+
+    if (!codRazaoCliente) {
+        document.getElementById('codRazaoClienteHelp').textContent = "Código/Razão do Cliente é obrigatório.";
+        return false;
+    }
+
+    if (!codProduto) {
+        document.getElementById('codProdutoHelp').textContent = "Código/Produto é obrigatório.";
+        return false;
+    }
+
+    if (!quantidade || quantidade <= 0) {
+        document.getElementById('quantidadeAcaoHelp').textContent = "Quantidade do Produto é obrigatória.";
+        return false;
+    }
+
+    if (!precoSistema || precoSistema <= 0) {
+        document.getElementById('precoSistemaHelp').textContent = "Preço do Palm é obrigatório.";
+        return false;
+    }
+
+    if (!precoSolicitado || precoSolicitado <= 0) {
+        document.getElementById('precoSolicitadoHelp').textContent = "Preço Solicitado é obrigatório.";
+        return false;
+    }
 
     if (precoSolicitado >= precoSistema) {
         document.getElementById('precoSolicitadoHelp').textContent = "O preço solicitado deve ser menor que o preço do sistema.";
         return false;
     }
 
+    if (!codProdutoBonificado) {
+        document.getElementById('codProdutoBonificadoHelp').textContent = "Código/Produto Bonificado é obrigatório.";
+        return false;
+    }
+
+    if (!supervisor) {
+        document.getElementById('supervisorHelp').textContent = "Supervisor é obrigatório.";
+        return false;
+    }
+
     return true;
 }
 
+// Função para coletar dados do formulário
 function coletarDadosFormulario() {
     return {
         codRazaoCliente: document.getElementById('codRazaoCliente').value.trim(),
@@ -133,6 +133,7 @@ function coletarDadosFormulario() {
     };
 }
 
+// Função para calcular o resultado
 function calcularResultado(dados) {
     const valorPedido = dados.quantidade * dados.precoSistema;
     const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
@@ -156,6 +157,7 @@ function calcularResultado(dados) {
         `Código/Razão do Cliente: ${dados.codRazaoCliente}`;
 }
 
+// Função para exibir o resultado
 function exibirResultado(resultado) {
     // Mostra a seção de resultados da ação
     document.getElementById('resultadoAcaoSection').style.display = 'block';
@@ -163,6 +165,7 @@ function exibirResultado(resultado) {
     document.getElementById('resultadoAcao').textContent = resultado;
 }
 
+// Função para coletar dados da bonificação
 function coletarDadosBonificacao() {
     return {
         codRazaoCliente: document.getElementById('codRazaoCliente').value.trim(),
@@ -175,6 +178,7 @@ function coletarDadosBonificacao() {
     };
 }
 
+// Função para gerar a bonificação
 function gerarBonificacao(dados) {
     return `*Bonificação*\n\n` +
         `*Código/Razão do Cliente:* ${dados.codRazaoCliente}\n` +
@@ -186,6 +190,68 @@ function gerarBonificacao(dados) {
         `*Observação:* ${dados.observacao || "  "}`;
 }
 
+// Função para mostrar/ocultar o spinner de carregamento
 function mostrarLoading(mostrar) {
     document.getElementById('loading').style.display = mostrar ? 'block' : 'none';
 }
+
+// Evento de envio do formulário
+document.getElementById('formAcao').addEventListener('submit', function (e) {
+    e.preventDefault();
+    mostrarLoading(true);
+
+    if (!validarCampos()) {
+        mostrarLoading(false);
+        return;
+    }
+
+    const dados = coletarDadosFormulario();
+    const resultado = calcularResultado(dados);
+    exibirResultado(resultado);
+
+    // Mostra os botões de copiar e compartilhar
+    document.getElementById('botoesResultado').style.display = 'flex';
+
+    mostrarLoading(false);
+    document.getElementById('bonificacaoCampos').style.display = 'block';
+});
+
+// Evento de clique no botão de gerar bonificação
+document.getElementById('gerarBonificacao').addEventListener('click', function () {
+    const dadosBonificacao = coletarDadosBonificacao();
+    const resultadoBonificacao = gerarBonificacao(dadosBonificacao);
+    document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
+    document.getElementById('resultadoBonificacaoSection').style.display = 'block';
+    document.getElementById('botoesBonificacao').style.display = 'flex';
+});
+
+// Função para copiar texto
+function copiarTexto(elementId) {
+    navigator.clipboard.writeText(document.getElementById(elementId).textContent)
+        .then(() => alert("Texto copiado!"))
+        .catch(() => alert("Erro ao copiar texto!"));
+}
+
+// Função para compartilhar no WhatsApp
+function compartilharWhatsApp(elementId) {
+    const mensagem = document.getElementById(elementId).textContent;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
+}
+
+// Eventos de clique para copiar e compartilhar
+document.getElementById('copiar').addEventListener('click', () => copiarTexto('resultadoAcao'));
+document.getElementById('compartilhar').addEventListener('click', () => compartilharWhatsApp('resultadoAcao'));
+
+document.getElementById('copiarBonificacao').addEventListener('click', () => copiarTexto('resultadoBonificacao'));
+document.getElementById('compartilharBonificacao').addEventListener('click', () => compartilharWhatsApp('resultadoBonificacao'));
+
+// Evento de clique no botão de limpar
+document.getElementById('limpar').addEventListener('click', function () {
+    document.getElementById('formAcao').reset();
+    document.getElementById('resultadoAcaoSection').style.display = 'none';
+    document.getElementById('bonificacaoCampos').style.display = 'none';
+    document.getElementById('resultadoBonificacaoSection').style.display = 'none';
+    document.getElementById('botoesResultado').style.display = 'none';
+    document.getElementById('botoesBonificacao').style.display = 'none';
+});
