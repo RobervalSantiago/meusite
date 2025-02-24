@@ -332,37 +332,3 @@ input:invalid {
     }
 
     .botoes-resultado .copiar {
-        background: linear-gradient(90deg, var(--cor-sucesso), #00b248);
-    }
-
-    .botoes-resultado .whatsapp {
-        background: linear-gradient(90deg, var(--cor-whatsapp), #1b9448);
-    }
-}
-
-/* Estilo das sugestões */
-.sugestoes {
-    position: absolute;
-    background: #2c2c54; /* Fundo sólido com cor escura */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    max-height: 150px;
-    overflow-y: auto;
-    z-index: 1000;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra mais forte */
-    display: none; /* Inicialmente oculto */
-    margin-top: 5px;
-    border-radius: 8px; /* Bordas mais arredondadas */
-}
-
-.sugestao-item {
-    padding: 10px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: var(--cor-texto); /* Texto branco */
-    transition: background-color 0.3s ease; /* Transição suave */
-}
-
-.sugestao-item:hover {
-    background-color: #40407a; /* Cor de fundo ao passar o mouse */
-}
