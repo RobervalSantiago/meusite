@@ -8,40 +8,50 @@ function salvarDadosLocalStorage(chave, valor) {
 }
 
 // Função para carregar sugestões do localStorage
-function carregarSugestoes(chave, sugestoesId) {
+function carregarSugestoes(chave, sugestoesId, valorDigitado) {
     let dados = JSON.parse(localStorage.getItem(chave)) || [];
     let sugestoesDiv = document.getElementById(sugestoesId);
     sugestoesDiv.innerHTML = ""; // Limpa as sugestões anteriores
-    dados.forEach(item => {
-        let div = document.createElement("div");
-        div.textContent = item;
-        div.classList.add("sugestao-item");
-        div.addEventListener("click", function () {
-            document.getElementById(chave).value = item; // Preenche o campo com a sugestão
-            sugestoesDiv.innerHTML = ""; // Oculta as sugestões
+
+    // Filtra as sugestões com base no valor digitado
+    let sugestoesFiltradas = dados.filter(item => item.toLowerCase().includes(valorDigitado.toLowerCase()));
+
+    if (sugestoesFiltradas.length > 0 && valorDigitado.length > 0) {
+        sugestoesDiv.style.display = "block"; // Mostra as sugestões
+        sugestoesFiltradas.forEach(item => {
+            let div = document.createElement("div");
+            div.textContent = item;
+            div.classList.add("sugestao-item");
+            div.addEventListener("click", function () {
+                document.getElementById(chave).value = item; // Preenche o campo com a sugestão
+                sugestoesDiv.style.display = "none"; // Oculta as sugestões
+            });
+            sugestoesDiv.appendChild(div);
         });
-        sugestoesDiv.appendChild(div);
-    });
+    } else {
+        sugestoesDiv.style.display = "none"; // Oculta as sugestões se não houver correspondências
+    }
 }
 
 // Carregar sugestões ao carregar a página
 window.addEventListener("load", function () {
-    carregarSugestoes("codRazaoCliente", "sugestoesCliente");
-    carregarSugestoes("codProduto", "sugestoesProduto");
-    carregarSugestoes("codProdutoBonificado", "sugestoesBonificado");
+    // Inicialmente, as sugestões estão ocultas
+    document.getElementById("sugestoesCliente").style.display = "none";
+    document.getElementById("sugestoesProduto").style.display = "none";
+    document.getElementById("sugestoesBonificado").style.display = "none";
 });
 
 // Salvar dados ao preencher os campos
 document.getElementById("codRazaoCliente").addEventListener("input", function () {
-    carregarSugestoes("codRazaoCliente", "sugestoesCliente");
+    carregarSugestoes("codRazaoCliente", "sugestoesCliente", this.value);
 });
 
 document.getElementById("codProduto").addEventListener("input", function () {
-    carregarSugestoes("codProduto", "sugestoesProduto");
+    carregarSugestoes("codProduto", "sugestoesProduto", this.value);
 });
 
 document.getElementById("codProdutoBonificado").addEventListener("input", function () {
-    carregarSugestoes("codProdutoBonificado", "sugestoesBonificado");
+    carregarSugestoes("codProdutoBonificado", "sugestoesBonificado", this.value);
 });
 
 // Salvar dados ao sair do campo
@@ -128,7 +138,7 @@ function calcularResultado(dados) {
     const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
 
     // A quantidade bonificada é a porcentagem de desconto aplicada ao valor do pedido
-    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
+    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema;
 
     const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
 
