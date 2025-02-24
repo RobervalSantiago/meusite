@@ -103,7 +103,7 @@ function calcularResultado(dados) {
     const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
 
     // A quantidade bonificada é a porcentagem de desconto aplicada ao valor do pedido
-    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema);
+    const qtdBonificada = Math.round((valorPedido * (investimentoPercentual / 100)) / dados.precoSistema;
 
     const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
 
