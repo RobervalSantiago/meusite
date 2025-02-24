@@ -1,17 +1,18 @@
 :root {
-    --cor-primaria: #6200ea;
-    --cor-secundaria: #3f51b5;
-    --cor-sucesso: #00e676;
-    --cor-erro: #ff6b6b;
-    --cor-whatsapp: #25d366;
-    --cor-bonificacao: #ff9800;
-    --cor-limpar: #ff5252;
-    --cor-fundo: linear-gradient(135deg, #1a1a40, #3b2f60, #0d0d0d);
-    --cor-texto: #fff;
-    --cor-texto-secundario: rgba(255, 255, 255, 0.8);
-    --cor-fundo-input: rgba(255, 255, 255, 0.2);
-    --cor-fundo-input-foco: rgba(255, 255, 255, 0.3);
-    --sombra: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --cor-primaria: #6200ea; /* Roxo vibrante */
+    --cor-secundaria: #3700b3; /* Roxo mais escuro */
+    --cor-sucesso: #00c853; /* Verde */
+    --cor-erro: #ff1744; /* Vermelho */
+    --cor-whatsapp: #25d366; /* Verde do WhatsApp */
+    --cor-bonificacao: #ff9100; /* Laranja */
+    --cor-limpar: #ff5252; /* Vermelho claro */
+    --cor-fundo: linear-gradient(135deg, #1a1a40, #3b2f60, #0d0d0d); /* Gradiente escuro */
+    --cor-texto: #ffffff; /* Branco */
+    --cor-texto-secundario: rgba(255, 255, 255, 0.8); /* Branco com transparência */
+    --cor-fundo-input: rgba(255, 255, 255, 0.1); /* Fundo dos inputs com transparência */
+    --cor-fundo-input-foco: rgba(255, 255, 255, 0.2); /* Fundo dos inputs ao focar */
+    --sombra: 0 8px 32px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    --borda-radius: 12px; /* Bordas arredondadas */
 }
 
 /* Reset e Fonte */
@@ -36,7 +37,7 @@ body {
 .container {
     background: rgba(255, 255, 255, 0.1);
     padding: 2rem;
-    border-radius: 15px;
+    border-radius: var(--borda-radius);
     box-shadow: var(--sombra);
     max-width: 800px;
     width: 100%;
@@ -52,9 +53,9 @@ header {
 }
 
 header h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--cor-texto);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-weight: 600;
 }
 
@@ -67,7 +68,7 @@ header p {
 .form-section {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
+    border-radius: var(--borda-radius);
     padding: 25px;
     margin-bottom: 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -139,13 +140,16 @@ input:invalid {
     width: 100%;
     padding: 14px;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--borda-radius);
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
     margin-top: 15px;
     color: var(--cor-texto);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn i {
@@ -205,8 +209,8 @@ input:invalid {
 .resultado {
     margin-top: 25px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--borda-radius);
     white-space: pre-wrap;
     font-family: monospace;
     text-align: left;
