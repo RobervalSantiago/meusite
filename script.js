@@ -187,12 +187,15 @@ function coletarDadosBonificacao() {
 
 // Função para gerar a bonificação
 function gerarBonificacao(dados) {
+    // Extrai a quantidade bonificada do resultado da ação
+    const quantidadeBonificada = document.getElementById('resultadoAcao').textContent.match(/Quantidade bonificada:\s*(\d+)/)[1];
+
     return `*Bonificação*\n\n` +
         `*Código/Razão do Cliente:* ${dados.codRazaoCliente}\n` +
         `*Consultor:* 1473647 - Roberval Santiago\n` +
         `*Cód do pedido:* ${dados.codPedido}\n` +
         `*Código/Produto Bonificado:* ${document.getElementById('codProdutoBonificado').value.trim()}\n` +
-        `*Quantidade:* ${dados.quantidade} UND\n` +
+        `*Quantidade:* ${quantidadeBonificada} UND\n` + // Usa a quantidade bonificada
         `*Valor da bonificação:* R$ ${dados.valorBonificacao}\n` +
         `*Observação:* ${dados.observacao || "  "}`;
 }
