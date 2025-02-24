@@ -343,25 +343,26 @@ input:invalid {
 /* Estilo das sugestões */
 .sugestoes {
     position: absolute;
-    background: rgba(255, 255, 255, 0.1);
+    background: #2c2c54; /* Fundo sólido com cor escura */
     border: 1px solid rgba(255, 255, 255, 0.2);
     max-height: 150px;
     overflow-y: auto;
     z-index: 1000;
     width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra mais forte */
     display: none; /* Inicialmente oculto */
     margin-top: 5px;
-    border-radius: 4px;
+    border-radius: 8px; /* Bordas mais arredondadas */
 }
 
 .sugestao-item {
-    padding: 8px;
+    padding: 10px;
     cursor: pointer;
     font-size: 0.9rem;
-    color: var(--cor-texto);
+    color: var(--cor-texto); /* Texto branco */
+    transition: background-color 0.3s ease; /* Transição suave */
 }
 
 .sugestao-item:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #40407a; /* Cor de fundo ao passar o mouse */
 }
