@@ -212,6 +212,12 @@ input:invalid {
     text-align: left;
     font-size: 1rem;
     color: var(--cor-texto);
+    line-height: 1.5;
+}
+
+.resultado strong {
+    color: var(--cor-primaria);
+    font-weight: bold;
 }
 
 /* Spinner de carregamento */
@@ -328,10 +334,13 @@ input:invalid {
     .botoes-resultado .whatsapp {
         background: linear-gradient(90deg, var(--cor-whatsapp), #1b9448);
     }
-    .sugestoes {
+}
+
+/* Estilo das sugestões */
+.sugestoes {
     position: absolute;
-    background: white;
-    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     max-height: 150px;
     overflow-y: auto;
     z-index: 1000;
@@ -346,10 +355,9 @@ input:invalid {
     padding: 8px;
     cursor: pointer;
     font-size: 0.9rem;
-    color: #333;
+    color: var(--cor-texto);
 }
 
 .sugestao-item:hover {
-    background-color: #f0f0f0;
-}
+    background-color: rgba(255, 255, 255, 0.2);
 }
