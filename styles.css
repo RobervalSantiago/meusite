@@ -1,18 +1,18 @@
 :root {
-    --cor-primaria: #6200ea; /* Roxo vibrante */
-    --cor-secundaria: #3700b3; /* Roxo mais escuro */
+    --cor-primaria: #2c65c8; /* Azul Hostinger */
+    --cor-secundaria: #1a4a8a; /* Azul mais escuro */
     --cor-sucesso: #00c853; /* Verde */
     --cor-erro: #ff1744; /* Vermelho */
     --cor-whatsapp: #25d366; /* Verde do WhatsApp */
     --cor-bonificacao: #ff9100; /* Laranja */
     --cor-limpar: #ff5252; /* Vermelho claro */
-    --cor-fundo: linear-gradient(135deg, #1a1a40, #3b2f60, #0d0d0d); /* Gradiente escuro */
-    --cor-texto: #ffffff; /* Branco */
-    --cor-texto-secundario: rgba(255, 255, 255, 0.8); /* Branco com transparência */
-    --cor-fundo-input: rgba(255, 255, 255, 0.1); /* Fundo dos inputs com transparência */
-    --cor-fundo-input-foco: rgba(255, 255, 255, 0.2); /* Fundo dos inputs ao focar */
-    --sombra: 0 8px 32px rgba(0, 0, 0, 0.3); /* Sombra suave */
-    --borda-radius: 12px; /* Bordas arredondadas */
+    --cor-fundo: #f5f7fa; /* Fundo claro */
+    --cor-texto: #2d3748; /* Texto escuro */
+    --cor-texto-secundario: #4a5568; /* Texto secundário */
+    --cor-fundo-input: #ffffff; /* Fundo dos inputs */
+    --cor-fundo-input-foco: #edf2f7; /* Fundo dos inputs ao focar */
+    --sombra: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    --borda-radius: 8px; /* Bordas arredondadas */
 }
 
 /* Reset e Fonte */
@@ -23,7 +23,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Fundo com gradiente moderno */
+/* Fundo claro */
 body {
     background: var(--cor-fundo);
     display: flex;
@@ -33,17 +33,15 @@ body {
     padding: 20px;
 }
 
-/* Container Principal com Glassmorphism */
+/* Container Principal */
 .container {
-    background: rgba(255, 255, 255, 0.1);
+    background: #ffffff;
     padding: 2rem;
     border-radius: var(--borda-radius);
     box-shadow: var(--sombra);
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
     text-align: center;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--cor-texto);
 }
 
@@ -53,31 +51,31 @@ header {
 }
 
 header h1 {
-    font-size: 2.2rem;
-    color: var(--cor-texto);
+    font-size: 2.5rem;
+    color: var(--cor-primaria);
     margin-bottom: 10px;
     font-weight: 600;
 }
 
 header p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--cor-texto-secundario);
 }
 
 /* Estilo para as seções do formulário */
 .form-section {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: var(--borda-radius);
     padding: 25px;
     margin-bottom: 25px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--sombra);
 }
 
 /* Títulos das seções */
 .form-section h2 {
-    font-size: 1.4rem;
-    color: var(--cor-texto);
+    font-size: 1.6rem;
+    color: var(--cor-primaria);
     margin-bottom: 20px;
     font-weight: 600;
     display: flex;
@@ -86,7 +84,7 @@ header p {
 }
 
 .form-section h2 i {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 /* Espaçamento entre os grupos de formulário */
@@ -98,19 +96,19 @@ header p {
 input {
     width: 100%;
     padding: 12px;
-    border: none;
-    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--borda-radius);
     font-size: 1rem;
     background: var(--cor-fundo-input);
     color: var(--cor-texto);
     outline: none;
-    transition: background 0.3s, box-shadow 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
     margin-top: 8px;
 }
 
 input:focus {
-    background: var(--cor-fundo-input-foco);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 8px rgba(44, 101, 200, 0.3);
 }
 
 input:valid {
@@ -146,7 +144,229 @@ input:invalid {
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
     margin-top: 15px;
-    color: var(--cor-texto);
+    color: #ffffff;
     display: flex;
     align-items: center;
-    justify-cont
+    justify-content: center;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.calcular {
+    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+    box-shadow: 0px 4px 6px rgba(44, 101, 200, 0.3);
+}
+
+.calcular:hover {
+    background: linear-gradient(90deg, var(--cor-secundaria), var(--cor-primaria));
+}
+
+.copiar {
+    background: linear-gradient(90deg, var(--cor-sucesso), #00b248);
+    box-shadow: 0px 4px 6px rgba(0, 230, 118, 0.3);
+}
+
+.copiar:hover {
+    background: linear-gradient(90deg, #00b248, var(--cor-sucesso));
+}
+
+.whatsapp {
+    background: linear-gradient(90deg, var(--cor-whatsapp), #1b9448);
+    box-shadow: 0px 4px 6px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp:hover {
+    background: linear-gradient(90deg, #1b9448, var(--cor-whatsapp));
+}
+
+.bonificacao {
+    background: linear-gradient(90deg, var(--cor-bonificacao), #f57c00);
+    box-shadow: 0px 4px 6px rgba(255, 152, 0, 0.3);
+}
+
+.bonificacao:hover {
+    background: linear-gradient(90deg, #f57c00, var(--cor-bonificacao));
+}
+
+.limpar {
+    background: linear-gradient(90deg, var(--cor-limpar), #d32f2f);
+    box-shadow: 0px 4px 6px rgba(255, 82, 82, 0.3);
+}
+
+.limpar:hover {
+    background: linear-gradient(90deg, #d32f2f, var(--cor-limpar));
+}
+
+/* Resultado */
+.resultado {
+    margin-top: 25px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: var(--borda-radius);
+    white-space: pre-wrap;
+    font-family: monospace;
+    text-align: left;
+    font-size: 1rem;
+    color: var(--cor-texto);
+    line-height: 1.5;
+    border: 1px solid #e2e8f0;
+}
+
+.resultado strong {
+    color: var(--cor-primaria);
+    font-weight: bold;
+}
+
+/* Spinner de carregamento */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.spinner {
+    border: 4px solid rgba(44, 101, 200, 0.3);
+    border-top: 4px solid var(--cor-primaria);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .spinner {
+        animation: none;
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Layout Responsivo */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    legend {
+        font-size: 1.1rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    .resultado {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    legend {
+        font-size: 1rem;
+    }
+
+    label {
+        font-size: 0.85rem;
+    }
+
+    input {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+        padding: 10px;
+    }
+
+    .resultado {
+        font-size: 0.85rem;
+    }
+
+    /* Botões de Copiar e Compartilhar */
+    .botoes-resultado {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .botoes-resultado .btn {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        width: auto;
+    }
+
+    .botoes-resultado .copiar {
+        background: linear-gradient(90deg, var(--cor-sucesso), #00b248);
+    }
+
+    .botoes-resultado .whatsapp {
+        background: linear-gradient(90deg, var(--cor-whatsapp), #1b9448);
+    }
+}
+
+/* Estilo das sugestões */
+.sugestoes {
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: 100%;
+    box-shadow: var(--sombra);
+    display: none;
+    margin-top: 5px;
+    border-radius: var(--borda-radius);
+}
+
+.sugestao-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--cor-texto);
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.sugestao-item:last-child {
+    border-bottom: none;
+}
+
+.sugestao-item:hover {
+    background-color: #f5f7fa;
+}
