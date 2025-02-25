@@ -75,7 +75,9 @@ function validarCampos() {
     const precoSistema = parseFloat(document.getElementById('precoSistema').value);
     const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
     const codProdutoBonificado = document.getElementById('codProdutoBonificado').value.trim();
+    const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
     const supervisor = document.getElementById('supervisor').value.trim();
+    const consultor = document.getElementById('consultor').value.trim();
 
     if (!codRazaoCliente) {
         document.getElementById('codRazaoClienteHelp').textContent = "Código/Razão do Cliente é obrigatório.";
@@ -112,8 +114,18 @@ function validarCampos() {
         return false;
     }
 
+    if (!valorProdutoBonificado || valorProdutoBonificado <= 0) {
+        document.getElementById('valorProdutoBonificadoHelp').textContent = "Valor do Produto Bonificado é obrigatório.";
+        return false;
+    }
+
     if (!supervisor) {
         document.getElementById('supervisorHelp').textContent = "Supervisor é obrigatório.";
+        return false;
+    }
+
+    if (!consultor) {
+        document.getElementById('consultorHelp').textContent = "Consultor é obrigatório.";
         return false;
     }
 
@@ -130,7 +142,9 @@ function coletarDadosFormulario() {
         precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
         precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value) || 0,
         codProdutoBonificado: document.getElementById('codProdutoBonificado').value.trim(),
-        supervisor: document.getElementById('supervisor').value.trim()
+        valorProdutoBonificado: parseFloat(document.getElementById('valorProdutoBonificado').value) || 0,
+        supervisor: document.getElementById('supervisor').value.trim(),
+        consultor: document.getElementById('consultor').value.trim()
     };
 }
 
@@ -138,26 +152,30 @@ function coletarDadosFormulario() {
 function calcularResultado(dados) {
     console.log("Dados recebidos para cálculo:", dados);
 
+    // Cálculo do valor do pedido
     const valorPedido = dados.quantidade * dados.precoSistema;
-    const investimentoPercentual = ((dados.precoSistema - dados.precoSolicitado) / dados.precoSistema) * 100;
 
-    // A quantidade bonificada é a porcentagem de desconto aplicada à quantidade do produto
-    const qtdBonificada = Math.round((dados.quantidade * (investimentoPercentual / 100)));
+    // Cálculo da quantidade bonificada
+    const quantidadeBonificada = ((valorPedido - (valorPedido * dados.quantidade)) / dados.precoSistema);
+    const quantidadeBonificadaFormatada = Math.abs(quantidadeBonificada).toFixed(2); // Evita valores negativos
 
-    const valorBonificacao = (qtdBonificada * dados.precoSistema).toFixed(2);
+    // Cálculo do valor da bonificação
+    const valorBonificacao = (quantidadeBonificadaFormatada * dados.valorProdutoBonificado).toFixed(2);
 
+    // Montagem do resultado
     const resultado = `*Solicitação de ação:*\n\n` +
         `Código/Produto: ${dados.codProduto}\n` +
         `Quantidade do Produto: ${dados.quantidade}\n` +
         `Preço do Palm: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
         `*Ação*\n\n` +
         `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
-        `Investimento: ${investimentoPercentual.toFixed(0)} %\n` +
-        `Quantidade bonificada: ${qtdBonificada} und\n` +
+        `Quantidade bonificada: ${quantidadeBonificadaFormatada} und\n` +
         `Valor Bonificação: R$ ${valorBonificacao}\n` +
         `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
         `Código/Produto Bonificado: ${dados.codProdutoBonificado}\n\n` +
-        `Código/Razão do Cliente: ${dados.codRazaoCliente}`;
+        `Código/Razão do Cliente: ${dados.codRazaoCliente}\n` +
+        `Supervisor: ${dados.supervisor}\n` +
+        `Consultor: ${dados.consultor}`;
 
     console.log("Resultado calculado:", resultado);
     return resultado;
@@ -177,6 +195,7 @@ function coletarDadosBonificacao() {
     return {
         codRazaoCliente: document.getElementById('codRazaoCliente').value.trim(),
         supervisor: document.getElementById('supervisor').value.trim(),
+        consultor: document.getElementById('consultor').value.trim(),
         codPedido: document.getElementById('codPedido').value.trim(),
         codProduto: document.getElementById('codProduto').value.trim(),
         quantidade: document.getElementById('quantidadeAcao').value.trim(),
@@ -192,7 +211,7 @@ function gerarBonificacao(dados) {
 
     return `*Bonificação*\n\n` +
         `*Código/Razão do Cliente:* ${dados.codRazaoCliente}\n` +
-        `*Consultor:* 1473647 - Roberval Santiago\n` +
+        `*Consultor:* ${dados.consultor}\n` +
         `*Cód do pedido:* ${dados.codPedido}\n` +
         `*Código/Produto Bonificado:* ${document.getElementById('codProdutoBonificado').value.trim()}\n` +
         `*Quantidade:* ${quantidadeBonificada} UND\n` + // Usa a quantidade bonificada
@@ -266,6 +285,7 @@ document.getElementById('limpar').addEventListener('click', function () {
     document.getElementById('botoesResultado').style.display = 'none';
     document.getElementById('botoesBonificacao').style.display = 'none';
 });
+
 // Função para alternar entre modo escuro e claro
 function toggleTheme() {
     const body = document.body;
