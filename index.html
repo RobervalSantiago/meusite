@@ -50,16 +50,16 @@
                     <input type="number" id="quantidadeAcao" required aria-describedby="quantidadeAcaoHelp" min="1">
                     <small id="quantidadeAcaoHelp" class="error-message" role="alert"></small>
                 </div>
-            </section>
-
-            <!-- Seção: Preços -->
-            <section class="form-section">
-                <h2><i class="fas fa-dollar-sign" aria-label="Ícone de dólar"></i> Preços</h2>
                 <div class="form-group">
                     <label for="precoSistema">Preço do Palm:</label>
                     <input type="number" id="precoSistema" step="0.01" required aria-describedby="precoSistemaHelp" min="0">
                     <small id="precoSistemaHelp" class="error-message" role="alert"></small>
                 </div>
+            </section>
+
+            <!-- Seção: Preços -->
+            <section class="form-section">
+                <h2><i class="fas fa-dollar-sign" aria-label="Ícone de dólar"></i> Preços</h2>
                 <div class="form-group">
                     <label for="precoSolicitado">Preço Solicitado:</label>
                     <input type="number" id="precoSolicitado" step="0.01" required aria-describedby="precoSolicitadoHelp" min="0">
@@ -76,15 +76,25 @@
                     <div id="sugestoesBonificado" class="sugestoes"></div>
                     <small id="codProdutoBonificadoHelp" class="error-message" role="alert"></small>
                 </div>
+                <div class="form-group">
+                    <label for="valorProdutoBonificado">Valor do Produto Bonificado:</label>
+                    <input type="number" id="valorProdutoBonificado" step="0.01" required aria-describedby="valorProdutoBonificadoHelp" min="0">
+                    <small id="valorProdutoBonificadoHelp" class="error-message" role="alert"></small>
+                </div>
             </section>
 
-            <!-- Seção: Supervisor -->
+            <!-- Seção: Supervisor e Consultor -->
             <section class="form-section">
-                <h2><i class="fas fa-user-tie" aria-label="Ícone de supervisor"></i> Supervisor</h2>
+                <h2><i class="fas fa-user-tie" aria-label="Ícone de supervisor"></i> Supervisor e Consultor</h2>
                 <div class="form-group">
                     <label for="supervisor">Supervisor:</label>
                     <input type="text" id="supervisor" required aria-describedby="supervisorHelp">
                     <small id="supervisorHelp" class="error-message" role="alert"></small>
+                </div>
+                <div class="form-group">
+                    <label for="consultor">Consultor:</label>
+                    <input type="text" id="consultor" required aria-describedby="consultorHelp">
+                    <small id="consultorHelp" class="error-message" role="alert"></small>
                 </div>
             </section>
 
