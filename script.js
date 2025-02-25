@@ -266,3 +266,27 @@ document.getElementById('limpar').addEventListener('click', function () {
     document.getElementById('botoesResultado').style.display = 'none';
     document.getElementById('botoesBonificacao').style.display = 'none';
 });
+// Função para alternar entre modo escuro e claro
+function toggleTheme() {
+    const body = document.body;
+    const currentTheme = body.getAttribute('data-theme');
+    if (currentTheme === 'dark') {
+        body.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Verificar o tema salvo no localStorage
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.setAttribute('data-theme', savedTheme);
+}
+
+// Adicionar evento de clique ao botão de alternância
+document.addEventListener('DOMContentLoaded', function () {
+    loadTheme();
+    document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
+});
