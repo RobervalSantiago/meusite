@@ -1,18 +1,27 @@
 :root {
-    --cor-primaria: #2c65c8; /* Azul Hostinger */
-    --cor-secundaria: #1a4a8a; /* Azul mais escuro */
+    --cor-primaria: #ff6f61; /* Cor vibrante (laranja) */
+    --cor-secundaria: #ff3b2f; /* Cor mais escura */
     --cor-sucesso: #00c853; /* Verde */
     --cor-erro: #ff1744; /* Vermelho */
     --cor-whatsapp: #25d366; /* Verde do WhatsApp */
     --cor-bonificacao: #ff9100; /* Laranja */
     --cor-limpar: #ff5252; /* Vermelho claro */
-    --cor-fundo: #f5f7fa; /* Fundo claro */
+    --cor-fundo: #ffffff; /* Fundo claro */
     --cor-texto: #2d3748; /* Texto escuro */
     --cor-texto-secundario: #4a5568; /* Texto secundário */
-    --cor-fundo-input: #ffffff; /* Fundo dos inputs */
+    --cor-fundo-input: #f5f7fa; /* Fundo dos inputs */
     --cor-fundo-input-foco: #edf2f7; /* Fundo dos inputs ao focar */
     --sombra: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     --borda-radius: 8px; /* Bordas arredondadas */
+}
+
+/* Modo Escuro */
+[data-theme="dark"] {
+    --cor-fundo: #1a1a1a; /* Fundo escuro */
+    --cor-texto: #ffffff; /* Texto claro */
+    --cor-texto-secundario: #a0aec0; /* Texto secundário claro */
+    --cor-fundo-input: #2d3748; /* Fundo dos inputs escuro */
+    --cor-fundo-input-foco: #4a5568; /* Fundo dos inputs ao focar */
 }
 
 /* Reset e Fonte */
@@ -23,7 +32,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Fundo claro */
+/* Fundo */
 body {
     background: var(--cor-fundo);
     display: flex;
@@ -31,11 +40,13 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    color: var(--cor-texto);
+    transition: background 0.3s, color 0.3s;
 }
 
 /* Container Principal */
 .container {
-    background: #ffffff;
+    background: var(--cor-fundo);
     padding: 2rem;
     border-radius: var(--borda-radius);
     box-shadow: var(--sombra);
@@ -62,9 +73,36 @@ header p {
     color: var(--cor-texto-secundario);
 }
 
+/* Botão de Alternância de Modo */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--cor-primaria);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--sombra);
+    transition: background 0.3s;
+}
+
+.theme-toggle:hover {
+    background: var(--cor-secundaria);
+}
+
+.theme-toggle i {
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
 /* Estilo para as seções do formulário */
 .form-section {
-    background: #ffffff;
+    background: var(--cor-fundo-input);
     border: 1px solid #e2e8f0;
     border-radius: var(--borda-radius);
     padding: 25px;
@@ -108,7 +146,7 @@ input {
 
 input:focus {
     border-color: var(--cor-primaria);
-    box-shadow: 0 0 8px rgba(44, 101, 200, 0.3);
+    box-shadow: 0 0 8px rgba(255, 111, 97, 0.3);
 }
 
 input:valid {
@@ -160,7 +198,7 @@ input:invalid {
 
 .calcular {
     background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
-    box-shadow: 0px 4px 6px rgba(44, 101, 200, 0.3);
+    box-shadow: 0px 4px 6px rgba(255, 111, 97, 0.3);
 }
 
 .calcular:hover {
@@ -207,7 +245,7 @@ input:invalid {
 .resultado {
     margin-top: 25px;
     padding: 20px;
-    background: #ffffff;
+    background: var(--cor-fundo-input);
     border-radius: var(--borda-radius);
     white-space: pre-wrap;
     font-family: monospace;
@@ -232,7 +270,7 @@ input:invalid {
 }
 
 .spinner {
-    border: 4px solid rgba(44, 101, 200, 0.3);
+    border: 4px solid rgba(255, 111, 97, 0.3);
     border-top: 4px solid var(--cor-primaria);
     border-radius: 50%;
     width: 40px;
@@ -342,7 +380,7 @@ input:invalid {
 /* Estilo das sugestões */
 .sugestoes {
     position: absolute;
-    background: #ffffff;
+    background: var(--cor-fundo-input);
     border: 1px solid #e2e8f0;
     max-height: 150px;
     overflow-y: auto;
@@ -368,5 +406,5 @@ input:invalid {
 }
 
 .sugestao-item:hover {
-    background-color: #f5f7fa;
+    background-color: var(--cor-fundo-input-foco);
 }
