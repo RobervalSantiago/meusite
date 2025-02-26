@@ -76,8 +76,6 @@ function validarCampos() {
     const codProdutoBonificado = document.getElementById('codProdutoBonificado').value.trim();
     const quantidadeProdutoBonificado = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
     const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
-    const supervisor = document.getElementById('supervisor').value.trim();
-    const consultor = document.getElementById('consultor').value.trim();
 
     // Validação dos campos obrigatórios
     if (!codRazaoCliente) {
@@ -110,16 +108,6 @@ function validarCampos() {
         return false;
     }
 
-    if (!supervisor) {
-        document.getElementById('supervisorHelp').textContent = "Supervisor é obrigatório.";
-        return false;
-    }
-
-    if (!consultor) {
-        document.getElementById('consultorHelp').textContent = "Consultor é obrigatório.";
-        return false;
-    }
-
     console.log("Todos os campos estão válidos.");
     return true;
 }
@@ -133,9 +121,7 @@ function coletarDadosFormulario() {
         precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
         codProdutoBonificado: document.getElementById('codProdutoBonificado').value.trim(),
         quantidadeProdutoBonificado: parseFloat(document.getElementById('quantidadeProdutoBonificado').value) || 0,
-        valorProdutoBonificado: parseFloat(document.getElementById('valorProdutoBonificado').value) || 0,
-        supervisor: document.getElementById('supervisor').value.trim(),
-        consultor: document.getElementById('consultor').value.trim()
+        valorProdutoBonificado: parseFloat(document.getElementById('valorProdutoBonificado').value) || 0
     };
 }
 
@@ -161,18 +147,17 @@ function calcularResultado(dados) {
     // Montagem do resultado
     const resultado = `*Solicitação de ação:*\n\n` +
         `Código/Produto: ${dados.codProduto}\n` +
-        `Quantidade do Produto: ${dados.quantidade}\n` +
-        `Preço do Palm: R$ ${formatarMoeda(dados.precoSistema)}\n\n` +
+        `Quantidade: ${dados.quantidade}\n` +
+        `Valor pedido: R$ ${formatarMoeda(valorPedido)}\n` +
+        `Preço Sistema: R$ ${formatarMoeda(dados.precoSistema)}\n\n` +
         `*Ação*\n\n` +
         `Código/Produto Bonificado: ${dados.codProdutoBonificado}\n` +
         `Preço solicitado: R$ ${formatarMoeda(precoSolicitado)}\n` +
         `Investimento %: ${investimentoPercentual.toFixed(2).replace('.', ',')}%\n` +
         `Quantidade bonificada: ${dados.quantidadeProdutoBonificado} Und\n` +
         `Valor Bonificação: R$ ${formatarMoeda(valorBonificacao)}\n` +
-        `Valor pedido: R$ ${formatarMoeda(valorPedido)}\n\n` +
-        `Código/Razão do Cliente: ${dados.codRazaoCliente}\n` +
-        `Supervisor: ${dados.supervisor}\n` +
-        `Consultor: ${dados.consultor}`;
+        `Preço Final: R$ ${formatarMoeda(precoSolicitado)}\n\n` +
+        `Código/Razão do Cliente: ${dados.codRazaoCliente}`;
 
     console.log("Resultado calculado:", resultado);
     return resultado;
@@ -191,28 +176,16 @@ function exibirResultado(resultado) {
 function coletarDadosBonificacao() {
     return {
         codRazaoCliente: document.getElementById('codRazaoCliente').value.trim(),
-        supervisor: document.getElementById('supervisor').value.trim(),
-        consultor: document.getElementById('consultor').value.trim(),
         codPedido: document.getElementById('codPedido').value.trim(),
-        codProduto: document.getElementById('codProduto').value.trim(),
-        quantidade: document.getElementById('quantidadeAcao').value.trim(),
-        valorBonificacao: document.getElementById('resultadoAcao').textContent.match(/Valor Bonificação: R\$\s*([\d,.]+)/)[1],
         observacao: document.getElementById('observacao').value.trim()
     };
 }
 
 // Função para gerar a bonificação
 function gerarBonificacao(dados) {
-    // Extrai a quantidade bonificada do resultado da ação
-    const quantidadeBonificada = document.getElementById('resultadoAcao').textContent.match(/Quantidade bonificada:\s*(\d+)/)[1];
-
     return `*Bonificação*\n\n` +
         `*Código/Razão do Cliente:* ${dados.codRazaoCliente}\n` +
-        `*Consultor:* ${dados.consultor}\n` +
         `*Código do Pedido:* ${dados.codPedido}\n` +
-        `*Código/Produto Bonificado:* ${document.getElementById('codProdutoBonificado').value.trim()}\n` +
-        `*Quantidade Bonificada:* ${quantidadeBonificada} UND\n` +
-        `*Valor da Bonificação:* R$ ${dados.valorBonificacao}\n` +
         `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
 }
 
