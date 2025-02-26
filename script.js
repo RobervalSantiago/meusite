@@ -79,6 +79,7 @@ function validarCampos() {
     const supervisor = document.getElementById('supervisor').value.trim();
     const consultor = document.getElementById('consultor').value.trim();
 
+    // Validação dos campos obrigatórios
     if (!codRazaoCliente) {
         document.getElementById('codRazaoClienteHelp').textContent = "Código/Razão do Cliente é obrigatório.";
         return false;
@@ -99,23 +100,8 @@ function validarCampos() {
         return false;
     }
 
-    if (!precoSolicitado || precoSolicitado <= 0) {
-        document.getElementById('precoSolicitadoHelp').textContent = "Preço Solicitado é obrigatório.";
-        return false;
-    }
-
-    if (precoSolicitado >= precoSistema) {
-        document.getElementById('precoSolicitadoHelp').textContent = "O preço solicitado deve ser menor que o preço do sistema.";
-        return false;
-    }
-
     if (!codProdutoBonificado) {
         document.getElementById('codProdutoBonificadoHelp').textContent = "Código/Produto Bonificado é obrigatório.";
-        return false;
-    }
-
-    if (!valorProdutoBonificado || valorProdutoBonificado <= 0) {
-        document.getElementById('valorProdutoBonificadoHelp').textContent = "Valor do Produto Bonificado é obrigatório.";
         return false;
     }
 
@@ -126,6 +112,22 @@ function validarCampos() {
 
     if (!consultor) {
         document.getElementById('consultorHelp').textContent = "Consultor é obrigatório.";
+        return false;
+    }
+
+    // Validação dos campos "precoSolicitado" e "valorProdutoBonificado"
+    if (!precoSolicitado && !valorProdutoBonificado) {
+        document.getElementById('precoSolicitadoHelp').textContent = "Preço Solicitado ou Valor do Produto Bonificado é obrigatório.";
+        document.getElementById('valorProdutoBonificadoHelp').textContent = "Preço Solicitado ou Valor do Produto Bonificado é obrigatório.";
+        return false;
+    } else {
+        document.getElementById('precoSolicitadoHelp').textContent = "";
+        document.getElementById('valorProdutoBonificadoHelp').textContent = "";
+    }
+
+    // Validação adicional para garantir que o preço solicitado seja menor que o preço do sistema
+    if (precoSolicitado && precoSolicitado >= precoSistema) {
+        document.getElementById('precoSolicitadoHelp').textContent = "O preço solicitado deve ser menor que o preço do sistema.";
         return false;
     }
 
@@ -156,7 +158,12 @@ function calcularResultado(dados) {
     const valorPedido = dados.quantidade * dados.precoSistema;
 
     // Cálculo da quantidade bonificada
-    const quantidadeBonificada = ((valorPedido - (valorPedido * dados.quantidade)) / dados.precoSistema);
+    let quantidadeBonificada;
+    if (dados.precoSolicitado) {
+        quantidadeBonificada = ((valorPedido - (valorPedido * dados.quantidade)) / dados.precoSistema;
+    } else {
+        quantidadeBonificada = dados.quantidade; // Se o valor do produto bonificado for usado
+    }
     const quantidadeBonificadaFormatada = Math.abs(quantidadeBonificada).toFixed(2); // Evita valores negativos
 
     // Cálculo do valor da bonificação
