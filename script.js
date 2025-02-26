@@ -74,6 +74,7 @@ function validarCampos() {
     const quantidade = document.getElementById('quantidadeAcao').value.trim();
     const precoSistema = parseFloat(document.getElementById('precoSistema').value);
     const codProdutoBonificado = document.getElementById('codProdutoBonificado').value.trim();
+    const quantidadeProdutoBonificado = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
     const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
     const supervisor = document.getElementById('supervisor').value.trim();
     const consultor = document.getElementById('consultor').value.trim();
@@ -104,6 +105,11 @@ function validarCampos() {
         return false;
     }
 
+    if (!quantidadeProdutoBonificado || quantidadeProdutoBonificado <= 0) {
+        document.getElementById('quantidadeProdutoBonificadoHelp').textContent = "Quantidade do Produto Bonificado é obrigatória.";
+        return false;
+    }
+
     if (!supervisor) {
         document.getElementById('supervisorHelp').textContent = "Supervisor é obrigatório.";
         return false;
@@ -126,6 +132,7 @@ function coletarDadosFormulario() {
         quantidade: parseFloat(document.getElementById('quantidadeAcao').value) || 0,
         precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
         codProdutoBonificado: document.getElementById('codProdutoBonificado').value.trim(),
+        quantidadeProdutoBonificado: parseFloat(document.getElementById('quantidadeProdutoBonificado').value) || 0,
         valorProdutoBonificado: parseFloat(document.getElementById('valorProdutoBonificado').value) || 0,
         supervisor: document.getElementById('supervisor').value.trim(),
         consultor: document.getElementById('consultor').value.trim()
@@ -143,11 +150,13 @@ function calcularResultado(dados) {
     const precoSolicitado = valorPedido / dados.quantidade;
 
     // Cálculo da quantidade bonificada
-    const quantidadeBonificada = (valorPedido - (dados.quantidade * precoSolicitado)) / dados.precoSistema;
-    const quantidadeBonificadaFormatada = Math.abs(quantidadeBonificada).toFixed(2); // Evita valores negativos
+    const quantidadeBonificada = dados.quantidadeProdutoBonificado;
 
     // Cálculo do valor da bonificação
-    const valorBonificacao = (quantidadeBonificadaFormatada * dados.valorProdutoBonificado).toFixed(2);
+    const valorBonificacao = (dados.valorProdutoBonificado * dados.quantidadeProdutoBonificado).toFixed(2);
+
+    // Cálculo do investimento %
+    const investimentoPercentual = ((dados.valorProdutoBonificado * dados.quantidadeProdutoBonificado) / valorPedido) * 100;
 
     // Montagem do resultado
     const resultado = `*Solicitação de ação:*\n\n` +
@@ -156,8 +165,9 @@ function calcularResultado(dados) {
         `Preço do Palm: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
         `*Ação*\n\n` +
         `Preço solicitado: R$ ${precoSolicitado.toFixed(2)}\n` +
-        `Quantidade bonificada: ${quantidadeBonificadaFormatada} und\n` +
+        `Quantidade bonificada: ${quantidadeBonificada} und\n` +
         `Valor Bonificação: R$ ${valorBonificacao}\n` +
+        `Investimento %: ${investimentoPercentual.toFixed(2)}%\n` +
         `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
         `Código/Produto Bonificado: ${dados.codProdutoBonificado}\n\n` +
         `Código/Razão do Cliente: ${dados.codRazaoCliente}\n` +
