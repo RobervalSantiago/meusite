@@ -146,30 +146,30 @@ function calcularResultado(dados) {
     // Cálculo do valor do pedido
     const valorPedido = dados.quantidade * dados.precoSistema;
 
-    // Cálculo do preço solicitado
-    const precoSolicitado = valorPedido / dados.quantidade;
-
-    // Cálculo da quantidade bonificada
-    const quantidadeBonificada = dados.quantidadeProdutoBonificado;
-
     // Cálculo do valor da bonificação
-    const valorBonificacao = (dados.valorProdutoBonificado * dados.quantidadeProdutoBonificado).toFixed(2);
+    const valorBonificacao = dados.valorProdutoBonificado * dados.quantidadeProdutoBonificado;
+
+    // Cálculo do preço solicitado
+    const precoSolicitado = (valorPedido - valorBonificacao) / dados.quantidade;
 
     // Cálculo do investimento %
-    const investimentoPercentual = ((dados.valorProdutoBonificado * dados.quantidadeProdutoBonificado) / valorPedido) * 100;
+    const investimentoPercentual = (valorBonificacao / valorPedido) * 100;
+
+    // Formatação BR (R$ 9,00 em vez de 9.00)
+    const formatarMoeda = (valor) => valor.toFixed(2).replace('.', ',');
 
     // Montagem do resultado
     const resultado = `*Solicitação de ação:*\n\n` +
         `Código/Produto: ${dados.codProduto}\n` +
         `Quantidade do Produto: ${dados.quantidade}\n` +
-        `Preço do Palm: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
+        `Preço do Palm: R$ ${formatarMoeda(dados.precoSistema)}\n\n` +
         `*Ação*\n\n` +
-        `Preço solicitado: R$ ${precoSolicitado.toFixed(2)}\n` +
-        `Quantidade bonificada: ${quantidadeBonificada} und\n` +
-        `Valor Bonificação: R$ ${valorBonificacao}\n` +
-        `Investimento %: ${investimentoPercentual.toFixed(2)}%\n` +
-        `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
-        `Código/Produto Bonificado: ${dados.codProdutoBonificado}\n\n` +
+        `Código/Produto Bonificado: ${dados.codProdutoBonificado}\n` +
+        `Preço solicitado: R$ ${formatarMoeda(precoSolicitado)}\n` +
+        `Investimento %: ${investimentoPercentual.toFixed(2).replace('.', ',')}%\n` +
+        `Quantidade bonificada: ${dados.quantidadeProdutoBonificado} Und\n` +
+        `Valor Bonificação: R$ ${formatarMoeda(valorBonificacao)}\n` +
+        `Valor pedido: R$ ${formatarMoeda(valorPedido)}\n\n` +
         `Código/Razão do Cliente: ${dados.codRazaoCliente}\n` +
         `Supervisor: ${dados.supervisor}\n` +
         `Consultor: ${dados.consultor}`;
