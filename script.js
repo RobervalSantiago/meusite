@@ -1,3 +1,13 @@
+// Inicializa o localStorage com chaves vazias, se necessário
+function inicializarLocalStorage() {
+    const chaves = ['codRazaoCliente', 'codProduto', 'codProdutoBonificado'];
+    chaves.forEach(chave => {
+        if (!localStorage.getItem(chave)) {
+            localStorage.setItem(chave, JSON.stringify([]));
+        }
+    });
+}
+
 // Função para salvar dados no localStorage
 function salvarDadosLocalStorage(chave, valor) {
     let dados = JSON.parse(localStorage.getItem(chave)) || [];
@@ -11,6 +21,8 @@ function salvarDadosLocalStorage(chave, valor) {
 function carregarSugestoes(chave, sugestoesId, valorDigitado) {
     let dados = JSON.parse(localStorage.getItem(chave)) || [];
     let sugestoesDiv = document.getElementById(sugestoesId);
+    if (!sugestoesDiv) return; // Verifica se o elemento existe
+
     sugestoesDiv.innerHTML = ""; // Limpa as sugestões anteriores
 
     // Filtra as sugestões com base no valor digitado
@@ -33,49 +45,15 @@ function carregarSugestoes(chave, sugestoesId, valorDigitado) {
     }
 }
 
-// Carregar sugestões ao carregar a página
-window.addEventListener("load", function () {
-    // Inicialmente, as sugestões estão ocultas
-    document.getElementById("sugestoesCliente").style.display = "none";
-    document.getElementById("sugestoesProduto").style.display = "none";
-    document.getElementById("sugestoesBonificado").style.display = "none";
-});
-
-// Salvar dados ao preencher os campos
-document.getElementById("codRazaoCliente").addEventListener("input", function () {
-    carregarSugestoes("codRazaoCliente", "sugestoesCliente", this.value);
-});
-
-document.getElementById("codProduto").addEventListener("input", function () {
-    carregarSugestoes("codProduto", "sugestoesProduto", this.value);
-});
-
-document.getElementById("codProdutoBonificado").addEventListener("input", function () {
-    carregarSugestoes("codProdutoBonificado", "sugestoesBonificado", this.value);
-});
-
-// Salvar dados ao sair do campo
-document.getElementById("codRazaoCliente").addEventListener("change", function () {
-    salvarDadosLocalStorage("codRazaoCliente", this.value);
-});
-
-document.getElementById("codProduto").addEventListener("change", function () {
-    salvarDadosLocalStorage("codProduto", this.value);
-});
-
-document.getElementById("codProdutoBonificado").addEventListener("change", function () {
-    salvarDadosLocalStorage("codProdutoBonificado", this.value);
-});
-
 // Função para validar campos
 function validarCampos() {
     const codRazaoCliente = document.getElementById('codRazaoCliente').value.trim();
     const codProduto = document.getElementById('codProduto').value.trim();
     const quantidade = document.getElementById('quantidadeAcao').value.trim();
-    const precoSistema = parseFloat(document.getElementById('precoSistema').value);
+    const precoSistema = document.getElementById('precoSistema').value.trim();
     const codProdutoBonificado = document.getElementById('codProdutoBonificado').value.trim();
-    const quantidadeProdutoBonificado = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
-    const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+    const quantidadeProdutoBonificado = document.getElementById('quantidadeProdutoBonificado').value.trim();
+    const valorProdutoBonificado = document.getElementById('valorProdutoBonificado').value.trim();
 
     // Validação dos campos obrigatórios
     if (!codRazaoCliente) {
@@ -88,13 +66,13 @@ function validarCampos() {
         return false;
     }
 
-    if (!quantidade || quantidade <= 0) {
-        document.getElementById('quantidadeAcaoHelp').textContent = "Quantidade do Produto é obrigatória.";
+    if (!quantidade || isNaN(quantidade) || quantidade <= 0) {
+        document.getElementById('quantidadeAcaoHelp').textContent = "Quantidade do Produto é obrigatória e deve ser um número positivo.";
         return false;
     }
 
-    if (!precoSistema || precoSistema <= 0) {
-        document.getElementById('precoSistemaHelp').textContent = "Preço do Palm é obrigatório.";
+    if (!precoSistema || isNaN(precoSistema) || precoSistema <= 0) {
+        document.getElementById('precoSistemaHelp').textContent = "Preço do Palm é obrigatório e deve ser um número positivo.";
         return false;
     }
 
@@ -103,8 +81,8 @@ function validarCampos() {
         return false;
     }
 
-    if (!quantidadeProdutoBonificado || quantidadeProdutoBonificado <= 0) {
-        document.getElementById('quantidadeProdutoBonificadoHelp').textContent = "Quantidade do Produto Bonificado é obrigatória.";
+    if (!quantidadeProdutoBonificado || isNaN(quantidadeProdutoBonificado) || quantidadeProdutoBonificado <= 0) {
+        document.getElementById('quantidadeProdutoBonificadoHelp').textContent = "Quantidade do Produto Bonificado é obrigatória e deve ser um número positivo.";
         return false;
     }
 
@@ -129,11 +107,23 @@ function coletarDadosFormulario() {
 function calcularResultado(dados) {
     console.log("Dados recebidos para cálculo:", dados);
 
+    // Verifica se os valores são válidos
+    if (isNaN(dados.quantidade) || isNaN(dados.precoSistema) || isNaN(dados.quantidadeProdutoBonificado) || isNaN(dados.valorProdutoBonificado)) {
+        console.error("Valores inválidos para cálculo.");
+        return "Erro: Valores inválidos para cálculo.";
+    }
+
     // Cálculo do valor do pedido
     const valorPedido = dados.quantidade * dados.precoSistema;
 
     // Cálculo do valor da bonificação
     const valorBonificacao = dados.valorProdutoBonificado * dados.quantidadeProdutoBonificado;
+
+    // Verifica se a quantidade é maior que zero para evitar divisão por zero
+    if (dados.quantidade <= 0) {
+        console.error("Quantidade do produto deve ser maior que zero.");
+        return "Erro: Quantidade do produto deve ser maior que zero.";
+    }
 
     // Cálculo do preço solicitado
     const precoSolicitado = (valorPedido - valorBonificacao) / dados.quantidade;
@@ -165,11 +155,13 @@ function calcularResultado(dados) {
 
 // Função para exibir o resultado
 function exibirResultado(resultado) {
-    console.log("Exibindo resultado:", resultado);
-    // Mostra a seção de resultados da ação
-    document.getElementById('resultadoAcaoSection').style.display = 'block';
-    // Preenche o conteúdo do resultado
-    document.getElementById('resultadoAcao').textContent = resultado;
+    const resultadoAcaoElement = document.getElementById('resultadoAcao');
+    if (resultadoAcaoElement) {
+        resultadoAcaoElement.textContent = resultado;
+        document.getElementById('resultadoAcaoSection').style.display = 'block';
+    } else {
+        console.error("Elemento 'resultadoAcao' não encontrado no DOM.");
+    }
 }
 
 // Função para coletar dados da bonificação
@@ -281,6 +273,7 @@ function loadTheme() {
 
 // Adicionar evento de clique ao botão de alternância
 document.addEventListener('DOMContentLoaded', function () {
+    inicializarLocalStorage();
     loadTheme();
     document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
 });
