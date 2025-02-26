@@ -73,7 +73,7 @@ function validarCampos() {
     const codProduto = document.getElementById('codProduto').value.trim();
     const quantidade = document.getElementById('quantidadeAcao').value.trim();
     const precoSistema = parseFloat(document.getElementById('precoSistema').value);
-    const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
+    const investimentoPercentual = parseFloat(document.getElementById('investimentoPercentual').value);
     const codProdutoBonificado = document.getElementById('codProdutoBonificado').value.trim();
     const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
     const supervisor = document.getElementById('supervisor').value.trim();
@@ -100,6 +100,11 @@ function validarCampos() {
         return false;
     }
 
+    if (!investimentoPercentual || investimentoPercentual < 0 || investimentoPercentual > 100) {
+        document.getElementById('investimentoPercentualHelp').textContent = "Percentual de Investimento deve ser entre 0% e 100%.";
+        return false;
+    }
+
     if (!codProdutoBonificado) {
         document.getElementById('codProdutoBonificadoHelp').textContent = "Código/Produto Bonificado é obrigatório.";
         return false;
@@ -115,22 +120,6 @@ function validarCampos() {
         return false;
     }
 
-    // Validação dos campos "precoSolicitado" e "valorProdutoBonificado"
-    if (!precoSolicitado && !valorProdutoBonificado) {
-        document.getElementById('precoSolicitadoHelp').textContent = "Preço Solicitado ou Valor do Produto Bonificado é obrigatório.";
-        document.getElementById('valorProdutoBonificadoHelp').textContent = "Preço Solicitado ou Valor do Produto Bonificado é obrigatório.";
-        return false;
-    } else {
-        document.getElementById('precoSolicitadoHelp').textContent = "";
-        document.getElementById('valorProdutoBonificadoHelp').textContent = "";
-    }
-
-    // Validação adicional para garantir que o preço solicitado seja menor que o preço do sistema
-    if (precoSolicitado && precoSolicitado >= precoSistema) {
-        document.getElementById('precoSolicitadoHelp').textContent = "O preço solicitado deve ser menor que o preço do sistema.";
-        return false;
-    }
-
     console.log("Todos os campos estão válidos.");
     return true;
 }
@@ -142,7 +131,7 @@ function coletarDadosFormulario() {
         codProduto: document.getElementById('codProduto').value.trim(),
         quantidade: parseFloat(document.getElementById('quantidadeAcao').value) || 0,
         precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
-        precoSolicitado: parseFloat(document.getElementById('precoSolicitado').value) || 0,
+        investimentoPercentual: parseFloat(document.getElementById('investimentoPercentual').value) || 0,
         codProdutoBonificado: document.getElementById('codProdutoBonificado').value.trim(),
         valorProdutoBonificado: parseFloat(document.getElementById('valorProdutoBonificado').value) || 0,
         supervisor: document.getElementById('supervisor').value.trim(),
@@ -157,13 +146,12 @@ function calcularResultado(dados) {
     // Cálculo do valor do pedido
     const valorPedido = dados.quantidade * dados.precoSistema;
 
+    // Cálculo do preço solicitado
+    const investimentoValor = (dados.investimentoPercentual / 100) * valorPedido;
+    const precoSolicitado = (valorPedido - investimentoValor) / dados.quantidade;
+
     // Cálculo da quantidade bonificada
-    let quantidadeBonificada;
-    if (dados.precoSolicitado) {
-        quantidadeBonificada = (valorPedido - (dados.quantidade * dados.precoSolicitado)) / dados.precoSistema;
-    } else {
-        quantidadeBonificada = dados.quantidade; // Se o valor do produto bonificado for usado
-    }
+    const quantidadeBonificada = (valorPedido - (dados.quantidade * precoSolicitado)) / dados.precoSistema;
     const quantidadeBonificadaFormatada = Math.abs(quantidadeBonificada).toFixed(2); // Evita valores negativos
 
     // Cálculo do valor da bonificação
@@ -175,7 +163,7 @@ function calcularResultado(dados) {
         `Quantidade do Produto: ${dados.quantidade}\n` +
         `Preço do Palm: R$ ${dados.precoSistema.toFixed(2)}\n\n` +
         `*Ação*\n\n` +
-        `Preço solicitado: R$ ${dados.precoSolicitado.toFixed(2)}\n` +
+        `Preço solicitado: R$ ${precoSolicitado.toFixed(2)}\n` +
         `Quantidade bonificada: ${quantidadeBonificadaFormatada} und\n` +
         `Valor Bonificação: R$ ${valorBonificacao}\n` +
         `Valor pedido: R$ ${valorPedido.toFixed(2)}\n` +
