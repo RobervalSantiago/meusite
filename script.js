@@ -73,7 +73,6 @@ function validarCampos() {
     const codProduto = document.getElementById('codProduto').value.trim();
     const quantidade = document.getElementById('quantidadeAcao').value.trim();
     const precoSistema = parseFloat(document.getElementById('precoSistema').value);
-    const investimentoPercentual = parseFloat(document.getElementById('investimentoPercentual').value);
     const codProdutoBonificado = document.getElementById('codProdutoBonificado').value.trim();
     const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
     const supervisor = document.getElementById('supervisor').value.trim();
@@ -97,11 +96,6 @@ function validarCampos() {
 
     if (!precoSistema || precoSistema <= 0) {
         document.getElementById('precoSistemaHelp').textContent = "Preço do Palm é obrigatório.";
-        return false;
-    }
-
-    if (!investimentoPercentual || investimentoPercentual < 0 || investimentoPercentual > 100) {
-        document.getElementById('investimentoPercentualHelp').textContent = "Percentual de Investimento deve ser entre 0% e 100%.";
         return false;
     }
 
@@ -131,7 +125,6 @@ function coletarDadosFormulario() {
         codProduto: document.getElementById('codProduto').value.trim(),
         quantidade: parseFloat(document.getElementById('quantidadeAcao').value) || 0,
         precoSistema: parseFloat(document.getElementById('precoSistema').value) || 0,
-        investimentoPercentual: parseFloat(document.getElementById('investimentoPercentual').value) || 0,
         codProdutoBonificado: document.getElementById('codProdutoBonificado').value.trim(),
         valorProdutoBonificado: parseFloat(document.getElementById('valorProdutoBonificado').value) || 0,
         supervisor: document.getElementById('supervisor').value.trim(),
@@ -147,8 +140,7 @@ function calcularResultado(dados) {
     const valorPedido = dados.quantidade * dados.precoSistema;
 
     // Cálculo do preço solicitado
-    const investimentoValor = (dados.investimentoPercentual / 100) * valorPedido;
-    const precoSolicitado = (valorPedido - investimentoValor) / dados.quantidade;
+    const precoSolicitado = valorPedido / dados.quantidade;
 
     // Cálculo da quantidade bonificada
     const quantidadeBonificada = (valorPedido - (dados.quantidade * precoSolicitado)) / dados.precoSistema;
