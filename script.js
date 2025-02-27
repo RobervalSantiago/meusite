@@ -168,16 +168,24 @@ function exibirResultado(resultado) {
 function coletarDadosBonificacao() {
     return {
         codRazaoCliente: document.getElementById('codRazaoCliente').value.trim(),
+        codConsultor: document.getElementById('codConsultor').value.trim(),
         codPedido: document.getElementById('codPedido').value.trim(),
+        codProdutoBonificado: document.getElementById('codProdutoBonificado').value.trim(),
+        quantidadeProdutoBonificado: document.getElementById('quantidadeProdutoBonificado').value.trim(),
+        valorProdutoBonificado: document.getElementById('valorProdutoBonificado').value.trim(),
         observacao: document.getElementById('observacao').value.trim()
     };
 }
 
 // Função para gerar a bonificação
 function gerarBonificacao(dados) {
-    return `*Bonificação*\n\n` +
-        `*Código/Razão do Cliente:* ${dados.codRazaoCliente}\n` +
-        `*Código do Pedido:* ${dados.codPedido}\n` +
+    return `*Cód cliente/razão:* ${dados.codRazaoCliente}\n` +
+        `*Cód/vendedor:* ${dados.codConsultor}\n` +
+        `*Autorizado por:* Fornecedor\n` +
+        `*Cód do pedido:* ${dados.codPedido}\n` +
+        `*Cód/produto:* ${dados.codProdutoBonificado}\n` +
+        `*Quantidade:* ${dados.quantidadeProdutoBonificado}\n` +
+        `*Valor Bonificação:* R$ ${parseFloat(dados.valorProdutoBonificado).toFixed(2).replace('.', ',')}\n` +
         `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
 }
 
