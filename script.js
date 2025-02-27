@@ -103,8 +103,8 @@ function coletarDadosFormulario() {
     };
 }
 
-        // Função para calcular o resultado
-    function calcularResultado(dados) {
+// Função para calcular o resultado
+function calcularResultado(dados) {
     console.log("Dados recebidos para cálculo:", dados);
 
     // Verifica se os valores são válidos
@@ -121,25 +121,6 @@ function coletarDadosFormulario() {
 
     // *** CORREÇÃO APLICADA AQUI: Inclui a quantidade bonificada no cálculo ***
     const precoSolicitado = (valorPedido - valorBonificacao) / (dados.quantidade + dados.quantidadeProdutoBonificado); // <-- Linha modificada
-
-    // Cálculo do investimento %
-    const investimentoPercentual = (valorBonificacao / valorPedido) * 100;
-    }
-
-    // Cálculo do valor do pedido
-    const valorPedido = dados.quantidade * dados.precoSistema;
-
-    // Cálculo do valor da bonificação
-    const valorBonificacao = dados.valorProdutoBonificado * dados.quantidadeProdutoBonificado;
-
-    // Verifica se a quantidade é maior que zero para evitar divisão por zero
-    if (dados.quantidade <= 0) {
-        console.error("Quantidade do produto deve ser maior que zero.");
-        return "Erro: Quantidade do produto deve ser maior que zero.";
-    }
-
-    // Cálculo do preço solicitado
-    const precoSolicitado = (valorPedido - valorBonificacao) / dados.quantidade;
 
     // Cálculo do investimento %
     const investimentoPercentual = (valorBonificacao / valorPedido) * 100;
