@@ -209,7 +209,40 @@ input:invalid {
     background: linear-gradient(90deg, #D32F2F, #FF5252);
 }
 
+/* Botões de Copiar e Compartilhar */
+.copiar {
+    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+    box-shadow: 0px 4px 6px rgba(41, 98, 255, 0.3);
+}
+
+.copiar:hover {
+    background: linear-gradient(90deg, var(--cor-secundaria), var(--cor-primaria));
+}
+
+.whatsapp {
+    background: linear-gradient(90deg, #25D366, #1B9448); /* Verde do WhatsApp */
+    box-shadow: 0px 4px 6px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp:hover {
+    background: linear-gradient(90deg, #1B9448, #25D366);
+}
+
 /* Resultado */
+.result-section {
+    margin-top: 30px; /* Espaçamento acima do título "Resultado da Ação" */
+}
+
+.result-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    color: var(--cor-primaria);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .resultado {
     margin-top: 25px;
     padding: 20px;
