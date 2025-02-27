@@ -230,6 +230,39 @@ input:invalid {
     background: linear-gradient(90deg, #1B9448, #25D366);
 }
 
+/* Botões de Copiar e Compartilhar na Seção de Bonificação */
+#botoesBonificacao {
+    margin-top: 20px; /* Espaçamento acima dos botões */
+    margin-bottom: 20px; /* Espaçamento abaixo dos botões */
+    display: flex;
+    gap: 15px; /* Espaçamento entre os botões */
+}
+
+#botoesBonificacao .btn {
+    width: auto; /* Largura automática para os botões */
+    padding: 10px 20px; /* Padding ajustado */
+}
+
+/* Botão "Gerar Bonificação" */
+#gerarBonificacao {
+    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+    box-shadow: 0px 4px 6px rgba(41, 98, 255, 0.3);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--borda-radius);
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    margin-top: 20px; /* Espaçamento acima do botão */
+}
+
+#gerarBonificacao:hover {
+    background: linear-gradient(90deg, var(--cor-secundaria), var(--cor-primaria));
+    transform: scale(1.05);
+}
+
 /* Resultado */
 .result-section {
     margin-top: 30px; /* Espaçamento acima do título "Resultado da Ação" */
