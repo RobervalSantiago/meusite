@@ -128,8 +128,8 @@ function calcularResultado(dados) {
         return "Erro: Quantidade do produto deve ser maior que zero.";
     }
 
-    // Cálculo do preço solicitado
-    const precoSolicitado = (valorPedido - valorBonificacao) / dados.quantidade;
+    // Cálculo do preço solicitado (nova fórmula)
+    const precoSolicitado = valorPedido / (dados.quantidade + dados.quantidadeProdutoBonificado);
 
     // Cálculo do investimento %
     const investimentoPercentual = (valorBonificacao / valorPedido) * 100;
@@ -149,7 +149,7 @@ function calcularResultado(dados) {
         `Investimento: ${investimentoPercentual.toFixed(1).replace('.', ',')}%\n` +
         `Quantidade bonificada: ${dados.quantidadeProdutoBonificado} Und\n` +
         `Valor Bonificação: R$ ${formatarMoeda(valorBonificacao)}\n` +
-        `Preço Final: R$ ${formatarMoeda(precoSolicitado)}\n\n` +
+        `Preço Final: R$ ${formatarMoeda(precoSolicitado)}\n\n` + // Preço final usa o mesmo cálculo
         `Código/Razão do Cliente: ${dados.codRazaoCliente}`;
 
     console.log("Resultado calculado:", resultado);
