@@ -12,8 +12,8 @@
 
 /* Modo Escuro */
 [data-theme="dark"] {
-    --cor-fundo: #1A1A1A; /* Fundo escuro */
-    --cor-texto: #FFFFFF; /* Texto claro */
+    --cor-fundo: #121212; /* Fundo escuro */
+    --cor-texto: #E0E0E0; /* Texto claro */
     --cor-texto-secundario: #A0AEC0; /* Texto secundário claro */
     --cor-fundo-input: #2D3748; /* Fundo dos inputs escuro */
     --cor-fundo-input-foco: #4A5568; /* Fundo dos inputs ao focar */
