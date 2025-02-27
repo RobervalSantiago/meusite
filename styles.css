@@ -7,7 +7,7 @@
     --cor-fundo-input: #F5F7FA; /* Fundo dos inputs */
     --cor-fundo-input-foco: #E3F2FD; /* Fundo dos inputs ao focar */
     --sombra: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    --borda-radius: 8px; /* Bordas arredondadas */
+    --borda-radius: 12px; /* Bordas mais arredondadas */
 }
 
 /* Modo Escuro */
@@ -45,7 +45,7 @@ body {
     padding: 2rem;
     border-radius: var(--borda-radius);
     box-shadow: var(--sombra);
-    max-width: 1200px;
+    max-width: 800px;
     width: 100%;
     text-align: center;
     color: var(--cor-texto);
@@ -60,7 +60,7 @@ header h1 {
     font-size: 2.5rem;
     color: var(--cor-primaria);
     margin-bottom: 10px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 header p {
@@ -83,11 +83,12 @@ header p {
     align-items: center;
     justify-content: center;
     box-shadow: var(--sombra);
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.3s;
 }
 
 .theme-toggle:hover {
     background: var(--cor-secundaria);
+    transform: scale(1.1);
 }
 
 .theme-toggle i {
