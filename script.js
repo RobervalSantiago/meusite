@@ -179,7 +179,8 @@ function coletarDadosBonificacao() {
 
 // Função para gerar a bonificação
 function gerarBonificacao(dados) {
-    return `*Cód cliente/razão:* ${dados.codRazaoCliente}\n` +
+    return `*Bonificação:*\n\n` +
+        `*Cód cliente/razão:* ${dados.codRazaoCliente}\n` +
         `*Cód/vendedor:* ${dados.codConsultor}\n` +
         `*Autorizado por:* Fornecedor\n` +
         `*Cód do pedido:* ${dados.codPedido}\n` +
