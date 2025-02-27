@@ -143,7 +143,7 @@ function calcularResultado(dados) {
         `*Ação*\n\n` +
         `Código/Produto Bonificado: ${dados.codProdutoBonificado}\n` +
         `Preço solicitado: R$ ${formatarMoeda(precoSolicitado)}\n` +
-        `Investimento %: ${investimentoPercentual.toFixed(2).replace('.', ',')}%\n` +
+        `Investimento: ${investimentoPercentual.toFixed(1).replace('.', ',')}%\n` +
         `Quantidade bonificada: ${dados.quantidadeProdutoBonificado} Und\n` +
         `Valor Bonificação: R$ ${formatarMoeda(valorBonificacao)}\n` +
         `Preço Final: R$ ${formatarMoeda(precoSolicitado)}\n\n` +
@@ -186,7 +186,7 @@ function gerarBonificacao(dados) {
         `*Cód/produto:* ${dados.codProdutoBonificado}\n` +
         `*Quantidade:* ${dados.quantidadeProdutoBonificado}\n` +
         `*Valor Bonificação:* R$ ${parseFloat(dados.valorProdutoBonificado).toFixed(2).replace('.', ',')}\n` +
-        `*Observação:* ${dados.observacao || "Nenhuma observação fornecida."}`;
+        `*Observação:* ${dados.observacao || " "}`;
 }
 
 // Função para mostrar/ocultar o spinner de carregamento
