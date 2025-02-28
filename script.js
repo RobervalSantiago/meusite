@@ -1,39 +1,32 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Função para sincronizar os campos de bonificação
-    const syncBonificacao = () => {
-        const produtoInput = document.getElementById('codProduto');
-        const bonificadoInput = document.getElementById('codProdutoBonificado');
-        const precoPalm = document.getElementById('precoSistema');
-        const valorBonificado = document.getElementById('valorProdutoBonificado');
-        const mesmoProdutoCheckbox = document.getElementById('mesmoProduto');
-
-        if (mesmoProdutoCheckbox.checked) {
-            bonificadoInput.value = produtoInput.value;
-            valorBonificado.value = precoPalm.value;
-            [bonificadoInput, valorBonificado].forEach(field => {
-                field.disabled = true;
-                field.style.opacity = '0.7';
-            });
-        } else {
-            [bonificadoInput, valorBonificado].forEach(field => {
-                field.value = '';
-                field.disabled = false;
-                field.style.opacity = '1';
-            });
-        }
-    };
-
-    // Event listeners para sincronização
-    document.getElementById('mesmoProduto').addEventListener('change', syncBonificacao);
-    document.getElementById('codProduto').addEventListener('input', syncBonificacao);
-    document.getElementById('precoSistema').addEventListener('input', syncBonificacao);
-
-    // ... (outro código existente mantido)
+document.getElementById('bonificarMesmoProduto').addEventListener('change', function () {
+    if (this.checked) {
+        document.getElementById('codProdutoBonificado').value = document.getElementById('codProduto').value;
+        document.getElementById('valorProdutoBonificado').value = document.getElementById('precoSistema').value;
+    } else {
+        document.getElementById('codProdutoBonificado').value = '';
+        document.getElementById('valorProdutoBonificado').value = '';
+    }
 });
 
-// Registrar o Service Worker para PWA
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('Service Worker registrado com sucesso!'))
-        .catch((error) => console.log('Erro ao registrar Service Worker:', error));
-}
+document.getElementById('codProduto').addEventListener('input', function () {
+    if (document.getElementById('bonificarMesmoProduto').checked) {
+        document.getElementById('codProdutoBonificado').value = this.value;
+    }
+});
+
+document.getElementById('precoSistema').addEventListener('input', function () {
+    if (document.getElementById('bonificarMesmoProduto').checked) {
+        document.getElementById('valorProdutoBonificado').value = this.value;
+    }
+});
+
+document.getElementById('formAcao').addEventListener('submit', function (e) {
+    e.preventDefault();
+    alert("FormulÃ¡rio enviado! LÃ³gica de cÃ¡lculo deve ser aplicada aqui.");
+});
+
+document.getElementById('limpar').addEventListener('click', function () {
+    if (confirm("Deseja realmente limpar todos os campos?")) {
+        document.getElementById('formAcao').reset();
+    }
+});
