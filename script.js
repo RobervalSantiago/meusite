@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Função para alternar o tema
+    // 1. Controle do Tema
     const themeToggle = document.querySelector('.theme-toggle');
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.toggle('dark', savedTheme === 'dark');
     themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
 
-    // Função para sincronizar os campos de bonificação
+    // 2. Sincronização do Checkbox
     const syncBonificacao = () => {
         const produtoInput = document.getElementById('codProduto');
         const bonificadoInput = document.getElementById('codProdutoBonificado');
@@ -21,18 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const valorBonificado = document.getElementById('valorProdutoBonificado');
         const checkbox = document.getElementById('mesmoProduto');
 
-        // Atualizar apenas se o checkbox estiver marcado
         if (checkbox.checked) {
             bonificadoInput.value = produtoInput.value;
             valorBonificado.value = precoPalm.value;
-            
-            // Aplicar estilo e estado
             [bonificadoInput, valorBonificado].forEach(campo => {
                 campo.disabled = true;
                 campo.style.opacity = '0.7';
             });
         } else {
-            // Resetar campos
             [bonificadoInput, valorBonificado].forEach(campo => {
                 campo.value = '';
                 campo.disabled = false;
@@ -41,43 +37,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Event listeners para sincronização
+    // Event listeners para o checkbox
     document.getElementById('mesmoProduto').addEventListener('change', syncBonificacao);
     document.getElementById('codProduto').addEventListener('input', syncBonificacao);
     document.getElementById('precoSistema').addEventListener('input', syncBonificacao);
 
-    // Limpar formulário
+    // 3. Limpar Formulário
     document.getElementById('limpar').addEventListener('click', () => {
         document.getElementById('formAcao').reset();
-        syncBonificacao(); // Atualizar campos de bonificação após limpar
+        syncBonificacao();
+        document.querySelectorAll('.result-section').forEach(sec => sec.style.display = 'none');
     });
 
-    // Função para calcular a ação (FORMATO EXATO)
+    // 4. Cálculo da Ação (Funcionalidade Principal)
     document.getElementById('formAcao').addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        // Coletar valores
+
+        // Validar campos
+        const camposObrigatorios = [
+            'codRazaoCliente', 'codProduto', 'quantidadeAcao', 
+            'precoSistema', 'codProdutoBonificado', 'quantidadeProdutoBonificado', 
+            'valorProdutoBonificado'
+        ];
+
+        let camposVazios = false;
+        camposObrigatorios.forEach(id => {
+            const campo = document.getElementById(id);
+            if (!campo.value.trim()) {
+                camposVazios = true;
+                campo.style.borderColor = '#ff0000';
+            } else {
+                campo.style.borderColor = '';
+            }
+        });
+
+        if (camposVazios) {
+            alert('Preencha todos os campos obrigatórios!');
+            return;
+        }
+
+        // Coletar dados
         const cliente = document.getElementById('codRazaoCliente').value;
         const produto = document.getElementById('codProduto').value;
-        const quantidade = document.getElementById('quantidadeAcao').value;
-        const precoPalm = parseFloat(document.getElementById('precoSistema').value).toFixed(2).replace('.', ',');
+        const quantidade = parseFloat(document.getElementById('quantidadeAcao').value);
+        const precoPalm = parseFloat(document.getElementById('precoSistema').value);
         const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = document.getElementById('quantidadeProdutoBonificado').value;
-        const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value).toFixed(2).replace('.', ',');
+        const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
+        const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
 
         // Cálculos
-        const valorPedido = (quantidade * parseFloat(precoPalm.replace(',', '.'))).toFixed(2).replace('.', ',');
-        const investimento = (((parseFloat(precoPalm.replace(',', '.')) - parseFloat(valorBonificado.replace(',', '.'))) / parseFloat(precoPalm.replace(',', '.')) * 100).toFixed(1);
-        const precoFinal = valorBonificado;
+        const valorPedido = (quantidade * precoPalm).toFixed(2).replace('.', ',');
+        const investimento = (((precoPalm - valorBonificado) / precoPalm) * 100).toFixed(1);
+        const precoFinal = valorBonificado.toFixed(2).replace('.', ',');
 
-        // Montar resultado da ação (FORMATO EXIGIDO)
+        // Montar resultado
         const resultadoAcao = `
 *Solicitação de ação:*
 
 Código/Produto: ${produto}
 Quantidade: ${quantidade}
 Valor pedido: R$ ${valorPedido}
-Preço Sistema: R$ ${precoPalm}
+Preço Sistema: R$ ${precoPalm.toFixed(2).replace('.', ',')}
 
 *Ação*
 
@@ -85,25 +105,45 @@ Código/Produto Bonificado: ${produtoBonificado}
 Preço solicitado: R$ ${precoFinal}
 Investimento: ${investimento}%
 Quantidade bonificada: ${quantidadeBonificada} Und
-Valor Bonificação: R$ ${valorBonificado}
+Valor Bonificação: R$ ${valorBonificado.toFixed(2).replace('.', ',')}
 Preço Final: R$ ${precoFinal}
 
 Código/Razão do Cliente: ${cliente}
         `;
 
-        // Exibir resultado formatado
-        document.getElementById('resultadoAcao').innerHTML = resultadoAcao
-            .replace(/\n/g, '<br>')  // Quebras de linha
-            .replace(/\*(.*?)\*/g, '<b>$1</b>');  // Negrito exato
+        // Exibir resultado
+        const resultadoDiv = document.getElementById('resultadoAcao');
+        resultadoDiv.innerHTML = resultadoAcao
+            .replace(/\n/g, '<br>')
+            .replace(/\*(.*?)\*/g, '<b>$1</b>');
 
         document.getElementById('resultadoAcaoSection').style.display = 'block';
         document.getElementById('botoesResultado').style.display = 'flex';
         document.getElementById('bonificacaoCampos').style.display = 'block';
     });
 
-    // Função para gerar a bonificação (FORMATO EXATO)
+    // 5. Geração da Bonificação
     document.getElementById('gerarBonificacao').addEventListener('click', () => {
-        // Coletar valores
+        // Validar campos
+        const camposObrigatorios = ['codConsultor', 'codPedido'];
+        let camposVazios = false;
+
+        camposObrigatorios.forEach(id => {
+            const campo = document.getElementById(id);
+            if (!campo.value.trim()) {
+                camposVazios = true;
+                campo.style.borderColor = '#ff0000';
+            } else {
+                campo.style.borderColor = '';
+            }
+        });
+
+        if (camposVazios) {
+            alert('Preencha o código do consultor e do pedido!');
+            return;
+        }
+
+        // Coletar dados
         const cliente = document.getElementById('codRazaoCliente').value;
         const consultor = document.getElementById('codConsultor').value;
         const pedido = document.getElementById('codPedido').value;
@@ -112,7 +152,7 @@ Código/Razão do Cliente: ${cliente}
         const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value).toFixed(2).replace('.', ',');
         const observacao = document.getElementById('observacao').value || '';
 
-        // Montar resultado da bonificação (FORMATO EXIGIDO)
+        // Montar resultado
         const resultadoBonificacao = `
 *Cód cliente/razão:* ${cliente}
 *Cód/vendedor:* ${consultor}
@@ -124,8 +164,9 @@ Código/Razão do Cliente: ${cliente}
 *Observação:* ${observacao}
         `;
 
-        // Exibir resultado formatado
-        document.getElementById('resultadoBonificacao').innerHTML = resultadoBonificacao
+        // Exibir resultado
+        const resultadoDiv = document.getElementById('resultadoBonificacao');
+        resultadoDiv.innerHTML = resultadoBonificacao
             .replace(/\n/g, '<br>')
             .replace(/\*(.*?)\*/g, '<b>$1</b>');
 
@@ -133,35 +174,24 @@ Código/Razão do Cliente: ${cliente}
         document.getElementById('botoesBonificacao').style.display = 'flex';
     });
 
-    // Botão de copiar resultado da ação
+    // 6. Botões de Copiar e Compartilhar
     document.getElementById('copiar').addEventListener('click', () => {
-        const resultadoDiv = document.getElementById('resultadoAcao');
-        navigator.clipboard.writeText(resultadoDiv.textContent)
-            .then(() => alert('Resultado copiado para a área de transferência!'))
-            .catch(() => alert('Erro ao copiar o resultado.'));
+        const texto = document.getElementById('resultadoAcao').textContent;
+        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
     });
 
-    // Botão de compartilhar no WhatsApp (resultado da ação)
     document.getElementById('compartilhar').addEventListener('click', () => {
-        const resultadoDiv = document.getElementById('resultadoAcao');
-        const texto = encodeURIComponent(resultadoDiv.textContent);
-        const url = `https://wa.me/?text=${texto}`;
-        window.open(url, '_blank');
+        const texto = encodeURIComponent(document.getElementById('resultadoAcao').textContent);
+        window.open(`https://wa.me/?text=${texto}`, '_blank');
     });
 
-    // Botão de copiar resultado da bonificação
     document.getElementById('copiarBonificacao').addEventListener('click', () => {
-        const resultadoDiv = document.getElementById('resultadoBonificacao');
-        navigator.clipboard.writeText(resultadoDiv.textContent)
-            .then(() => alert('Resultado copiado para a área de transferência!'))
-            .catch(() => alert('Erro ao copiar o resultado.'));
+        const texto = document.getElementById('resultadoBonificacao').textContent;
+        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
     });
 
-    // Botão de compartilhar no WhatsApp (resultado da bonificação)
     document.getElementById('compartilharBonificacao').addEventListener('click', () => {
-        const resultadoDiv = document.getElementById('resultadoBonificacao');
-        const texto = encodeURIComponent(resultadoDiv.textContent);
-        const url = `https://wa.me/?text=${texto}`;
-        window.open(url, '_blank');
+        const texto = encodeURIComponent(document.getElementById('resultadoBonificacao').textContent);
+        window.open(`https://wa.me/?text=${texto}`, '_blank');
     });
 });
