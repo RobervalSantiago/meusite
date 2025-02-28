@@ -360,3 +360,31 @@ input:invalid {
     font-size: 1rem;
     cursor: pointer;
 }
+/* Garantir que as seções de resultado sejam exibidas corretamente */
+.result-section {
+    display: none; /* Ocultar inicialmente */
+    margin-top: 20px;
+}
+
+.result-section.active {
+    display: block; /* Exibir quando necessário */
+}
+
+/* Estilo para campos inválidos */
+input:invalid {
+    border: 2px solid #ff0000 !important;
+}
+
+/* Ajustes no checkbox */
+.form-group-checkbox {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
