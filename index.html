@@ -46,9 +46,7 @@
                 <h2><i class="fas fa-user" aria-label="Ícone de usuário"></i> Informações do Cliente</h2>
                 <div class="form-group">
                     <label for="codRazaoCliente">Código/Razão do Cliente:</label>
-                    <input type="text" id="codRazaoCliente" required aria-describedby="codRazaoClienteHelp">
-                    <div id="sugestoesCliente" class="sugestoes"></div>
-                    <small id="codRazaoClienteHelp" class="error-message" role="alert"></small>
+                    <input type="text" id="codRazaoCliente" required>
                 </div>
             </section>
 
@@ -57,19 +55,15 @@
                 <h2><i class="fas fa-box" aria-label="Ícone de caixa"></i> Detalhes do Produto</h2>
                 <div class="form-group">
                     <label for="codProduto">Código/Produto:</label>
-                    <input type="text" id="codProduto" required aria-describedby="codProdutoHelp">
-                    <div id="sugestoesProduto" class="sugestoes"></div>
-                    <small id="codProdutoHelp" class="error-message" role="alert"></small>
+                    <input type="text" id="codProduto" required>
                 </div>
                 <div class="form-group">
                     <label for="quantidadeAcao">Quantidade do Produto:</label>
-                    <input type="number" id="quantidadeAcao" required aria-describedby="quantidadeAcaoHelp" min="1">
-                    <small id="quantidadeAcaoHelp" class="error-message" role="alert"></small>
+                    <input type="number" id="quantidadeAcao" required min="1">
                 </div>
                 <div class="form-group">
                     <label for="precoSistema">Preço do Palm:</label>
-                    <input type="number" id="precoSistema" step="0.01" required aria-describedby="precoSistemaHelp" min="0">
-                    <small id="precoSistemaHelp" class="error-message" role="alert"></small>
+                    <input type="number" id="precoSistema" step="0.01" required min="0">
                 </div>
             </section>
 
@@ -83,19 +77,15 @@
                 </div>
                 <div class="form-group">
                     <label for="codProdutoBonificado">Código/Produto Bonificado:</label>
-                    <input type="text" id="codProdutoBonificado" required aria-describedby="codProdutoBonificadoHelp">
-                    <div id="sugestoesBonificado" class="sugestoes"></div>
-                    <small id="codProdutoBonificadoHelp" class="error-message" role="alert"></small>
+                    <input type="text" id="codProdutoBonificado" required>
                 </div>
                 <div class="form-group">
                     <label for="quantidadeProdutoBonificado">Quantidade do Produto Bonificado:</label>
-                    <input type="number" id="quantidadeProdutoBonificado" required aria-describedby="quantidadeProdutoBonificadoHelp" min="1">
-                    <small id="quantidadeProdutoBonificadoHelp" class="error-message" role="alert"></small>
+                    <input type="number" id="quantidadeProdutoBonificado" required min="1">
                 </div>
                 <div class="form-group">
                     <label for="valorProdutoBonificado">Valor do Produto Bonificado:</label>
-                    <input type="number" id="valorProdutoBonificado" step="0.01" required aria-describedby="valorProdutoBonificadoHelp" min="0">
-                    <small id="valorProdutoBonificadoHelp" class="error-message" role="alert"></small>
+                    <input type="number" id="valorProdutoBonificado" step="0.01" required min="0">
                 </div>
             </section>
 
@@ -123,18 +113,15 @@
             <h2><i class="fas fa-gift" aria-label="Ícone de presente"></i> Detalhes da Bonificação</h2>
             <div class="form-group">
                 <label for="codConsultor">Cód/Consultor:</label>
-                <input type="text" id="codConsultor" required aria-describedby="codConsultorHelp">
-                <small id="codConsultorHelp" class="error-message" role="alert"></small>
+                <input type="text" id="codConsultor" required>
             </div>
             <div class="form-group">
                 <label for="codPedido">Código do Pedido:</label>
-                <input type="text" id="codPedido" required aria-describedby="codPedidoHelp">
-                <small id="codPedidoHelp" class="error-message" role="alert"></small>
+                <input type="text" id="codPedido" required>
             </div>
             <div class="form-group">
                 <label for="observacao">Observação:</label>
-                <input type="text" id="observacao" aria-describedby="observacaoHelp">
-                <small id="observacaoHelp" class="error-message" role="alert"></small>
+                <input type="text" id="observacao">
             </div>
             <button id="gerarBonificacao" class="btn bonificacao"><i class="fas fa-check"></i> Gerar Bonificação</button>
         </section>
@@ -158,13 +145,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script>
-        // Registrar o Service Worker para PWA
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then(() => console.log('Service Worker registrado com sucesso!'))
-                .catch((error) => console.log('Erro ao registrar Service Worker:', error));
-        }
-    </script>
 </body>
 </html>
