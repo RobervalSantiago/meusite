@@ -52,98 +52,83 @@ document.addEventListener('DOMContentLoaded', () => {
         syncBonificacao(); // Atualizar campos de bonificação após limpar
     });
 
-    // Função para calcular a ação (FORMATO SOLICITADO)
+    // Função para calcular a ação (FORMATO EXATO)
     document.getElementById('formAcao').addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // Coletar valores do formulário
+        // Coletar valores
         const cliente = document.getElementById('codRazaoCliente').value;
         const produto = document.getElementById('codProduto').value;
-        const quantidade = parseFloat(document.getElementById('quantidadeAcao').value);
-        const precoPalm = parseFloat(document.getElementById('precoSistema').value);
+        const quantidade = document.getElementById('quantidadeAcao').value;
+        const precoPalm = parseFloat(document.getElementById('precoSistema').value).toFixed(2).replace('.', ',');
         const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
-        const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+        const quantidadeBonificada = document.getElementById('quantidadeProdutoBonificado').value;
+        const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value).toFixed(2).replace('.', ',');
 
-        // Validar campos
-        if (!cliente || !produto || !quantidade || !precoPalm || !produtoBonificado || !quantidadeBonificada || !valorBonificado) {
-            alert('Preencha todos os campos obrigatórios!');
-            return;
-        }
-
-        // Cálculos da ação
-        const valorTotalPedido = quantidade * precoPalm;
-        const investimento = ((precoPalm - valorBonificado) / precoPalm) * 100;
+        // Cálculos
+        const valorPedido = (quantidade * parseFloat(precoPalm.replace(',', '.'))).toFixed(2).replace('.', ',');
+        const investimento = (((parseFloat(precoPalm.replace(',', '.')) - parseFloat(valorBonificado.replace(',', '.'))) / parseFloat(precoPalm.replace(',', '.')) * 100).toFixed(1);
         const precoFinal = valorBonificado;
 
-        // Montar resultado da ação no formato solicitado
+        // Montar resultado da ação (FORMATO EXIGIDO)
         const resultadoAcao = `
-        *Solicitação de ação:*
+*Solicitação de ação:*
 
-        Código/Produto: ${produto}
-        Quantidade: ${quantidade}
-        Valor pedido: R$ ${valorTotalPedido.toFixed(2).replace('.', ',')}
-        Preço Sistema: R$ ${precoPalm.toFixed(2).replace('.', ',')}
+Código/Produto: ${produto}
+Quantidade: ${quantidade}
+Valor pedido: R$ ${valorPedido}
+Preço Sistema: R$ ${precoPalm}
 
-        *Ação*
+*Ação*
 
-        Código/Produto Bonificado: ${produtoBonificado}
-        Preço solicitado: R$ ${precoFinal.toFixed(2).replace('.', ',')}
-        Investimento: ${investimento.toFixed(1)}%
-        Quantidade bonificada: ${quantidadeBonificada} Und
-        Valor Bonificação: R$ ${valorBonificado.toFixed(2).replace('.', ',')}
-        Preço Final: R$ ${precoFinal.toFixed(2).replace('.', ',')}
+Código/Produto Bonificado: ${produtoBonificado}
+Preço solicitado: R$ ${precoFinal}
+Investimento: ${investimento}%
+Quantidade bonificada: ${quantidadeBonificada} Und
+Valor Bonificação: R$ ${valorBonificado}
+Preço Final: R$ ${precoFinal}
 
-        Código/Razão do Cliente: ${cliente}
+Código/Razão do Cliente: ${cliente}
         `;
 
-        // Exibir resultado
+        // Exibir resultado formatado
         document.getElementById('resultadoAcao').innerHTML = resultadoAcao
             .replace(/\n/g, '<br>')  // Quebras de linha
-            .replace(/\*/g, '<b>').replace(/\*/g, '</b>');  // Negrito para asteriscos
+            .replace(/\*(.*?)\*/g, '<b>$1</b>');  // Negrito exato
 
-        // Exibir seção de resultado
         document.getElementById('resultadoAcaoSection').style.display = 'block';
         document.getElementById('botoesResultado').style.display = 'flex';
-
-        // Exibir campos da bonificação (pedido e consultor)
         document.getElementById('bonificacaoCampos').style.display = 'block';
     });
 
-    // Função para gerar a bonificação (FORMATO SOLICITADO)
+    // Função para gerar a bonificação (FORMATO EXATO)
     document.getElementById('gerarBonificacao').addEventListener('click', () => {
-        // Coletar dados extras
+        // Coletar valores
+        const cliente = document.getElementById('codRazaoCliente').value;
         const consultor = document.getElementById('codConsultor').value;
         const pedido = document.getElementById('codPedido').value;
-        const observacao = document.getElementById('observacao').value;
         const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
-        const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+        const quantidadeBonificada = document.getElementById('quantidadeProdutoBonificado').value;
+        const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value).toFixed(2).replace('.', ',');
+        const observacao = document.getElementById('observacao').value || '';
 
-        // Validar campos
-        if (!consultor || !pedido || !produtoBonificado || !quantidadeBonificada || !valorBonificado) {
-            alert('Preencha todos os campos obrigatórios!');
-            return;
-        }
-
-        // Montar resultado da bonificação no formato solicitado
+        // Montar resultado da bonificação (FORMATO EXIGIDO)
         const resultadoBonificacao = `
-        *Cód cliente/razão:* ${document.getElementById('codRazaoCliente').value}
-        *Cód/vendedor:* ${consultor}
-        *Autorizado por:* Fornecedor
-        *Cód do pedido:* ${pedido}
-        *Cód/produto:* ${produtoBonificado}
-        *Quantidade:* ${quantidadeBonificada}
-        *Valor Bonificação:* R$ ${valorBonificado.toFixed(2).replace('.', ',')}
-        *Observação:* ${observacao || ''}
+*Cód cliente/razão:* ${cliente}
+*Cód/vendedor:* ${consultor}
+*Autorizado por:* Fornecedor
+*Cód do pedido:* ${pedido}
+*Cód/produto:* ${produtoBonificado}
+*Quantidade:* ${quantidadeBonificada}
+*Valor Bonificação:* R$ ${valorBonificado}
+*Observação:* ${observacao}
         `;
 
-        // Exibir resultado
+        // Exibir resultado formatado
         document.getElementById('resultadoBonificacao').innerHTML = resultadoBonificacao
-            .replace(/\n/g, '<br>')  // Quebras de linha
-            .replace(/\*/g, '<b>').replace(/\*/g, '</b>');  // Negrito para asteriscos
+            .replace(/\n/g, '<br>')
+            .replace(/\*(.*?)\*/g, '<b>$1</b>');
 
-        // Exibir seção de resultado
         document.getElementById('resultadoBonificacaoSection').style.display = 'block';
         document.getElementById('botoesBonificacao').style.display = 'flex';
     });
