@@ -1,25 +1,23 @@
 :root {
-    --cor-primaria: #2962FF; /* Azul vibrante */
-    --cor-secundaria: #00C853; /* Verde vibrante */
-    --cor-fundo: #FFFFFF; /* Fundo branco */
-    --cor-texto: #2D3748; /* Texto escuro */
-    --cor-texto-secundario: #4A5568; /* Texto secundário */
-    --cor-fundo-input: #F5F7FA; /* Fundo dos inputs */
-    --cor-fundo-input-foco: #E3F2FD; /* Fundo dos inputs ao focar */
-    --sombra: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    --borda-radius: 12px; /* Bordas mais arredondadas */
+    --cor-primaria: #2962FF;
+    --cor-secundaria: #00C853;
+    --cor-fundo: #FFFFFF;
+    --cor-texto: #2D3748;
+    --cor-texto-secundario: #4A5568;
+    --cor-fundo-input: #F5F7FA;
+    --cor-fundo-input-foco: #E3F2FD;
+    --sombra: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --borda-radius: 12px;
 }
 
-/* Modo Escuro */
-[data-theme="dark"] {
-    --cor-fundo: #1A1A1A; /* Fundo escuro */
-    --cor-texto: #FFFFFF; /* Texto claro */
-    --cor-texto-secundario: #A0AEC0; /* Texto secundário claro */
-    --cor-fundo-input: #2D3748; /* Fundo dos inputs escuro */
-    --cor-fundo-input-foco: #4A5568; /* Fundo dos inputs ao focar */
+body.dark {
+    --cor-fundo: #1A1A1A;
+    --cor-texto: #FFFFFF;
+    --cor-texto-secundario: #A0AEC0;
+    --cor-fundo-input: #2D3748;
+    --cor-fundo-input-foco: #4A5568;
 }
 
-/* Reset e Fonte */
 * {
     margin: 0;
     padding: 0;
@@ -27,7 +25,6 @@
     font-family: 'Roboto', sans-serif;
 }
 
-/* Fundo */
 body {
     background: var(--cor-fundo);
     display: flex;
@@ -39,7 +36,6 @@ body {
     transition: background 0.3s, color 0.3s;
 }
 
-/* Container Principal */
 .container {
     background: var(--cor-fundo);
     padding: 2rem;
@@ -49,28 +45,26 @@ body {
     width: 100%;
     text-align: center;
     color: var(--cor-texto);
-    margin: 20px auto; /* Centraliza o container */
+    margin: 20px auto;
 }
 
-/* Cabeçalho */
 header {
-    margin-bottom: 40px; /* Mais espaçamento abaixo do cabeçalho */
+    margin-bottom: 40px;
 }
 
 header h1 {
     font-size: 2.5rem;
     color: var(--cor-primaria);
-    margin-bottom: 15px; /* Espaçamento abaixo do título */
+    margin-bottom: 15px;
     font-weight: 700;
 }
 
 header p {
     font-size: 1.1rem;
     color: var(--cor-texto-secundario);
-    margin-bottom: 0; /* Remove margem inferior do parágrafo */
+    margin-bottom: 0;
 }
 
-/* Botão de Alternância de Modo */
 .theme-toggle {
     position: fixed;
     top: 20px;
@@ -98,13 +92,12 @@ header p {
     font-size: 1.2rem;
 }
 
-/* Estilo para as seções do formulário */
 .form-section {
     background: var(--cor-fundo-input);
     border: 1px solid #E3F2FD;
     border-radius: var(--borda-radius);
     padding: 25px;
-    margin-bottom: 30px; /* Mais espaçamento entre seções */
+    margin-bottom: 30px;
     box-shadow: var(--sombra);
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -114,7 +107,6 @@ header p {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Títulos das seções */
 .form-section h2 {
     font-size: 1.6rem;
     color: var(--cor-primaria);
@@ -129,12 +121,10 @@ header p {
     font-size: 1.4rem;
 }
 
-/* Espaçamento entre os grupos de formulário */
 .form-group {
     margin-bottom: 20px;
 }
 
-/* Ajuste no espaçamento dos inputs */
 input {
     width: 100%;
     padding: 12px;
@@ -158,17 +148,16 @@ input:valid {
 }
 
 input:invalid {
-    border-color: #FF1744; /* Vermelho para campos inválidos */
+    border-color: #FF1744;
 }
 
 .error-message {
-    color: #FF1744; /* Vermelho para mensagens de erro */
+    color: #FF1744;
     font-size: 0.875rem;
     margin-top: 8px;
     display: block;
 }
 
-/* Botões */
 .btn {
     width: 100%;
     padding: 14px;
@@ -211,7 +200,6 @@ input:invalid {
     background: linear-gradient(90deg, #D32F2F, #FF5252);
 }
 
-/* Botões de Copiar e Compartilhar */
 .copiar {
     background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
     box-shadow: 0px 4px 6px rgba(41, 98, 255, 0.3);
@@ -222,7 +210,7 @@ input:invalid {
 }
 
 .whatsapp {
-    background: linear-gradient(90deg, #25D366, #1B9448); /* Verde do WhatsApp */
+    background: linear-gradient(90deg, #25D366, #1B9448);
     box-shadow: 0px 4px 6px rgba(37, 211, 102, 0.3);
 }
 
@@ -230,20 +218,18 @@ input:invalid {
     background: linear-gradient(90deg, #1B9448, #25D366);
 }
 
-/* Botões de Copiar e Compartilhar na Seção de Bonificação */
 #botoesBonificacao {
-    margin-top: 20px; /* Espaçamento acima dos botões */
-    margin-bottom: 20px; /* Espaçamento abaixo dos botões */
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
-    gap: 15px; /* Espaçamento entre os botões */
+    gap: 15px;
 }
 
 #botoesBonificacao .btn {
-    width: auto; /* Largura automática para os botões */
-    padding: 10px 20px; /* Padding ajustado */
+    width: auto;
+    padding: 10px 20px;
 }
 
-/* Botão "Gerar Bonificação" */
 #gerarBonificacao {
     background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
     box-shadow: 0px 4px 6px rgba(41, 98, 255, 0.3);
@@ -255,7 +241,7 @@ input:invalid {
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
-    margin-top: 20px; /* Espaçamento acima do botão */
+    margin-top: 20px;
 }
 
 #gerarBonificacao:hover {
@@ -263,9 +249,8 @@ input:invalid {
     transform: scale(1.05);
 }
 
-/* Resultado */
 .result-section {
-    margin-top: 30px; /* Espaçamento acima do título "Resultado da Ação" */
+    margin-top: 30px;
 }
 
 .result-section h2 {
@@ -292,7 +277,6 @@ input:invalid {
     border: 1px solid #E3F2FD;
 }
 
-/* Spinner de carregamento */
 .loading {
     display: flex;
     justify-content: center;
@@ -314,7 +298,6 @@ input:invalid {
     100% { transform: rotate(360deg); }
 }
 
-/* Layout Responsivo */
 @media (max-width: 768px) {
     .container {
         width: 95%;
@@ -340,7 +323,6 @@ input:invalid {
     }
 }
 
-/* Estilo do Checkbox */
 .form-group-checkbox {
     margin-bottom: 20px;
     display: flex;
@@ -351,7 +333,7 @@ input:invalid {
 .form-group-checkbox input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: var(--cor-primaria); /* Cor do checkbox */
+    accent-color: var(--cor-primaria);
     cursor: pointer;
 }
 
@@ -360,22 +342,20 @@ input:invalid {
     font-size: 1rem;
     cursor: pointer;
 }
-/* Garantir que as seções de resultado sejam exibidas corretamente */
+
 .result-section {
-    display: none; /* Ocultar inicialmente */
+    display: none;
     margin-top: 20px;
 }
 
 .result-section.active {
-    display: block; /* Exibir quando necessário */
+    display: block;
 }
 
-/* Estilo para campos inválidos */
 input:invalid {
     border: 2px solid #ff0000 !important;
 }
 
-/* Ajustes no checkbox */
 .form-group-checkbox {
     margin: 15px 0;
     display: flex;
@@ -387,4 +367,3 @@ input:invalid {
     width: 20px;
     height: 20px;
 }
-
