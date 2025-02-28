@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Solicitação de ações comerciais com cálculo de bonificação">
-    <meta name="keywords" content="ação comercial, bonificação, cálculo de investimento">
     <title>Solicitação de Ação Donizete</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Ícones do Font Awesome -->
@@ -16,15 +14,28 @@
      crossorigin="anonymous"></script>
 </head>
 <body>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1026108745315813"
+     crossorigin="anonymous"></script>
+<!-- Anúncios -->
+    <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1026108745315813"
+     data-ad-slot="2682349133"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+    <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    
     <!-- Botão de Alternância de Tema -->
     <button class="theme-toggle" aria-label="Alternar tema">
-        <i class="fas fa-moon" role="img" aria-hidden="true"></i>
+        <i class="fas fa-moon"></i>
     </button>
 
     <div class="container">
         <!-- Cabeçalho -->
         <header>
-            <h1><i class="fas fa-file-alt" role="img" aria-hidden="true"></i> Solicitação de Ação</h1>
+            <h1><i class="fas fa-file-alt" aria-label="Ícone de documento"></i> Solicitação de Ação</h1>
             <p>Preencha os campos abaixo para solicitar uma ação comercial.</p>
         </header>
 
@@ -32,7 +43,7 @@
         <form id="formAcao">
             <!-- Seção: Informações do Cliente -->
             <section class="form-section">
-                <h2><i class="fas fa-user" role="img" aria-hidden="true"></i> Informações do Cliente</h2>
+                <h2><i class="fas fa-user" aria-label="Ícone de usuário"></i> Informações do Cliente</h2>
                 <div class="form-group">
                     <label for="codRazaoCliente">Código/Razão do Cliente:</label>
                     <input type="text" id="codRazaoCliente" required aria-describedby="codRazaoClienteHelp">
@@ -43,7 +54,7 @@
 
             <!-- Seção: Detalhes do Produto -->
             <section class="form-section">
-                <h2><i class="fas fa-box" role="img" aria-hidden="true"></i> Detalhes do Produto</h2>
+                <h2><i class="fas fa-box" aria-label="Ícone de caixa"></i> Detalhes do Produto</h2>
                 <div class="form-group">
                     <label for="codProduto">Código/Produto:</label>
                     <input type="text" id="codProduto" required aria-describedby="codProdutoHelp">
@@ -64,7 +75,12 @@
 
             <!-- Seção: Bonificação -->
             <section class="form-section">
-                <h2><i class="fas fa-gift" role="img" aria-hidden="true"></i> Bonificação</h2>
+                <h2><i class="fas fa-gift" aria-label="Ícone de presente"></i> Bonificação</h2>
+                <!-- Checkbox para mesmo produto -->
+                <div class="form-group-checkbox">
+                    <input type="checkbox" id="mesmoProduto">
+                    <label for="mesmoProduto">Bonificar mesmo produto do pedido</label>
+                </div>
                 <div class="form-group">
                     <label for="codProdutoBonificado">Código/Produto Bonificado:</label>
                     <input type="text" id="codProdutoBonificado" required aria-describedby="codProdutoBonificadoHelp">
@@ -92,8 +108,8 @@
 
         <!-- Resultado da Ação (Oculto Inicialmente) -->
         <section class="result-section" id="resultadoAcaoSection" style="display: none;">
-            <h2><i class="fas fa-chart-line" role="img" aria-hidden="true"></i> Resultado da Ação</h2>
-            <div id="resultadoAcao" class="resultado" aria-live="polite"></div>
+            <h2><i class="fas fa-chart-line" aria-label="Ícone de gráfico"></i> Resultado da Ação</h2>
+            <div id="resultadoAcao" class="resultado"></div>
 
             <!-- Botões de Copiar e Compartilhar (Ocultos Inicialmente) -->
             <div class="botoes-resultado" id="botoesResultado" style="display: none;">
@@ -104,7 +120,7 @@
 
         <!-- Campos de Bonificação (Ocultos Inicialmente) -->
         <section id="bonificacaoCampos" class="form-section" style="display: none;">
-            <h2><i class="fas fa-gift" role="img" aria-hidden="true"></i> Detalhes da Bonificação</h2>
+            <h2><i class="fas fa-gift" aria-label="Ícone de presente"></i> Detalhes da Bonificação</h2>
             <div class="form-group">
                 <label for="codConsultor">Cód/Consultor:</label>
                 <input type="text" id="codConsultor" required aria-describedby="codConsultorHelp">
@@ -125,8 +141,8 @@
 
         <!-- Resultado da Bonificação (Oculto Inicialmente) -->
         <section class="result-section" id="resultadoBonificacaoSection" style="display: none;">
-            <h2><i class="fas fa-chart-pie" role="img" aria-hidden="true"></i> Resultado da Bonificação</h2>
-            <div id="resultadoBonificacao" class="resultado" aria-live="polite"></div>
+            <h2><i class="fas fa-chart-pie" aria-label="Ícone de gráfico de pizza"></i> Resultado da Bonificação</h2>
+            <div id="resultadoBonificacao" class="resultado"></div>
 
             <!-- Botões de Copiar e Compartilhar (Ocultos Inicialmente) -->
             <div class="botoes-resultado" id="botoesBonificacao" style="display: none;">
@@ -141,7 +157,7 @@
         </div>
     </div>
 
-    <script src="script.js" charset="UTF-8"></script>
+    <script src="script.js"></script>
     <script>
         // Registrar o Service Worker para PWA
         if ('serviceWorker' in navigator) {
