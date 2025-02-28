@@ -12,8 +12,8 @@
 
 /* Modo Escuro */
 [data-theme="dark"] {
-    --cor-fundo: #121212; /* Fundo escuro */
-    --cor-texto: #E0E0E0; /* Texto claro */
+    --cor-fundo: #1A1A1A; /* Fundo escuro */
+    --cor-texto: #FFFFFF; /* Texto claro */
     --cor-texto-secundario: #A0AEC0; /* Texto secundário claro */
     --cor-fundo-input: #2D3748; /* Fundo dos inputs escuro */
     --cor-fundo-input-foco: #4A5568; /* Fundo dos inputs ao focar */
@@ -338,4 +338,25 @@ input:invalid {
         font-size: 0.9rem;
         padding: 12px;
     }
+}
+
+/* Estilo do Checkbox */
+.form-group-checkbox {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--cor-primaria); /* Cor do checkbox */
+    cursor: pointer;
+}
+
+.form-group-checkbox label {
+    color: var(--cor-texto);
+    font-size: 1rem;
+    cursor: pointer;
 }
