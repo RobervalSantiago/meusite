@@ -115,13 +115,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
         const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
 
-        // Cálculos
-        const valorPedido = formatador.format(quantidade * precoPalm);
-        const investimento = Math.max(
-            (((precoPalm - valorBonificado) / precoPalm) * 100), 
-            0
-        ).toFixed(1);
-        const precoFinal = formatador.format(valorBonificado);
+        // Verificar divisão por zero
+        if (quantidade + quantidadeBonificada === 0) {
+            alert('A soma da quantidade e quantidade bonificada não pode ser zero!');
+            document.getElementById('loading').style.display = 'none';
+            return;
+        }
+
+        // Cálculos ajustados
+        const valorPedido = quantidade * precoPalm; // Valor total do pedido
+        const precoSolicitado = 100 / (quantidade + quantidadeBonificada); // Preço solicitado
+        const investimento = ((valorBonificado / valorPedido) * 100).toFixed(1); // Porcentagem da bonificação em relação ao valor do pedido
+
+        // Formatar valores
+        const valorPedidoFormatado = formatador.format(valorPedido);
+        const precoSolicitadoFormatado = formatador.format(precoSolicitado);
+        const valorBonificadoFormatado = formatador.format(valorBonificado);
 
         // Montar resultado
         const resultadoAcao = `
@@ -129,17 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 Código/Produto: ${produto}
 Quantidade: ${quantidade}
-Valor pedido: ${valorPedido}
+Valor pedido: ${valorPedidoFormatado}
 Preço Sistema: ${formatador.format(precoPalm)}
 
 *Ação*
 
 Código/Produto Bonificado: ${produtoBonificado}
-Preço solicitado: ${precoFinal}
+Preço solicitado: ${precoSolicitadoFormatado}
 Investimento: ${investimento}%
 Quantidade bonificada: ${quantidadeBonificada} Und
-Valor Bonificação: ${formatador.format(valorBonificado)}
-Preço Final: ${precoFinal}
+Valor Bonificação: ${valorBonificadoFormatado}
+Preço Final: ${precoSolicitadoFormatado}
 
 Código/Razão do Cliente: ${cliente}
         `;
