@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         syncBonificacao(); // Atualizar campos de bonificação após limpar
     });
 
-    // Função para calcular o resultado
+    // Função para calcular a ação
     document.getElementById('formAcao').addEventListener('submit', (e) => {
         e.preventDefault();
         
@@ -65,19 +65,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
         const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
 
-        // Validar campos obrigatórios
+        // Validar campos
         if (!cliente || !produto || !quantidade || !precoPalm || !produtoBonificado || !quantidadeBonificada || !valorBonificado) {
             alert('Preencha todos os campos obrigatórios!');
             return;
         }
 
-        // Cálculos
+        // Cálculos da ação
         const valorTotalPedido = quantidade * precoPalm;
         const valorTotalBonificacao = quantidadeBonificada * valorBonificado;
         const diferenca = valorTotalBonificacao - valorTotalPedido;
 
-        // Montar resultado
-        const resultado = `
+        // Montar resultado da ação
+        const resultadoAcao = `
         CLIENTE: ${cliente}
         PRODUTO: ${produto}
         QUANTIDADE: ${quantidade}
@@ -93,17 +93,42 @@ document.addEventListener('DOMContentLoaded', () => {
         DIFERENÇA: R$ ${diferenca.toFixed(2)}
         `;
 
-        // Exibir resultado
-        const resultadoSection = document.getElementById('resultadoAcaoSection');
-        const resultadoDiv = document.getElementById('resultadoAcao');
-        const botoesResultado = document.getElementById('botoesResultado');
-        
-        resultadoDiv.textContent = resultado;
-        resultadoSection.style.display = 'block';
-        botoesResultado.style.display = 'flex';
+        // Exibir resultado da ação
+        document.getElementById('resultadoAcao').textContent = resultadoAcao;
+        document.getElementById('resultadoAcaoSection').style.display = 'block';
+        document.getElementById('botoesResultado').style.display = 'flex';
+
+        // Exibir campos da bonificação (pedido e consultor)
+        document.getElementById('bonificacaoCampos').style.display = 'block';
     });
 
-    // Botão de copiar resultado
+    // Função para gerar a bonificação
+    document.getElementById('gerarBonificacao').addEventListener('click', () => {
+        // Coletar dados extras
+        const consultor = document.getElementById('codConsultor').value;
+        const pedido = document.getElementById('codPedido').value;
+        const observacao = document.getElementById('observacao').value;
+
+        // Validar campos
+        if (!consultor || !pedido) {
+            alert('Preencha o código do consultor e do pedido!');
+            return;
+        }
+
+        // Montar resultado da bonificação
+        const resultadoBonificacao = `
+        CÓD. CONSULTOR: ${consultor}
+        CÓD. PEDIDO: ${pedido}
+        OBSERVAÇÃO: ${observacao || 'Nenhuma'}
+        `;
+
+        // Exibir resultado da bonificação
+        document.getElementById('resultadoBonificacao').textContent = resultadoBonificacao;
+        document.getElementById('resultadoBonificacaoSection').style.display = 'block';
+        document.getElementById('botoesBonificacao').style.display = 'flex';
+    });
+
+    // Botão de copiar resultado da ação
     document.getElementById('copiar').addEventListener('click', () => {
         const resultadoDiv = document.getElementById('resultadoAcao');
         navigator.clipboard.writeText(resultadoDiv.textContent)
@@ -111,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(() => alert('Erro ao copiar o resultado.'));
     });
 
-    // Botão de compartilhar no WhatsApp
+    // Botão de compartilhar no WhatsApp (resultado da ação)
     document.getElementById('compartilhar').addEventListener('click', () => {
         const resultadoDiv = document.getElementById('resultadoAcao');
         const texto = encodeURIComponent(resultadoDiv.textContent);
@@ -119,10 +144,19 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(url, '_blank');
     });
 
-    // Registrar o Service Worker para PWA
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-            .then(() => console.log('Service Worker registrado com sucesso!'))
-            .catch((error) => console.log('Erro ao registrar Service Worker:', error));
-    }
+    // Botão de copiar resultado da bonificação
+    document.getElementById('copiarBonificacao').addEventListener('click', () => {
+        const resultadoDiv = document.getElementById('resultadoBonificacao');
+        navigator.clipboard.writeText(resultadoDiv.textContent)
+            .then(() => alert('Resultado copiado para a área de transferência!'))
+            .catch(() => alert('Erro ao copiar o resultado.'));
+    });
+
+    // Botão de compartilhar no WhatsApp (resultado da bonificação)
+    document.getElementById('compartilharBonificacao').addEventListener('click', () => {
+        const resultadoDiv = document.getElementById('resultadoBonificacao');
+        const texto = encodeURIComponent(resultadoDiv.textContent);
+        const url = `https://wa.me/?text=${texto}`;
+        window.open(url, '_blank');
+    });
 });
