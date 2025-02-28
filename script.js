@@ -123,9 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Cálculos ajustados
-        const valorPedido = quantidade * precoPalm; // Valor total do pedido
-        const precoSolicitado = 100 / (quantidade + quantidadeBonificada); // Preço solicitado
-        const investimento = ((valorBonificado / valorPedido) * 100).toFixed(1); // Porcentagem da bonificação em relação ao valor do pedido
+        const valorPedido = quantidade * precoPalm;
+        const precoSolicitado = valorPedido / (quantidade + quantidadeBonificada); // Cálculo corrigido
+        const investimento = ((valorBonificado / valorPedido) * 100).toFixed(1);
 
         // Formatar valores
         const valorPedidoFormatado = formatador.format(valorPedido);
