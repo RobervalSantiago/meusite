@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const precoPalm = parseFloat(document.getElementById('precoSistema').value);
         const produtoBonificado = document.getElementById('codProdutoBonificado').value;
         const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
-        const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
 
         // Verificar divisão por zero
         if (quantidade + quantidadeBonificada === 0) {
@@ -123,14 +123,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Cálculos ajustados
-        const valorPedido = quantidade * precoPalm;
-        const precoSolicitado = valorPedido / (quantidade + quantidadeBonificada); // Cálculo corrigido
-        const investimento = ((valorBonificado / valorPedido) * 100).toFixed(1);
+        const valorPedido = quantidade * precoPalm; // Valor total do pedido
+        const valorBonificacao = valorProdutoBonificado * quantidadeBonificada; // Valor da bonificação
+        const precoSolicitado = valorPedido / (quantidade + quantidadeBonificada); // Preço solicitado
+        const investimento = ((valorBonificacao / valorPedido) * 100).toFixed(1); // Investimento corrigido
 
         // Formatar valores
         const valorPedidoFormatado = formatador.format(valorPedido);
         const precoSolicitadoFormatado = formatador.format(precoSolicitado);
-        const valorBonificadoFormatado = formatador.format(valorBonificado);
+        const valorBonificacaoFormatado = formatador.format(valorBonificacao);
 
         // Montar resultado
         const resultadoAcao = `
@@ -147,7 +148,7 @@ Código/Produto Bonificado: ${produtoBonificado}
 Preço solicitado: ${precoSolicitadoFormatado}
 Investimento: ${investimento}%
 Quantidade bonificada: ${quantidadeBonificada} Und
-Valor Bonificação: ${valorBonificadoFormatado}
+Valor Bonificação: ${valorBonificacaoFormatado}
 Preço Final: ${precoSolicitadoFormatado}
 
 Código/Razão do Cliente: ${cliente}
@@ -197,7 +198,8 @@ Código/Razão do Cliente: ${cliente}
         const pedido = document.getElementById('codPedido').value;
         const produtoBonificado = document.getElementById('codProdutoBonificado').value;
         const quantidadeBonificada = document.getElementById('quantidadeProdutoBonificado').value;
-        const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+        const valorBonificacao = valorProdutoBonificado * quantidadeBonificada; // Valor da bonificação
         const observacao = document.getElementById('observacao').value || '';
 
         // Montar resultado
@@ -208,7 +210,7 @@ Código/Razão do Cliente: ${cliente}
 *Cód do pedido:* ${pedido}
 *Cód/produto:* ${produtoBonificado}
 *Quantidade:* ${quantidadeBonificada}
-*Valor Bonificação:* ${formatador.format(valorBonificado)}
+*Valor Bonificação:* ${formatador.format(valorBonificacao)}
 *Observação:* ${observacao}
         `;
 
