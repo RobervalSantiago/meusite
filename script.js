@@ -52,6 +52,73 @@ document.addEventListener('DOMContentLoaded', () => {
         syncBonificacao(); // Atualizar campos de bonificação após limpar
     });
 
+    // Função para calcular o resultado
+    document.getElementById('formAcao').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Coletar valores do formulário
+        const cliente = document.getElementById('codRazaoCliente').value;
+        const produto = document.getElementById('codProduto').value;
+        const quantidade = parseFloat(document.getElementById('quantidadeAcao').value);
+        const precoPalm = parseFloat(document.getElementById('precoSistema').value);
+        const produtoBonificado = document.getElementById('codProdutoBonificado').value;
+        const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
+        const valorBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+
+        // Validar campos obrigatórios
+        if (!cliente || !produto || !quantidade || !precoPalm || !produtoBonificado || !quantidadeBonificada || !valorBonificado) {
+            alert('Preencha todos os campos obrigatórios!');
+            return;
+        }
+
+        // Cálculos
+        const valorTotalPedido = quantidade * precoPalm;
+        const valorTotalBonificacao = quantidadeBonificada * valorBonificado;
+        const diferenca = valorTotalBonificacao - valorTotalPedido;
+
+        // Montar resultado
+        const resultado = `
+        CLIENTE: ${cliente}
+        PRODUTO: ${produto}
+        QUANTIDADE: ${quantidade}
+        PREÇO UNITÁRIO: R$ ${precoPalm.toFixed(2)}
+        VALOR TOTAL PEDIDO: R$ ${valorTotalPedido.toFixed(2)}
+        
+        BONIFICAÇÃO:
+        PRODUTO: ${produtoBonificado}
+        QUANTIDADE: ${quantidadeBonificada}
+        VALOR UNITÁRIO: R$ ${valorBonificado.toFixed(2)}
+        VALOR TOTAL BONIFICAÇÃO: R$ ${valorTotalBonificacao.toFixed(2)}
+        
+        DIFERENÇA: R$ ${diferenca.toFixed(2)}
+        `;
+
+        // Exibir resultado
+        const resultadoSection = document.getElementById('resultadoAcaoSection');
+        const resultadoDiv = document.getElementById('resultadoAcao');
+        const botoesResultado = document.getElementById('botoesResultado');
+        
+        resultadoDiv.textContent = resultado;
+        resultadoSection.style.display = 'block';
+        botoesResultado.style.display = 'flex';
+    });
+
+    // Botão de copiar resultado
+    document.getElementById('copiar').addEventListener('click', () => {
+        const resultadoDiv = document.getElementById('resultadoAcao');
+        navigator.clipboard.writeText(resultadoDiv.textContent)
+            .then(() => alert('Resultado copiado para a área de transferência!'))
+            .catch(() => alert('Erro ao copiar o resultado.'));
+    });
+
+    // Botão de compartilhar no WhatsApp
+    document.getElementById('compartilhar').addEventListener('click', () => {
+        const resultadoDiv = document.getElementById('resultadoAcao');
+        const texto = encodeURIComponent(resultadoDiv.textContent);
+        const url = `https://wa.me/?text=${texto}`;
+        window.open(url, '_blank');
+    });
+
     // Registrar o Service Worker para PWA
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js')
