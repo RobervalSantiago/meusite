@@ -1,245 +1,131 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Controle do Tema
-    const themeToggle = document.querySelector('.theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        const isDark = document.body.classList.contains('dark');
-        themeToggle.innerHTML = isDark ? '<i class="fas fa-sun" aria-hidden="true"></i>' : '<i class="fas fa-moon" aria-hidden="true"></i>';
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-
-    // Restaurar tema salvo
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.body.classList.toggle('dark', savedTheme === 'dark');
-    themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun" aria-hidden="true"></i>' : '<i class="fas fa-moon" aria-hidden="true"></i>';
-
-    // 2. Sincronização do Checkbox
-    const syncBonificacao = () => {
-        const produtoInput = document.getElementById('codProduto');
-        const bonificadoInput = document.getElementById('codProdutoBonificado');
-        const precoPalm = document.getElementById('precoSistema');
-        const valorBonificado = document.getElementById('valorProdutoBonificado');
-        const checkbox = document.getElementById('mesmoProduto');
-
-        if (checkbox.checked) {
-            bonificadoInput.value = produtoInput.value;
-            valorBonificado.value = precoPalm.value;
-            [bonificadoInput, valorBonificado].forEach(campo => {
-                campo.disabled = true;
-                campo.style.opacity = '0.7';
-            });
-        } else {
-            [bonificadoInput, valorBonificado].forEach(campo => {
-                campo.value = '';
-                campo.disabled = false;
-                campo.style.opacity = '1';
-            });
-        }
+// Módulo de Utilidades
+const Utils = (() => {
+    const debounce = (func, delay = 300) => {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), delay);
+        };
     };
 
-    // Event listeners para o checkbox
-    document.getElementById('mesmoProduto').addEventListener('change', syncBonificacao);
-    document.getElementById('codProduto').addEventListener('input', syncBonificacao);
-    document.getElementById('precoSistema').addEventListener('input', syncBonificacao);
+    const showToast = (message, type = 'info') => {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = 'toast';
+        toast.classList.add('show', type);
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    };
 
-    // 3. Limpar Formulário
-    document.getElementById('limpar').addEventListener('click', () => {
-        if (confirm('Tem certeza que deseja limpar o formulário?')) {
-            document.getElementById('formAcao').reset();
-            syncBonificacao();
-            document.querySelectorAll('.result-section').forEach(sec => sec.style.display = 'none');
-            document.querySelectorAll('.error-message').forEach(erro => erro.remove());
+    const loadTheme = () => {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+    };
+
+    return { debounce, showToast, loadTheme };
+})();
+
+// Módulo de Validação
+const Validator = (() => {
+    const validateField = (fieldId, value) => {
+        const field = document.getElementById(fieldId);
+        const errorElement = document.getElementById(`${fieldId}Help`);
+
+        field.classList.remove('input-valid', 'input-error');
+        errorElement.textContent = '';
+
+        if (!value.trim()) {
+            field.classList.add('input-error');
+            errorElement.textContent = 'Campo obrigatório';
+            return false;
         }
-    });
 
-    // 4. Validação em Tempo Real
-    const camposObrigatorios = [
-        'codRazaoCliente', 'codProduto', 'quantidadeAcao', 
-        'precoSistema', 'codProdutoBonificado', 'quantidadeProdutoBonificado', 
-        'valorProdutoBonificado'
+        if (fieldId.includes('quantidade') && value <= 0) {
+            field.classList.add('input-error');
+            errorElement.textContent = 'Valor deve ser maior que zero';
+            return false;
+        }
+
+        field.classList.add('input-valid');
+        return true;
+    };
+
+    return { validateField };
+})();
+
+// Módulo Principal
+document.addEventListener('DOMContentLoaded', () => {
+    Utils.loadTheme();
+
+    // Validação em tempo real
+    const fieldsToValidate = [
+        'codRazaoCliente', 'codProduto', 'quantidadeAcao',
+        'precoSistema', 'codProdutoBonificado',
+        'quantidadeProdutoBonificado', 'valorProdutoBonificado'
     ];
 
-    camposObrigatorios.forEach(id => {
-        const campo = document.getElementById(id);
-        campo.addEventListener('input', () => {
-            const erro = campo.nextElementSibling;
-            if (!campo.value.trim()) {
-                if (!erro || !erro.classList.contains('error-message')) {
-                    const erroSpan = document.createElement('span');
-                    erroSpan.className = 'error-message';
-                    erroSpan.textContent = 'Campo obrigatório!';
-                    campo.after(erroSpan);
-                }
-            } else if (erro && erro.classList.contains('error-message')) {
-                erro.remove();
-            }
-        });
+    fieldsToValidate.forEach(field => {
+        document.getElementById(field).addEventListener('input', Utils.debounce(e => {
+            Validator.validateField(field, e.target.value);
+        }));
     });
 
-    // 5. Cálculo da Ação (Funcionalidade Principal)
-    document.getElementById('formAcao').addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // Evento de Copiar
+    const copyHandler = (elementId) => {
+        navigator.clipboard.writeText(document.getElementById(elementId).textContent)
+            .then(() => Utils.showToast('Texto copiado!', 'success'))
+            .catch(() => Utils.showToast('Erro ao copiar!', 'error'));
+    };
 
-        // Mostrar spinner
-        document.getElementById('loading').style.display = 'flex';
+    // Evento de Compartilhar no WhatsApp
+    const shareOnWhatsApp = (elementId) => {
+        const message = document.getElementById(elementId).textContent;
+        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    };
 
-        // Validar campos
-        let camposVazios = false;
-        camposObrigatorios.forEach(id => {
-            const campo = document.getElementById(id);
-            if (!campo.value.trim()) {
-                camposVazios = true;
-                campo.style.borderColor = '#ff0000';
-            } else {
-                campo.style.borderColor = '';
-            }
-        });
+    // Eventos de clique para copiar e compartilhar
+    document.getElementById('copiar').addEventListener('click', () => copyHandler('resultadoAcao'));
+    document.getElementById('compartilhar').addEventListener('click', () => shareOnWhatsApp('resultadoAcao'));
 
-        if (camposVazios) {
-            alert('Preencha todos os campos obrigatórios!');
-            document.getElementById('loading').style.display = 'none';
-            return;
+    document.getElementById('copiarBonificacao').addEventListener('click', () => copyHandler('resultadoBonificacao'));
+    document.getElementById('compartilharBonificacao').addEventListener('click', () => shareOnWhatsApp('resultadoBonificacao'));
+
+    // Evento de Limpar
+    document.getElementById('limpar').addEventListener('click', function () {
+        document.getElementById('formAcao').reset();
+        document.getElementById('resultadoAcaoSection').style.display = 'none';
+        document.getElementById('bonificacaoCampos').style.display = 'none';
+        document.getElementById('resultadoBonificacaoSection').style.display = 'none';
+        document.getElementById('botoesResultado').style.display = 'none';
+        document.getElementById('botoesBonificacao').style.display = 'none';
+        // Limpar as sugestões
+        document.getElementById('sugestoesCliente').innerHTML = "";
+        document.getElementById('sugestoesProduto').innerHTML = "";
+        document.getElementById('sugestoesBonificado').innerHTML = "";
+    });
+
+    // Alternar Tema
+    document.querySelector('.theme-toggle').addEventListener('click', () => {
+        const body = document.body;
+        const currentTheme = body.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
         }
-
-        // Coletar dados
-        const formatador = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        });
-
-        const cliente = document.getElementById('codRazaoCliente').value;
-        const produto = document.getElementById('codProduto').value;
-        const quantidade = parseFloat(document.getElementById('quantidadeAcao').value);
-        const precoPalm = parseFloat(document.getElementById('precoSistema').value);
-        const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
-        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
-
-        // Verificar divisão por zero
-        if (quantidade + quantidadeBonificada === 0) {
-            alert('A soma da quantidade e quantidade bonificada não pode ser zero!');
-            document.getElementById('loading').style.display = 'none';
-            return;
-        }
-
-        // Cálculos ajustados
-        const valorPedido = quantidade * precoPalm; // Valor total do pedido
-        const valorBonificacao = valorProdutoBonificado * quantidadeBonificada; // Valor da bonificação
-        const precoSolicitado = valorPedido / (quantidade + quantidadeBonificada); // Preço solicitado
-        const investimento = ((valorBonificacao / valorPedido) * 100).toFixed(1); // Investimento corrigido
-
-        // Formatar valores
-        const valorPedidoFormatado = formatador.format(valorPedido);
-        const precoSolicitadoFormatado = formatador.format(precoSolicitado);
-        const valorBonificacaoFormatado = formatador.format(valorBonificacao);
-
-        // Montar resultado
-        const resultadoAcao = `
-*Solicitação de ação:*
-
-Código/Produto: ${produto}
-Quantidade: ${quantidade}
-Valor pedido: ${valorPedidoFormatado}
-Preço Sistema: ${formatador.format(precoPalm)}
-
-*Ação*
-
-Código/Produto Bonificado: ${produtoBonificado}
-Preço solicitado: ${precoSolicitadoFormatado}
-Investimento: ${investimento}%
-Quantidade bonificada: ${quantidadeBonificada} Und
-Valor Bonificação: ${valorBonificacaoFormatado}
-Preço Final: ${precoSolicitadoFormatado}
-
-Código/Razão do Cliente: ${cliente}
-        `;
-
-        // Exibir resultado
-        const resultadoDiv = document.getElementById('resultadoAcao');
-        resultadoDiv.textContent = resultadoAcao;
-
-        document.getElementById('resultadoAcaoSection').style.display = 'block';
-        document.getElementById('botoesResultado').style.display = 'flex';
-        document.getElementById('bonificacaoCampos').style.display = 'block';
-
-        // Esconder spinner
-        document.getElementById('loading').style.display = 'none';
-    });
-
-    // 6. Geração da Bonificação
-    document.getElementById('gerarBonificacao').addEventListener('click', () => {
-        // Validar campos
-        const camposObrigatorios = ['codConsultor', 'codPedido'];
-        let camposVazios = false;
-
-        camposObrigatorios.forEach(id => {
-            const campo = document.getElementById(id);
-            if (!campo.value.trim()) {
-                camposVazios = true;
-                campo.style.borderColor = '#ff0000';
-            } else {
-                campo.style.borderColor = '';
-            }
-        });
-
-        if (camposVazios) {
-            alert('Preencha o código do consultor e do pedido!');
-            return;
-        }
-
-        // Coletar dados
-        const formatador = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        });
-
-        const cliente = document.getElementById('codRazaoCliente').value;
-        const consultor = document.getElementById('codConsultor').value;
-        const pedido = document.getElementById('codPedido').value;
-        const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = document.getElementById('quantidadeProdutoBonificado').value;
-        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
-        const valorBonificacao = valorProdutoBonificado * quantidadeBonificada; // Valor da bonificação
-        const observacao = document.getElementById('observacao').value || '';
-
-        // Montar resultado
-        const resultadoBonificacao = `
-*Cód cliente/razão:* ${cliente}
-*Cód/vendedor:* ${consultor}
-*Autorizado por:* Fornecedor
-*Cód do pedido:* ${pedido}
-*Cód/produto:* ${produtoBonificado}
-*Quantidade:* ${quantidadeBonificada}
-*Valor Bonificação:* ${formatador.format(valorBonificacao)}
-*Observação:* ${observacao}
-        `;
-
-        // Exibir resultado
-        const resultadoDiv = document.getElementById('resultadoBonificacao');
-        resultadoDiv.textContent = resultadoBonificacao;
-
-        document.getElementById('resultadoBonificacaoSection').style.display = 'block';
-        document.getElementById('botoesBonificacao').style.display = 'flex';
-    });
-
-    // 7. Botões de Copiar e Compartilhar
-    document.getElementById('copiar').addEventListener('click', () => {
-        const texto = document.getElementById('resultadoAcao').textContent;
-        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
-    });
-
-    document.getElementById('compartilhar').addEventListener('click', () => {
-        const texto = encodeURIComponent(document.getElementById('resultadoAcao').textContent);
-        window.open(`https://wa.me/?text=${texto}`, '_blank');
-    });
-
-    document.getElementById('copiarBonificacao').addEventListener('click', () => {
-        const texto = document.getElementById('resultadoBonificacao').textContent;
-        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
-    });
-
-    document.getElementById('compartilharBonificacao').addEventListener('click', () => {
-        const texto = encodeURIComponent(document.getElementById('resultadoBonificacao').textContent);
-        window.open(`https://wa.me/?text=${texto}`, '_blank');
     });
 });
+
+// Service Worker com pré-cache
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+            .then(registration => {
+                console.log('SW registrado:', registration);
+                registration.update();
+            })
+            .catch(error => console.log('Falha no SW:', error));
+    });
+}
