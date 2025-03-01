@@ -367,6 +367,7 @@ input:invalid {
     width: 20px;
     height: 20px;
 }
+
 .toggle-btn {
     background: linear-gradient(90deg, #FFA726, #FB8C00);
     box-shadow: 0px 4px 6px rgba(255, 167, 38, 0.3);
