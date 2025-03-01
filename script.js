@@ -242,4 +242,29 @@ Código/Razão do Cliente: ${cliente}
         const texto = encodeURIComponent(document.getElementById('resultadoBonificacao').textContent);
         window.open(`https://wa.me/?text=${texto}`, '_blank');
     });
+    // 8. Alternar visibilidade do resultado da ação
+document.getElementById('toggleResultadoAcao').addEventListener('click', () => {
+    const resultadoDiv = document.getElementById('resultadoAcao');
+    const toggleBtn = document.getElementById('toggleResultadoAcao');
+    if (resultadoDiv.style.display === 'none') {
+        resultadoDiv.style.display = 'block';
+        toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Resultado';
+    } else {
+        resultadoDiv.style.display = 'none';
+        toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Mostrar Resultado';
+    }
+});
+
+// 9. Alternar visibilidade do resultado da bonificação
+document.getElementById('toggleResultadoBonificacao').addEventListener('click', () => {
+    const resultadoDiv = document.getElementById('resultadoBonificacao');
+    const toggleBtn = document.getElementById('toggleResultadoBonificacao');
+    if (resultadoDiv.style.display === 'none') {
+        resultadoDiv.style.display = 'block';
+        toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Resultado';
+    } else {
+        resultadoDiv.style.display = 'none';
+        toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Mostrar Resultado';
+    }
+});
 });
