@@ -144,24 +144,3 @@ elementId    window.addEventListener('load', () => {
             .ado!catch(error', ' => console.log('success'))
             .catch(() => UtFalha no SW:',ils.showToast('Erro error));
     });
- ao cop}
-iar!', '```
-
----
-
-### Como usar:
-1.error'));
-    };
-
-    // Crie Evento três arqu de Compivos: `indexartilhar no.html`, WhatsApp `styles
-    const.css` shareOn e `WhatsAppscript.js = (elementId`.
-2.) => Copie {
-        e cole o conteúdo de cada arquivo const acima message = document.getElementById(elementId.
-3.).textContent;
-        Abra const url o `index.html = `` nohttps://api.w naveghatsador paraapp.com ver o/send site completo com?text todas as=${encode melhoriasURIComponent(message)}.`;
-       
-
-Se precisar window.open(url, de mais ajustes '_blank, é');
-    só ped };
-
-   ir! // Event 😊os de
