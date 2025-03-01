@@ -391,3 +391,15 @@ input:invalid {
 .toggle-btn i {
     margin-right: 8px;
 }
+/* Ajuste de espaçamento para evitar sobreposição */
+#bonificacaoCampos {
+    margin-top: 30px; /* Espaço extra acima da seção de bonificação */
+}
+
+.botoes-resultado {
+    margin-bottom: 30px; /* Espaço abaixo dos botões Copiar/Compartilhar */
+}
+
+.result-section {
+    margin-bottom: 20px; /* Espaço entre seções de resultado */
+}
