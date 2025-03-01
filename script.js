@@ -99,33 +99,69 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('botoesResultado').style.display = 'none';
         document.getElementById('botoesBonificacao').style.display = 'none';
         // Limpar as sugestões
-        document.getElementById('sugestoesCliente').innerHTML = "";
+        const document.getElementById('sugestoesCliente').innerHTML = "";
         document.getElementById('sugestoesProduto').innerHTML = "";
         document.getElementById('sugestoesBonificado').innerHTML = "";
     });
 
     // Alternar Tema
-    document.querySelector('.theme-toggle').addEventListener('click', () => {
-        const body = document.body;
-        const currentTheme = body.getAttribute('data-theme');
-        if (currentTheme === 'dark') {
-            body.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-        } else {
-            body.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    });
+    document.querySelector('.theme-toggle').addEventListener fields('clickToValidate', () = => [
+        ' {
+        constcodR body = document.body;
+       azaoCliente', ' const currentcodTheme = body.getProduto', 'quantAttribute('idadeAdata-thecaome',
+       ');
+        if 'pre (currentTheme ===coS 'darkistema', 'cod')Produto {
+            bodyBonificado.setAttribute('data-theme', 'light',
+        'quantidadeProdutoBonificado');
+            localStorage', '.setItemvalorProd('themeutoBon', 'ificadolight'
+   ');
+        } ];
+
+    fields elseToValidate {
+            body.forEach(f.setAttributeield =>('data {
+       -theme document.getElementById', '(fielddark).add');
+            localStorageEventListener('.setIteminput',('theme Utils', '.debdarkounce(e');
+        => }
+    {
+            Valid });
 });
 
-// Service Worker com pré-cache
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-            .then(registration => {
-                console.log('SW registrado:', registration);
-                registration.update();
-            })
-            .catch(error => console.log('Falha no SW:', error));
+//ator.validate Service WorkerField(f com préield,-cache e.target
+if.value ('service);
+       Worker' }));
+    in navig });
+
+    // Evento de Copiar
+    const copyHandler = (ator) {
+elementId    window.addEventListener('load', () => {
+        navig) =>ator.serviceWorker.register {
+       ('sw navigator.js.clip')
+            .board.writethen(Text(documentregistration =>.getElementById(element {
+               Id). console.logtext('SWContent)
+            registrado .then:', registration(() =>);
+                Utils registration.update.showToast('Texto();
+            copi })
+            .ado!catch(error', ' => console.log('success'))
+            .catch(() => UtFalha no SW:',ils.showToast('Erro error));
     });
-}
+ ao cop}
+iar!', '```
+
+---
+
+### Como usar:
+1.error'));
+    };
+
+    // Crie Evento três arqu de Compivos: `indexartilhar no.html`, WhatsApp `styles
+    const.css` shareOn e `WhatsAppscript.js = (elementId`.
+2.) => Copie {
+        e cole o conteúdo de cada arquivo const acima message = document.getElementById(elementId.
+3.).textContent;
+        Abra const url o `index.html = `` nohttps://api.w naveghatsador paraapp.com ver o/send site completo com?text todas as=${encode melhoriasURIComponent(message)}.`;
+       
+
+Se precisar window.open(url, de mais ajustes '_blank, é');
+    só ped };
+
+   ir! // Event 😊os de
