@@ -367,3 +367,25 @@ input:invalid {
     width: 20px;
     height: 20px;
 }
+.toggle-btn {
+    background: linear-gradient(90deg, #FFA726, #FB8C00);
+    box-shadow: 0px 4px 6px rgba(255, 167, 38, 0.3);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--borda-radius);
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    margin-bottom: 20px;
+}
+
+.toggle-btn:hover {
+    background: linear-gradient(90deg, #FB8C00, #FFA726);
+    transform: scale(1.05);
+}
+
+.toggle-btn i {
+    margin-right: 8px;
+}
