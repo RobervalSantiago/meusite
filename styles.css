@@ -231,6 +231,7 @@ input:invalid {
 }
 
 #gerarBonificacao {
+    margin-top: 25px;
     background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
     box-shadow: 0px 4px 6px rgba(41, 98, 255, 0.3);
     color: #ffffff;
