@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Ação Donizete</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1026108745315813" crossorigin="anonymous"></script>
+</head>
+<body>
+    <button class="theme-toggle" aria-label="Alternar tema">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
+
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-file-alt" aria-hidden="true"></i> Solicitação de Ação</h1>
+            <p>Preencha os campos abaixo para solicitar uma ação comercial.</p>
+        </header>
+
+        <form id="formAcao">
+            <section class="form-section">
+                <h2><i class="fas fa-user" aria-hidden="true"></i> Informações do Cliente</h2>
+                <div class="form-group">
+                    <label for="codRazaoCliente">Código/Razão do Cliente:</label>
+                    <input type="text" id="codRazaoCliente" required>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2><i class="fas fa-box" aria-hidden="true"></i> Detalhes do Produto</h2>
+                <div class="form-group">
+                    <label for="codProduto">Código/Produto:</label>
+                    <input type="text" id="codProduto" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantidadeAcao">Quantidade do Produto:</label>
+                    <input type="number" id="quantidadeAcao" required min="1">
+                </div>
+                <div class="form-group">
+                    <label for="precoSistema">Preço do Palm:</label>
+                    <input type="number" id="precoSistema" step="0.01" required min="0">
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2><i class="fas fa-gift" aria-hidden="true"></i> Bonificação</h2>
+                <div class="form-group-checkbox">
+                    <input type="checkbox" id="mesmoProduto">
+                    <label for="mesmoProduto">Bonificar mesmo produto do pedido</label>
+                </div>
+                <div class="form-group">
+                    <label for="codProdutoBonificado">Código/Produto Bonificado:</label>
+                    <input type="text" id="codProdutoBonificado" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="valorProdutoBonificado">Valor do Produto Bonificado:</label>
+                    <input type="number" id="valorProdutoBonificado" step="0.01" required min="0">
+                </div>
+                <div class="form-group">
+                    <label for="quantidadeProdutoBonificado">Quantidade do Produto Bonificado:</label>
+                    <input type="number" id="quantidadeProdutoBonificado" required min="1">
+                </div>
+            </section>
+
+            <div class="form-actions">
+                <button type="submit" class="btn calcular"><i class="fas fa-calculator"></i> Calcular</button>
+                <button type="button" id="limpar" class="btn limpar"><i class="fas fa-eraser"></i> Limpar</button>
+            </div>
+        </form>
+
+        <section class="result-section" id="resultadoAcaoSection" style="display: none;">
+            <h2><i class="fas fa-chart-line" aria-hidden="true"></i> Resultado da Ação</h2>
+            <div id="resultadoAcao" class="resultado"></div>
+
+            <div class="botoes-resultado" id="botoesResultado" style="display: none;">
+                <button id="copiar" class="btn copiar"><i class="fas fa-copy"></i> Copiar</button>
+                <button id="compartilhar" class="btn whatsapp"><i class="fab fa-whatsapp"></i> Compartilhar</button>
+            </div>
+        </section>
+
+        <section id="bonificacaoCampos" class="form-section" style="display: none;">
+            <h2><i class="fas fa-gift" aria-hidden="true"></i> Detalhes da Bonificação</h2>
+            <div class="form-group">
+                <label for="codConsultor">Cód/Consultor:</label>
+                <input type="text" id="codConsultor" required>
+            </div>
+            <div class="form-group">
+                <label for="codPedido">Código do Pedido:</label>
+                <input type="text" id="codPedido" required>
+            </div>
+            <div class="form-group">
+                <label for="observacao">Observação:</label>
+                <input type="text" id="observacao">
+            </div>
+            <button id="gerarBonificacao" class="btn bonificacao"><i class="fas fa-check"></i> Gerar Bonificação</button>
+        </section>
+
+        <section class="result-section" id="resultadoBonificacaoSection" style="display: none;">
+            <h2><i class="fas fa-chart-pie" aria-hidden="true"></i> Resultado da Bonificação</h2>
+            <div id="resultadoBonificacao" class="resultado"></div>
+
+            <div class="botoes-resultado" id="botoesBonificacao" style="display: none;">
+                <button id="copiarBonificacao" class="btn copiar"><i class="fas fa-copy"></i> Copiar</button>
+                <button id="compartilharBonificacao" class="btn whatsapp"><i class="fab fa-whatsapp"></i> Compartilhar</button>
+            </div>
+        </section>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
