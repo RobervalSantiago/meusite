@@ -390,3 +390,27 @@ input:invalid {
 .toggle-btn i {
     margin-right: 8px;
 }
+/* Ajustes de espaçamento */
+#botoesResultado {
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+#bonificacaoCampos {
+    margin-top: 20px;
+}
+
+.botoes-resultado {
+    margin: 20px 0;
+    gap: 15px;
+}
+
+#botoesResultado .btn {
+    margin-top: 0;
+    flex: 1;
+}
+
+/* Melhorar espaçamento entre seções */
+.result-section {
+    margin-bottom: 30px;
+}
