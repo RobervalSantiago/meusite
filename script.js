@@ -65,6 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Lógica para o checkbox "Ação Direta no Preço"
+    const acaoDiretaCheckbox = document.getElementById('acaoDireta');
+    const bonificacaoSection = document.getElementById('bonificacaoCampos');
+    const precoSolicitadoContainer = document.getElementById('precoSolicitadoContainer');
+
+    acaoDiretaCheckbox.addEventListener('change', () => {
+        if (acaoDiretaCheckbox.checked) {
+            bonificacaoSection.style.display = 'none';
+            precoSolicitadoContainer.style.display = 'block';
+        } else {
+            bonificacaoSection.style.display = 'block';
+            precoSolicitadoContainer.style.display = 'none';
+        }
+    });
+
     document.getElementById('formAcao').addEventListener('submit', async (e) => {
         e.preventDefault();
         document.getElementById('loading').style.display = 'flex';
