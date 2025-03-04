@@ -47,24 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const camposObrigatorios = ['codRazaoCliente', 'codProduto', 'quantidadeAcao', 'precoSistema', 'codProdutoBonificado', 'quantidadeProdutoBonificado', 'valorProdutoBonificado'];
-    camposObrigatorios.forEach(id => {
-        const campo = document.getElementById(id);
-        campo.addEventListener('input', () => {
-            const erro = campo.nextElementSibling;
-            if (!campo.value.trim()) {
-                if (!erro || !erro.classList.contains('error-message')) {
-                    const erroSpan = document.createElement('span');
-                    erroSpan.className = 'error-message';
-                    erroSpan.textContent = 'Campo obrigatório!';
-                    campo.after(erroSpan);
-                }
-            } else if (erro && erro.classList.contains('error-message')) {
-                erro.remove();
-            }
-        });
-    });
-
     // Lógica para o checkbox "Ação Direta no Preço"
     const acaoDiretaCheckbox = document.getElementById('acaoDireta');
     const bonificacaoSection = document.getElementById('bonificacaoCampos');
@@ -75,34 +57,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     acaoDiretaCheckbox.addEventListener('change', () => {
         if (acaoDiretaCheckbox.checked) {
-            bonificacaoSection.style.display = 'none'; // Oculta a seção de Bonificação
-            detalhesBonificacaoSection.style.display = 'none'; // Oculta a seção de Detalhes da Bonificação
-            precoSolicitadoContainer.style.display = 'block'; // Mostra o campo de Preço Solicitado
-            resultadoAcaoSection.style.display = 'none'; // Oculta a seção de Resultado da Ação
+            bonificacaoSection.style.display = 'none';
+            detalhesBonificacaoSection.style.display = 'none';
+            precoSolicitadoContainer.style.display = 'block';
+            resultadoAcaoSection.style.display = 'none';
+            acaoDiretaSection.style.display = 'none'; // Resetar visibilidade
         } else {
-            bonificacaoSection.style.display = 'block'; // Mostra a seção de Bonificação
-            detalhesBonificacaoSection.style.display = 'block'; // Mostra a seção de Detalhes da Bonificação
-            precoSolicitadoContainer.style.display = 'none'; // Oculta o campo de Preço Solicitado
-            acaoDiretaSection.style.display = 'none'; // Oculta a seção de Ação Direta no Preço
+            bonificacaoSection.style.display = 'block';
+            detalhesBonificacaoSection.style.display = 'block';
+            precoSolicitadoContainer.style.display = 'none';
+            acaoDiretaSection.style.display = 'none';
+            resultadoAcaoSection.style.display = 'none'; // Resetar visibilidade
         }
     });
-
-    // Verifica o estado do checkbox ao carregar a página
-    if (acaoDiretaCheckbox.checked) {
-        bonificacaoSection.style.display = 'none';
-        detalhesBonificacaoSection.style.display = 'none';
-        precoSolicitadoContainer.style.display = 'block';
-        resultadoAcaoSection.style.display = 'none';
-    } else {
-        bonificacaoSection.style.display = 'block';
-        detalhesBonificacaoSection.style.display = 'block';
-        precoSolicitadoContainer.style.display = 'none';
-        acaoDiretaSection.style.display = 'none';
-    }
 
     document.getElementById('formAcao').addEventListener('submit', async (e) => {
         e.preventDefault();
         document.getElementById('loading').style.display = 'flex';
+
+        // Validação DINÂMICA dos campos
+        let camposObrigatorios = ['codRazaoCliente', 'codProduto', 'quantidadeAcao', 'precoSistema'];
+        if (acaoDiretaCheckbox.checked) {
+            camposObrigatorios.push('precoSolicitado');
+        } else {
+            camposObrigatorios.push('codProdutoBonificado', 'quantidadeProdutoBonificado', 'valorProdutoBonificado');
+        }
 
         let camposVazios = false;
         camposObrigatorios.forEach(id => {
@@ -110,8 +89,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!campo.value.trim()) {
                 camposVazios = true;
                 campo.style.borderColor = '#ff0000';
+                if (!campo.nextElementSibling || !campo.nextElementSibling.classList.contains('error-message')) {
+                    const erroSpan = document.createElement('span');
+                    erroSpan.className = 'error-message';
+                    erroSpan.textContent = 'Campo obrigatório!';
+                    campo.after(erroSpan);
+                }
             } else {
                 campo.style.borderColor = '';
+                if (campo.nextElementSibling && campo.nextElementSibling.classList.contains('error-message')) {
+                    campo.nextElementSibling.remove();
+                }
             }
         });
 
@@ -121,28 +109,21 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const formatador = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        });
-
+        // Cálculos e exibição do resultado
+        const formatador = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
         const cliente = document.getElementById('codRazaoCliente').value;
         const produto = document.getElementById('codProduto').value;
         const quantidade = parseFloat(document.getElementById('quantidadeAcao').value);
         const precoPalm = parseFloat(document.getElementById('precoSistema').value);
-        const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
-        const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
-        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
 
         if (acaoDiretaCheckbox.checked) {
-            // Cálculo para "Ação Direta no Preço"
+            const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
             const valorPedido = quantidade * precoPalm;
             const valorComDesconto = quantidade * precoSolicitado;
             const investimento = (((precoPalm - precoSolicitado) / precoPalm) * 100).toFixed(1);
             const valorDesconto = valorPedido - valorComDesconto;
 
-            const resultadoAcaoDireta = `
+            const resultado = `
 *Solicitação de ação:*
 
 Código/Produto: ${produto}
@@ -160,19 +141,20 @@ Valor do desconto: ${formatador.format(valorDesconto)}
 Código/Razão do Cliente: ${cliente}
             `;
 
-            const resultadoDiv = document.getElementById('resultadoAcaoDireta');
-            resultadoDiv.textContent = resultadoAcaoDireta;
-
-            document.getElementById('acaoDiretaSection').style.display = 'block';
+            document.getElementById('resultadoAcaoDireta').textContent = resultado;
+            document.getElementById('acaoDiretaSection').style.display = 'block'; // Exibir a seção correta
             document.getElementById('botoesAcaoDireta').style.display = 'flex';
+
         } else {
-            // Cálculo para Bonificação
+            const produtoBonificado = document.getElementById('codProdutoBonificado').value;
+            const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
+            const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
             const valorPedido = quantidade * precoPalm;
             const valorBonificacao = valorProdutoBonificado * quantidadeBonificada;
             const precoSolicitado = valorPedido / (quantidade + quantidadeBonificada);
             const investimento = ((valorBonificacao / valorPedido) * 100).toFixed(1);
 
-            const resultadoAcao = `
+            const resultado = `
 *Solicitação de ação:*
 
 Código/Produto: ${produto}
@@ -192,10 +174,8 @@ Preço Final: ${formatador.format(precoSolicitado)}
 Código/Razão do Cliente: ${cliente}
             `;
 
-            const resultadoDiv = document.getElementById('resultadoAcao');
-            resultadoDiv.textContent = resultadoAcao;
-
-            document.getElementById('resultadoAcaoSection').style.display = 'block';
+            document.getElementById('resultadoAcao').textContent = resultado;
+            document.getElementById('resultadoAcaoSection').style.display = 'block'; // Exibir a seção correta
             document.getElementById('botoesResultado').style.display = 'flex';
         }
 
@@ -220,16 +200,6 @@ Código/Razão do Cliente: ${cliente}
 
     document.getElementById('compartilharAcaoDireta').addEventListener('click', () => {
         const texto = encodeURIComponent(document.getElementById('resultadoAcaoDireta').textContent);
-        window.open(`https://wa.me/?text=${texto}`, '_blank');
-    });
-
-    document.getElementById('copiarBonificacao').addEventListener('click', () => {
-        const texto = document.getElementById('resultadoBonificacao').textContent;
-        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
-    });
-
-    document.getElementById('compartilharBonificacao').addEventListener('click', () => {
-        const texto = encodeURIComponent(document.getElementById('resultadoBonificacao').textContent);
         window.open(`https://wa.me/?text=${texto}`, '_blank');
     });
 
