@@ -70,16 +70,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const bonificacaoSection = document.getElementById('bonificacaoCampos');
     const detalhesBonificacaoSection = document.getElementById('detalhesBonificacaoCampos');
     const precoSolicitadoContainer = document.getElementById('precoSolicitadoContainer');
+    const acaoDiretaSection = document.getElementById('acaoDiretaSection');
+    const resultadoAcaoSection = document.getElementById('resultadoAcaoSection');
 
     acaoDiretaCheckbox.addEventListener('change', () => {
         if (acaoDiretaCheckbox.checked) {
             bonificacaoSection.style.display = 'none'; // Oculta a seção de Bonificação
             detalhesBonificacaoSection.style.display = 'none'; // Oculta a seção de Detalhes da Bonificação
             precoSolicitadoContainer.style.display = 'block'; // Mostra o campo de Preço Solicitado
+            resultadoAcaoSection.style.display = 'none'; // Oculta a seção de Resultado da Ação
         } else {
             bonificacaoSection.style.display = 'block'; // Mostra a seção de Bonificação
             detalhesBonificacaoSection.style.display = 'block'; // Mostra a seção de Detalhes da Bonificação
             precoSolicitadoContainer.style.display = 'none'; // Oculta o campo de Preço Solicitado
+            acaoDiretaSection.style.display = 'none'; // Oculta a seção de Ação Direta no Preço
         }
     });
 
@@ -88,10 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
         bonificacaoSection.style.display = 'none';
         detalhesBonificacaoSection.style.display = 'none';
         precoSolicitadoContainer.style.display = 'block';
+        resultadoAcaoSection.style.display = 'none';
     } else {
         bonificacaoSection.style.display = 'block';
         detalhesBonificacaoSection.style.display = 'block';
         precoSolicitadoContainer.style.display = 'none';
+        acaoDiretaSection.style.display = 'none';
     }
 
     document.getElementById('formAcao').addEventListener('submit', async (e) => {
@@ -129,8 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
         const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
 
-        let resultadoAcao = '';
-
         if (acaoDiretaCheckbox.checked) {
             // Cálculo para "Ação Direta no Preço"
             const valorPedido = quantidade * precoPalm;
@@ -138,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const investimento = (((precoPalm - precoSolicitado) / precoPalm) * 100).toFixed(1);
             const valorDesconto = valorPedido - valorComDesconto;
 
-            resultadoAcao = `
+            const resultadoAcaoDireta = `
 *Solicitação de ação:*
 
 Código/Produto: ${produto}
@@ -155,6 +159,12 @@ Valor do desconto: ${formatador.format(valorDesconto)}
 
 Código/Razão do Cliente: ${cliente}
             `;
+
+            const resultadoDiv = document.getElementById('resultadoAcaoDireta');
+            resultadoDiv.textContent = resultadoAcaoDireta;
+
+            document.getElementById('acaoDiretaSection').style.display = 'block';
+            document.getElementById('botoesAcaoDireta').style.display = 'flex';
         } else {
             // Cálculo para Bonificação
             const valorPedido = quantidade * precoPalm;
@@ -162,7 +172,7 @@ Código/Razão do Cliente: ${cliente}
             const precoSolicitado = valorPedido / (quantidade + quantidadeBonificada);
             const investimento = ((valorBonificacao / valorPedido) * 100).toFixed(1);
 
-            resultadoAcao = `
+            const resultadoAcao = `
 *Solicitação de ação:*
 
 Código/Produto: ${produto}
@@ -181,68 +191,18 @@ Preço Final: ${formatador.format(precoSolicitado)}
 
 Código/Razão do Cliente: ${cliente}
             `;
+
+            const resultadoDiv = document.getElementById('resultadoAcao');
+            resultadoDiv.textContent = resultadoAcao;
+
+            document.getElementById('resultadoAcaoSection').style.display = 'block';
+            document.getElementById('botoesResultado').style.display = 'flex';
         }
-
-        const resultadoDiv = document.getElementById('resultadoAcao');
-        resultadoDiv.textContent = resultadoAcao;
-
-        document.getElementById('resultadoAcaoSection').style.display = 'block';
-        document.getElementById('botoesResultado').style.display = 'flex';
 
         document.getElementById('loading').style.display = 'none';
     });
 
-    document.getElementById('gerarBonificacao').addEventListener('click', () => {
-        const camposObrigatorios = ['codConsultor', 'codPedido'];
-        let camposVazios = false;
-
-        camposObrigatorios.forEach(id => {
-            const campo = document.getElementById(id);
-            if (!campo.value.trim()) {
-                camposVazios = true;
-                campo.style.borderColor = '#ff0000';
-            } else {
-                campo.style.borderColor = '';
-            }
-        });
-
-        if (camposVazios) {
-            alert('Preencha o código do consultor e do pedido!');
-            return;
-        }
-
-        const formatador = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        });
-
-        const cliente = document.getElementById('codRazaoCliente').value;
-        const consultor = document.getElementById('codConsultor').value;
-        const pedido = document.getElementById('codPedido').value;
-        const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = document.getElementById('quantidadeProdutoBonificado').value;
-        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
-        const valorBonificacao = valorProdutoBonificado * quantidadeBonificada;
-        const observacao = document.getElementById('observacao').value || '';
-
-        const resultadoBonificacao = `
-*Cód cliente/razão:* ${cliente}
-*Cód/vendedor:* ${consultor}
-*Autorizado por:* Fornecedor
-*Cód do pedido:* ${pedido}
-*Cód/produto:* ${produtoBonificado}
-*Quantidade:* ${quantidadeBonificada}
-*Valor Bonificação:* ${formatador.format(valorBonificacao)}
-*Observação:* ${observacao}
-        `;
-
-        const resultadoDiv = document.getElementById('resultadoBonificacao');
-        resultadoDiv.textContent = resultadoBonificacao;
-
-        document.getElementById('resultadoBonificacaoSection').style.display = 'block';
-        document.getElementById('botoesBonificacao').style.display = 'flex';
-    });
-
+    // Botões de copiar e compartilhar
     document.getElementById('copiar').addEventListener('click', () => {
         const texto = document.getElementById('resultadoAcao').textContent;
         navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
@@ -250,6 +210,16 @@ Código/Razão do Cliente: ${cliente}
 
     document.getElementById('compartilhar').addEventListener('click', () => {
         const texto = encodeURIComponent(document.getElementById('resultadoAcao').textContent);
+        window.open(`https://wa.me/?text=${texto}`, '_blank');
+    });
+
+    document.getElementById('copiarAcaoDireta').addEventListener('click', () => {
+        const texto = document.getElementById('resultadoAcaoDireta').textContent;
+        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
+    });
+
+    document.getElementById('compartilharAcaoDireta').addEventListener('click', () => {
+        const texto = encodeURIComponent(document.getElementById('resultadoAcaoDireta').textContent);
         window.open(`https://wa.me/?text=${texto}`, '_blank');
     });
 
@@ -263,6 +233,7 @@ Código/Razão do Cliente: ${cliente}
         window.open(`https://wa.me/?text=${texto}`, '_blank');
     });
 
+    // Botões de alternar visibilidade
     document.getElementById('toggleResultadoAcao').addEventListener('click', () => {
         const resultadoDiv = document.getElementById('resultadoAcao');
         const botoesResultado = document.getElementById('botoesResultado');
@@ -274,6 +245,21 @@ Código/Razão do Cliente: ${cliente}
         } else {
             resultadoDiv.style.display = 'none';
             botoesResultado.style.display = 'none';
+            toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Mostrar Resultado';
+        }
+    });
+
+    document.getElementById('toggleAcaoDireta').addEventListener('click', () => {
+        const resultadoDiv = document.getElementById('resultadoAcaoDireta');
+        const botoesAcaoDireta = document.getElementById('botoesAcaoDireta');
+        const toggleBtn = document.getElementById('toggleAcaoDireta');
+        if (resultadoDiv.style.display === 'none') {
+            resultadoDiv.style.display = 'block';
+            botoesAcaoDireta.style.display = 'flex';
+            toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Resultado';
+        } else {
+            resultadoDiv.style.display = 'none';
+            botoesAcaoDireta.style.display = 'none';
             toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Mostrar Resultado';
         }
     });
@@ -293,6 +279,7 @@ Código/Razão do Cliente: ${cliente}
         }
     });
 
+    // Sugestões de dados
     function salvarDados(chave, valor) {
         let dados = JSON.parse(localStorage.getItem(chave)) || [];
         if (!dados.includes(valor)) {
