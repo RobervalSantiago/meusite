@@ -69,14 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const acaoDiretaCheckbox = document.getElementById('acaoDireta');
     const bonificacaoSection = document.getElementById('bonificacaoCampos');
     const precoSolicitadoContainer = document.getElementById('precoSolicitadoContainer');
+    const secaoBonificacao = document.querySelector('section.form-section:has(h2:contains("Bonificação"))'); // Seleciona a seção "Bonificação"
 
     // Função para atualizar a visibilidade com base no checkbox
     const atualizarVisibilidade = () => {
         if (acaoDiretaCheckbox.checked) {
-            bonificacaoSection.style.display = 'none'; // Oculta a seção de bonificação
+            bonificacaoSection.style.display = 'none'; // Oculta a seção "Detalhes da Bonificação"
+            secaoBonificacao.style.display = 'none'; // Oculta a seção "Bonificação"
             precoSolicitadoContainer.style.display = 'block'; // Exibe o campo "Preço Solicitado"
         } else {
-            bonificacaoSection.style.display = 'block'; // Exibe a seção de bonificação
+            bonificacaoSection.style.display = 'block'; // Exibe a seção "Detalhes da Bonificação"
+            secaoBonificacao.style.display = 'block'; // Exibe a seção "Bonificação"
             precoSolicitadoContainer.style.display = 'none'; // Oculta o campo "Preço Solicitado"
         }
     };
@@ -173,8 +176,9 @@ Código/Razão do Cliente: ${cliente}
         document.getElementById('resultadoAcaoSection').style.display = 'block';
         document.getElementById('botoesResultado').style.display = 'flex';
 
-        // Não forçar a exibição da seção de bonificação após o submit
+        // Não forçar a exibição das seções de bonificação após o submit
         // document.getElementById('bonificacaoCampos').style.display = 'block';
+        // secaoBonificacao.style.display = 'block';
 
         document.getElementById('loading').style.display = 'none';
     });
