@@ -124,51 +124,70 @@ document.addEventListener('DOMContentLoaded', () => {
         const produto = document.getElementById('codProduto').value;
         const quantidade = parseFloat(document.getElementById('quantidadeAcao').value);
         const precoPalm = parseFloat(document.getElementById('precoSistema').value);
+        const precoSolicitado = parseFloat(document.getElementById('precoSolicitado').value);
         const produtoBonificado = document.getElementById('codProdutoBonificado').value;
         const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
         const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
 
-        if (quantidade + quantidadeBonificada === 0) {
-            alert('A soma da quantidade e quantidade bonificada não pode ser zero!');
-            document.getElementById('loading').style.display = 'none';
-            return;
-        }
+        let resultadoAcao = '';
 
-        const valorPedido = quantidade * precoPalm;
-        const valorBonificacao = valorProdutoBonificado * quantidadeBonificada;
-        const precoSolicitado = valorPedido / (quantidade + quantidadeBonificada);
-        const investimento = ((valorBonificacao / valorPedido) * 100).toFixed(1);
+        if (acaoDiretaCheckbox.checked) {
+            // Cálculo para "Ação Direta no Preço"
+            const valorPedido = quantidade * precoPalm;
+            const valorComDesconto = quantidade * precoSolicitado;
+            const investimento = (((precoPalm - precoSolicitado) / precoPalm) * 100).toFixed(1);
+            const valorDesconto = valorPedido - valorComDesconto;
 
-        const valorPedidoFormatado = formatador.format(valorPedido);
-        const precoSolicitadoFormatado = formatador.format(precoSolicitado);
-        const valorBonificacaoFormatado = formatador.format(valorBonificacao);
-
-        const resultadoAcao = `
+            resultadoAcao = `
 *Solicitação de ação:*
 
 Código/Produto: ${produto}
 Quantidade: ${quantidade}
-Valor pedido: ${valorPedidoFormatado}
+Valor pedido: ${formatador.format(valorPedido)}
+Preço Sistema: ${formatador.format(precoPalm)}
+
+*Ação Direto no Preço:*
+
+Código/Produto: ${produto}
+Preço solicitado: ${formatador.format(precoSolicitado)}
+Investimento: ${investimento}%
+Valor do desconto: ${formatador.format(valorDesconto)}
+
+Código/Razão do Cliente: ${cliente}
+            `;
+        } else {
+            // Cálculo para Bonificação
+            const valorPedido = quantidade * precoPalm;
+            const valorBonificacao = valorProdutoBonificado * quantidadeBonificada;
+            const precoSolicitado = valorPedido / (quantidade + quantidadeBonificada);
+            const investimento = ((valorBonificacao / valorPedido) * 100).toFixed(1);
+
+            resultadoAcao = `
+*Solicitação de ação:*
+
+Código/Produto: ${produto}
+Quantidade: ${quantidade}
+Valor pedido: ${formatador.format(valorPedido)}
 Preço Sistema: ${formatador.format(precoPalm)}
 
 *Ação*
 
 Código/Produto Bonificado: ${produtoBonificado}
-Preço solicitado: ${precoSolicitadoFormatado}
+Preço solicitado: ${formatador.format(precoSolicitado)}
 Investimento: ${investimento}%
 Quantidade bonificada: ${quantidadeBonificada} Und
-Valor Bonificação: ${valorBonificacaoFormatado}
-Preço Final: ${precoSolicitadoFormatado}
+Valor Bonificação: ${formatador.format(valorBonificacao)}
+Preço Final: ${formatador.format(precoSolicitado)}
 
 Código/Razão do Cliente: ${cliente}
-        `;
+            `;
+        }
 
         const resultadoDiv = document.getElementById('resultadoAcao');
         resultadoDiv.textContent = resultadoAcao;
 
         document.getElementById('resultadoAcaoSection').style.display = 'block';
         document.getElementById('botoesResultado').style.display = 'flex';
-        document.getElementById('bonificacaoCampos').style.display = 'block';
 
         document.getElementById('loading').style.display = 'none';
     });
