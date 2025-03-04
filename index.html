@@ -75,6 +75,23 @@
                 </div>
             </section>
 
+            <section id="detalhesBonificacaoCampos" class="form-section">
+                <h2><i class="fas fa-gift" aria-hidden="true"></i> Detalhes da Bonificação</h2>
+                <div class="form-group">
+                    <label for="codConsultor">Cód/Consultor:</label>
+                    <input type="text" id="codConsultor" required list="codConsultor-sugestoes">
+                </div>
+                <div class="form-group">
+                    <label for="codPedido">Código do Pedido:</label>
+                    <input type="text" id="codPedido" required>
+                </div>
+                <div class="form-group">
+                    <label for="observacao">Observação:</label>
+                    <input type="text" id="observacao" list="observacao-sugestoes">
+                </div>
+                <button id="gerarBonificacao" class="btn bonificacao"><i class="fas fa-check"></i> Gerar Bonificação</button>
+            </section>
+
             <div class="form-actions">
                 <button type="submit" class="btn calcular"><i class="fas fa-calculator"></i> Calcular</button>
                 <button type="button" id="limpar" class="btn limpar"><i class="fas fa-eraser"></i> Limpar</button>
@@ -89,23 +106,6 @@
                 <button id="copiar" class="btn copiar"><i class="fas fa-copy"></i> Copiar</button>
                 <button id="compartilhar" class="btn whatsapp"><i class="fab fa-whatsapp"></i> Compartilhar</button>
             </div>
-        </section>
-
-        <section id="bonificacaoCampos" class="form-section">
-            <h2><i class="fas fa-gift" aria-hidden="true"></i> Detalhes da Bonificação</h2>
-            <div class="form-group">
-                <label for="codConsultor">Cód/Consultor:</label>
-                <input type="text" id="codConsultor" required list="codConsultor-sugestoes">
-            </div>
-            <div class="form-group">
-                <label for="codPedido">Código do Pedido:</label>
-                <input type="text" id="codPedido" required>
-            </div>
-            <div class="form-group">
-                <label for="observacao">Observação:</label>
-                <input type="text" id="observacao" list="observacao-sugestoes">
-            </div>
-            <button id="gerarBonificacao" class="btn bonificacao"><i class="fas fa-check"></i> Gerar Bonificação</button>
         </section>
 
         <section class="result-section" id="resultadoBonificacaoSection" style="display: none;">
