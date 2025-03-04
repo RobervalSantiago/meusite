@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (acaoDiretaCheckbox.checked) {
             bonificacaoSection.style.display = 'none';
             precoSolicitadoContainer.style.display = 'block';
+            alert('A seção de bonificação foi ocultada. Preencha o preço solicitado.');
         } else {
             bonificacaoSection.style.display = 'block';
             precoSolicitadoContainer.style.display = 'none';
@@ -94,6 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 campo.style.borderColor = '';
             }
         });
+
+        // Validação do campo "Preço Solicitado" se o checkbox estiver marcado
+        if (acaoDiretaCheckbox.checked) {
+            const precoSolicitado = document.getElementById('precoSolicitado');
+            if (!precoSolicitado.value.trim()) {
+                camposVazios = true;
+                precoSolicitado.style.borderColor = '#ff0000';
+            } else {
+                precoSolicitado.style.borderColor = '';
+            }
+        }
 
         if (camposVazios) {
             alert('Preencha todos os campos obrigatórios!');
