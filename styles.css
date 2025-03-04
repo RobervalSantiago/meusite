@@ -1,323 +1,392 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.querySelector('.theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        const isDark = document.body.classList.contains('dark');
-        themeToggle.innerHTML = isDark ? '<i class="fas fa-sun" aria-hidden="true"></i>' : '<i class="fas fa-moon" aria-hidden="true"></i>';
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
+:root {
+    --cor-primaria: #2962FF;
+    --cor-secundaria: #00C853;
+    --cor-fundo: #FFFFFF;
+    --cor-texto: #2D3748;
+    --cor-texto-secundario: #4A5568;
+    --cor-fundo-input: #F5F7FA;
+    --cor-fundo-input-foco: #E3F2FD;
+    --sombra: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --borda-radius: 12px;
+}
 
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.body.classList.toggle('dark', savedTheme === 'dark');
-    themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun" aria-hidden="true"></i>' : '<i class="fas fa-moon" aria-hidden="true"></i>';
+body.dark {
+    --cor-fundo: #1A1A1A;
+    --cor-texto: #FFFFFF;
+    --cor-texto-secundario: #A0AEC0;
+    --cor-fundo-input: #2D3748;
+    --cor-fundo-input-foco: #4A5568;
+}
 
-    const syncBonificacao = () => {
-        const produtoInput = document.getElementById('codProduto');
-        const bonificadoInput = document.getElementById('codProdutoBonificado');
-        const precoPalm = document.getElementById('precoSistema');
-        const valorBonificado = document.getElementById('valorProdutoBonificado');
-        const checkbox = document.getElementById('mesmoProduto');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
 
-        if (checkbox.checked) {
-            bonificadoInput.value = produtoInput.value;
-            valorBonificado.value = precoPalm.value;
-            [bonificadoInput, valorBonificado].forEach(campo => {
-                campo.disabled = true;
-                campo.style.opacity = '0.7';
-            });
-        } else {
-            [bonificadoInput, valorBonificado].forEach(campo => {
-                campo.value = '';
-                campo.disabled = false;
-                campo.style.opacity = '1';
-            });
-        }
-    };
+body {
+    background: var(--cor-fundo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--cor-texto);
+    transition: background 0.3s, color 0.3s;
+}
 
-    document.getElementById('mesmoProduto').addEventListener('change', syncBonificacao);
-    document.getElementById('codProduto').addEventListener('input', syncBonificacao);
-    document.getElementById('precoSistema').addEventListener('input', syncBonificacao);
+.container {
+    background: var(--cor-fundo);
+    padding: 2rem;
+    border-radius: var(--borda-radius);
+    box-shadow: var(--sombra);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    color: var(--cor-texto);
+    margin: 20px auto;
+}
 
-    document.getElementById('limpar').addEventListener('click', () => {
-        if (confirm('Tem certeza que deseja limpar o formulário?')) {
-            document.getElementById('formAcao').reset();
-            syncBonificacao();
-            document.querySelectorAll('.result-section').forEach(sec => sec.style.display = 'none');
-            document.querySelectorAll('.error-message').forEach(erro => erro.remove());
-        }
-    });
+header {
+    margin-bottom: 40px;
+}
 
-    const camposObrigatorios = ['codRazaoCliente', 'codProduto', 'quantidadeAcao', 'precoSistema', 'codProdutoBonificado', 'quantidadeProdutoBonificado', 'valorProdutoBonificado'];
-    camposObrigatorios.forEach(id => {
-        const campo = document.getElementById(id);
-        campo.addEventListener('input', () => {
-            const erro = campo.nextElementSibling;
-            if (!campo.value.trim()) {
-                if (!erro || !erro.classList.contains('error-message')) {
-                    const erroSpan = document.createElement('span');
-                    erroSpan.className = 'error-message';
-                    erroSpan.textContent = 'Campo obrigatório!';
-                    campo.after(erroSpan);
-                }
-            } else if (erro && erro.classList.contains('error-message')) {
-                erro.remove();
-            }
-        });
-    });
+header h1 {
+    font-size: 2.5rem;
+    color: var(--cor-primaria);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
 
-    // Lógica para o checkbox "Ação Direta no Preço"
-    const acaoDiretaCheckbox = document.getElementById('acaoDireta');
-    const bonificacaoSection = document.getElementById('bonificacaoCampos');
-    const secaoBonificacao = document.getElementById('secaoBonificacao');
-    const precoSolicitadoContainer = document.getElementById('precoSolicitadoContainer');
+header p {
+    font-size: 1.1rem;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 0;
+}
 
-    // Função para atualizar a visibilidade com base no checkbox
-    const atualizarVisibilidade = () => {
-        if (acaoDiretaCheckbox.checked) {
-            bonificacaoSection.style.display = 'none'; // Oculta a seção "Detalhes da Bonificação"
-            secaoBonificacao.style.display = 'none'; // Oculta a seção "Bonificação"
-            precoSolicitadoContainer.style.display = 'block'; // Exibe o campo "Preço Solicitado"
-        } else {
-            bonificacaoSection.style.display = 'block'; // Exibe a seção "Detalhes da Bonificação"
-            secaoBonificacao.style.display = 'block'; // Exibe a seção "Bonificação"
-            precoSolicitadoContainer.style.display = 'none'; // Oculta o campo "Preço Solicitado"
-        }
-    };
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--cor-primaria);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--sombra);
+    transition: background 0.3s, transform 0.3s;
+}
 
-    // Aplicar a visibilidade inicial
-    atualizarVisibilidade();
+.theme-toggle:hover {
+    background: var(--cor-secundaria);
+    transform: scale(1.1);
+}
 
-    // Ouvir mudanças no checkbox
-    acaoDiretaCheckbox.addEventListener('change', atualizarVisibilidade);
+.theme-toggle i {
+    color: #ffffff;
+    font-size: 1.2rem;
+}
 
-    document.getElementById('formAcao').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        document.getElementById('loading').style.display = 'flex';
+.form-section {
+    background: var(--cor-fundo-input);
+    border: 1px solid #E3F2FD;
+    border-radius: var(--borda-radius);
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: var(--sombra);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
 
-        let camposVazios = false;
-        camposObrigatorios.forEach(id => {
-            const campo = document.getElementById(id);
-            if (!campo.value.trim()) {
-                camposVazios = true;
-                campo.style.borderColor = '#ff0000';
-            } else {
-                campo.style.borderColor = '';
-            }
-        });
+.form-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 
-        // Validação do campo "Preço Solicitado" se o checkbox estiver marcado
-        if (acaoDiretaCheckbox.checked) {
-            const precoSolicitado = document.getElementById('precoSolicitado');
-            if (!precoSolicitado.value.trim()) {
-                camposVazios = true;
-                precoSolicitado.style.borderColor = '#ff0000';
-            } else {
-                precoSolicitado.style.borderColor = '';
-            }
-        }
+.form-section h2 {
+    font-size: 1.6rem;
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        if (camposVazios) {
-            alert('Preencha todos os campos obrigatórios!');
-            document.getElementById('loading').style.display = 'none';
-            return;
-        }
+.form-section h2 i {
+    font-size: 1.4rem;
+}
 
-        const formatador = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        });
+.form-group {
+    margin-bottom: 20px;
+}
 
-        const cliente = document.getElementById('codRazaoCliente').value;
-        const produto = document.getElementById('codProduto').value;
-        const quantidade = parseFloat(document.getElementById('quantidadeAcao').value);
-        const precoPalm = parseFloat(document.getElementById('precoSistema').value);
-        const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
-        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #E3F2FD;
+    border-radius: var(--borda-radius);
+    font-size: 1rem;
+    background: var(--cor-fundo-input);
+    color: var(--cor-texto);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-top: 8px;
+}
 
-        if (quantidade + quantidadeBonificada === 0) {
-            alert('A soma da quantidade e quantidade bonificada não pode ser zero!');
-            document.getElementById('loading').style.display = 'none';
-            return;
-        }
+input:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 8px rgba(41, 98, 255, 0.3);
+}
 
-        const valorPedido = quantidade * precoPalm;
-        const valorBonificacao = valorProdutoBonificado * quantidadeBonificada;
-        const precoSolicitado = valorPedido / (quantidade + quantidadeBonificada);
-        const investimento = ((valorBonificacao / valorPedido) * 100).toFixed(1);
+input:valid {
+    border-color: var(--cor-secundaria);
+}
 
-        const valorPedidoFormatado = formatador.format(valorPedido);
-        const precoSolicitadoFormatado = formatador.format(precoSolicitado);
-        const valorBonificacaoFormatado = formatador.format(valorBonificacao);
+input:invalid {
+    border-color: #FF1744;
+}
 
-        const resultadoAcao = `
-*Solicitação de ação:*
+.error-message {
+    color: #FF1744;
+    font-size: 0.875rem;
+    margin-top: 8px;
+    display: block;
+}
 
-Código/Produto: ${produto}
-Quantidade: ${quantidade}
-Valor pedido: ${valorPedidoFormatado}
-Preço Sistema: ${formatador.format(precoPalm)}
+.btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: var(--borda-radius);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    margin-top: 15px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-*Ação*
+.btn i {
+    margin-right: 8px;
+}
 
-Código/Produto Bonificado: ${produtoBonificado}
-Preço solicitado: ${precoSolicitadoFormatado}
-Investimento: ${investimento}%
-Quantidade bonificada: ${quantidadeBonificada} Und
-Valor Bonificação: ${valorBonificacaoFormatado}
-Preço Final: ${precoSolicitadoFormatado}
+.btn:hover {
+    transform: scale(1.05);
+}
 
-Código/Razão do Cliente: ${cliente}
-        `;
+.calcular {
+    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+    box-shadow: 0px 4px 6px rgba(41, 98, 255, 0.3);
+}
 
-        const resultadoDiv = document.getElementById('resultadoAcao');
-        resultadoDiv.textContent = resultadoAcao;
+.calcular:hover {
+    background: linear-gradient(90deg, var(--cor-secundaria), var(--cor-primaria));
+}
 
-        document.getElementById('resultadoAcaoSection').style.display = 'block';
-        document.getElementById('botoesResultado').style.display = 'flex';
+.limpar {
+    background: linear-gradient(90deg, #FF5252, #D32F2F);
+    box-shadow: 0px 4px 6px rgba(255, 82, 82, 0.3);
+}
 
-        // Não forçar a exibição das seções de bonificação após o submit
-        // document.getElementById('bonificacaoCampos').style.display = 'block';
-        // secaoBonificacao.style.display = 'block';
+.limpar:hover {
+    background: linear-gradient(90deg, #D32F2F, #FF5252);
+}
 
-        document.getElementById('loading').style.display = 'none';
-    });
+.copiar {
+    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+    box-shadow: 0px 4px 6px rgba(41, 98, 255, 0.3);
+}
 
-    document.getElementById('gerarBonificacao').addEventListener('click', () => {
-        const camposObrigatorios = ['codConsultor', 'codPedido'];
-        let camposVazios = false;
+.copiar:hover {
+    background: linear-gradient(90deg, var(--cor-secundaria), var(--cor-primaria));
+}
 
-        camposObrigatorios.forEach(id => {
-            const campo = document.getElementById(id);
-            if (!campo.value.trim()) {
-                camposVazios = true;
-                campo.style.borderColor = '#ff0000';
-            } else {
-                campo.style.borderColor = '';
-            }
-        });
+.whatsapp {
+    background: linear-gradient(90deg, #25D366, #1B9448);
+    box-shadow: 0px 4px 6px rgba(37, 211, 102, 0.3);
+}
 
-        if (camposVazios) {
-            alert('Preencha o código do consultor e do pedido!');
-            return;
-        }
+.whatsapp:hover {
+    background: linear-gradient(90deg, #1B9448, #25D366);
+}
 
-        const formatador = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        });
+#botoesBonificacao {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+}
 
-        const cliente = document.getElementById('codRazaoCliente').value;
-        const consultor = document.getElementById('codConsultor').value;
-        const pedido = document.getElementById('codPedido').value;
-        const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = document.getElementById('quantidadeProdutoBonificado').value;
-        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
-        const valorBonificacao = valorProdutoBonificado * quantidadeBonificada;
-        const observacao = document.getElementById('observacao').value || '';
+#botoesBonificacao .btn {
+    width: auto;
+    padding: 10px 20px;
+}
 
-        const resultadoBonificacao = `
-*Cód cliente/razão:* ${cliente}
-*Cód/vendedor:* ${consultor}
-*Autorizado por:* Fornecedor
-*Cód do pedido:* ${pedido}
-*Cód/produto:* ${produtoBonificado}
-*Quantidade:* ${quantidadeBonificada}
-*Valor Bonificação:* ${formatador.format(valorBonificacao)}
-*Observação:* ${observacao}
-        `;
+#gerarBonificacao {
+    background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+    box-shadow: 0px 4px 6px rgba(41, 98, 255, 0.3);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--borda-radius);
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    margin-top: 20px;
+}
 
-        const resultadoDiv = document.getElementById('resultadoBonificacao');
-        resultadoDiv.textContent = resultadoBonificacao;
+#gerarBonificacao:hover {
+    background: linear-gradient(90deg, var(--cor-secundaria), var(--cor-primaria));
+    transform: scale(1.05);
+}
 
-        document.getElementById('resultadoBonificacaoSection').style.display = 'block';
-        document.getElementById('botoesBonificacao').style.display = 'flex';
-    });
+.result-section {
+    margin-top: 30px;
+}
 
-    document.getElementById('copiar').addEventListener('click', () => {
-        const texto = document.getElementById('resultadoAcao').textContent;
-        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
-    });
+.result-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    color: var(--cor-primaria);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-    document.getElementById('compartilhar').addEventListener('click', () => {
-        const texto = encodeURIComponent(document.getElementById('resultadoAcao').textContent);
-        window.open(`https://wa.me/?text=${texto}`, '_blank');
-    });
+.resultado {
+    margin-top: 25px;
+    padding: 20px;
+    background: var(--cor-fundo-input);
+    border-radius: var(--borda-radius);
+    white-space: pre-wrap;
+    font-family: monospace;
+    text-align: left;
+    font-size: 1rem;
+    color: var(--cor-texto);
+    line-height: 1.5;
+    border: 1px solid #E3F2FD;
+}
 
-    document.getElementById('copiarBonificacao').addEventListener('click', () => {
-        const texto = document.getElementById('resultadoBonificacao').textContent;
-        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
-    });
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
 
-    document.getElementById('compartilharBonificacao').addEventListener('click', () => {
-        const texto = encodeURIComponent(document.getElementById('resultadoBonificacao').textContent);
-        window.open(`https://wa.me/?text=${texto}`, '_blank');
-    });
+.spinner {
+    border: 4px solid rgba(41, 98, 255, 0.3);
+    border-top: 4px solid var(--cor-primaria);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
 
-    document.getElementById('toggleResultadoAcao').addEventListener('click', () => {
-        const resultadoDiv = document.getElementById('resultadoAcao');
-        const botoesResultado = document.getElementById('botoesResultado');
-        const toggleBtn = document.getElementById('toggleResultadoAcao');
-        if (resultadoDiv.style.display === 'none') {
-            resultadoDiv.style.display = 'block';
-            botoesResultado.style.display = 'flex';
-            toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Resultado';
-        } else {
-            resultadoDiv.style.display = 'none';
-            botoesResultado.style.display = 'none';
-            toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Mostrar Resultado';
-        }
-    });
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
-    document.getElementById('toggleResultadoBonificacao').addEventListener('click', () => {
-        const resultadoDiv = document.getElementById('resultadoBonificacao');
-        const botoesBonificacao = document.getElementById('botoesBonificacao');
-        const toggleBtn = document.getElementById('toggleResultadoBonificacao');
-        if (resultadoDiv.style.display === 'none') {
-            resultadoDiv.style.display = 'block';
-            botoesBonificacao.style.display = 'flex';
-            toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Resultado';
-        } else {
-            resultadoDiv.style.display = 'none';
-            botoesBonificacao.style.display = 'none';
-            toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Mostrar Resultado';
-        }
-    });
-
-    function salvarDados(chave, valor) {
-        let dados = JSON.parse(localStorage.getItem(chave)) || [];
-        if (!dados.includes(valor)) {
-            dados.push(valor);
-            localStorage.setItem(chave, JSON.stringify(dados));
-        }
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1.5rem;
     }
 
-    function carregarSugestoes(chave, campoInput) {
-        const dados = JSON.parse(localStorage.getItem(chave)) || [];
-        const datalist = document.createElement('datalist');
-        datalist.id = `${chave}-sugestoes`;
-        dados.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item;
-            datalist.appendChild(option);
-        });
-        const datalistAntigo = document.getElementById(`${chave}-sugestoes`);
-        if (datalistAntigo) datalistAntigo.remove();
-        campoInput.setAttribute('list', `${chave}-sugestoes`);
-        campoInput.after(datalist);
+    h1 {
+        font-size: 2rem;
     }
 
-    document.getElementById('formAcao').addEventListener('submit', () => {
-        const campos = ['codRazaoCliente', 'codProduto', 'codProdutoBonificado', 'codConsultor', 'observacao'];
-        campos.forEach(id => {
-            const valor = document.getElementById(id).value;
-            if (valor) salvarDados(id, valor);
-        });
-    });
+    .form-section h2 {
+        font-size: 1.4rem;
+    }
 
-    ['codRazaoCliente', 'codProduto', 'codProdutoBonificado', 'codConsultor', 'observacao'].forEach(id => {
-        document.getElementById(id).addEventListener('focus', () => {
-            carregarSugestoes(id, document.getElementById(id));
-        });
-    });
-});
+    input {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+}
+
+.form-group-checkbox {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--cor-primaria);
+    cursor: pointer;
+}
+
+.form-group-checkbox label {
+    color: var(--cor-texto);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.result-section {
+    display: none;
+    margin-top: 20px;
+}
+
+.result-section.active {
+    display: block;
+}
+
+input:invalid {
+    border: 2px solid #ff0000 !important;
+}
+
+.form-group-checkbox {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+.toggle-btn {
+    background: linear-gradient(90deg, #FFA726, #FB8C00);
+    box-shadow: 0px 4px 6px rgba(255, 167, 38, 0.3);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--borda-radius);
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    margin-bottom: 20px;
+}
+
+.toggle-btn:hover {
+    background: linear-gradient(90deg, #FB8C00, #FFA726);
+    transform: scale(1.05);
+}
+
+.toggle-btn i {
+    margin-right: 8px;
+}
