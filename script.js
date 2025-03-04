@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (acaoDiretaCheckbox.checked) {
             bonificacaoSection.style.display = 'none';
             precoSolicitadoContainer.style.display = 'block';
-            alert('A seção de bonificação foi ocultada. Preencha o preço solicitado.');
         } else {
             bonificacaoSection.style.display = 'block';
             precoSolicitadoContainer.style.display = 'none';
