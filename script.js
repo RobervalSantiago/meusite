@@ -72,11 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     acaoDiretaCheckbox.addEventListener('change', () => {
         if (acaoDiretaCheckbox.checked) {
-            bonificacaoSection.style.display = 'none';
-            precoSolicitadoContainer.style.display = 'block';
+            bonificacaoSection.style.display = 'none'; // Oculta a seção de bonificação
+            precoSolicitadoContainer.style.display = 'block'; // Exibe o campo "Preço Solicitado"
         } else {
-            bonificacaoSection.style.display = 'block';
-            precoSolicitadoContainer.style.display = 'none';
+            bonificacaoSection.style.display = 'block'; // Exibe a seção de bonificação
+            precoSolicitadoContainer.style.display = 'none'; // Oculta o campo "Preço Solicitado"
         }
     });
 
