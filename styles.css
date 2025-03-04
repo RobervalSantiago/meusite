@@ -390,3 +390,14 @@ input:invalid {
 .toggle-btn i {
     margin-right: 8px;
 }
+/* Adicionando transição para a exibição e ocultação dos elementos */
+#bonificacaoCampos, #precoSolicitadoContainer {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#bonificacaoCampos[style*="display: none"], #precoSolicitadoContainer[style*="display: none"] {
+    opacity: 0;
+    transform: translateY(-10px);
+}
