@@ -90,6 +90,7 @@ header p {
     justify-content: center;
     box-shadow: var(--sombra);
     transition: transform 0.3s, opacity 0.3s;
+    z-index: 1000; /* Garante que o botão fique acima de tudo */
 }
 
 .theme-toggle:hover {
