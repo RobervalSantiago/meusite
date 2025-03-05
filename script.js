@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('formAcao').reset();
             syncBonificacao();
             document.querySelectorAll('.result-section').forEach(sec => sec.style.display = 'none');
-            document.getElementById('detalhesBonificacaoCampos').style.display = 'none'; // Oculta a seção de Detalhes da Bonificação ao limpar
+            document.getElementById('detalhesBonificacaoCampos').style.display = 'none';
             document.querySelectorAll('.error-message').forEach(erro => erro.remove());
         }
     });
@@ -74,45 +74,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     acaoDiretaCheckbox.addEventListener('change', () => {
         if (acaoDiretaCheckbox.checked) {
-            bonificacaoSection.style.display = 'none'; // Oculta a seção de Bonificação
-            detalhesBonificacaoSection.style.display = 'none'; // Oculta a seção de Detalhes da Bonificação
-            precoSolicitadoContainer.style.display = 'block'; // Mostra o campo de Preço Solicitado
+            bonificacaoSection.style.display = 'none';
+            detalhesBonificacaoSection.style.display = 'none';
+            precoSolicitadoContainer.style.display = 'block';
         } else {
-            bonificacaoSection.style.display = 'block'; // Mostra a seção de Bonificação
-            detalhesBonificacaoSection.style.display = 'none'; // Mantém a seção de Detalhes da Bonificação oculta
-            precoSolicitadoContainer.style.display = 'none'; // Oculta o campo de Preço Solicitado
+            bonificacaoSection.style.display = 'block';
+            detalhesBonificacaoSection.style.display = 'none';
+            precoSolicitadoContainer.style.display = 'none';
         }
     });
 
-    // Verifica o estado do checkbox ao carregar a página
+    // Estado inicial do checkbox
     if (acaoDiretaCheckbox.checked) {
         bonificacaoSection.style.display = 'none';
         detalhesBonificacaoSection.style.display = 'none';
         precoSolicitadoContainer.style.display = 'block';
     } else {
         bonificacaoSection.style.display = 'block';
-        detalhesBonificacaoSection.style.display = 'none'; // Mantém a seção de Detalhes da Bonificação oculta
+        detalhesBonificacaoSection.style.display = 'none';
         precoSolicitadoContainer.style.display = 'none';
     }
 
-    // Lógica para exibir a seção "Detalhes da Bonificação" após o cálculo
+    // Lógica principal de cálculo
     document.getElementById('formAcao').addEventListener('submit', (event) => {
-        event.preventDefault(); // Evita o envio do formulário
+        event.preventDefault();
 
-        // Simulação de cálculo (substitua por sua lógica de cálculo real)
+        // Validação dos campos obrigatórios
+        const camposInvalidos = camposObrigatorios.filter(id => {
+            const campo = document.getElementById(id);
+            return !campo.value.trim();
+        });
+
+        if (camposInvalidos.length > 0) {
+            alert('Preencha todos os campos obrigatórios!');
+            return;
+        }
+
+        // Mostra o loading
         document.getElementById('loading').style.display = 'block';
 
+        // Simulação de cálculo
         setTimeout(() => {
-            // Mostra o RESULTADO DA AÇÃO
+            // Exibe o RESULTADO DA AÇÃO
             document.getElementById('resultadoAcaoSection').style.display = 'block';
             document.getElementById('botoesResultado').style.display = 'flex';
 
-            // Mostra DETALHES DA BONIFICAÇÃO (apenas se NÃO for ação direta)
+            // Exibe DETALHES DA BONIFICAÇÃO (se não for ação direta)
             if (!acaoDiretaCheckbox.checked) {
                 document.getElementById('detalhesBonificacaoCampos').style.display = 'block';
             }
 
+            // Oculta o loading
             document.getElementById('loading').style.display = 'none';
-        }, 1000); // Simula um tempo de processamento
+        }, 1000);
     });
 });
