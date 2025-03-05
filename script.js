@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('formAcao').reset();
             syncBonificacao();
             document.querySelectorAll('.result-section').forEach(sec => sec.style.display = 'none');
-            document.querySelectorAll('.error-message').forEach(erro => erro.remove());
             document.getElementById('detalhesBonificacaoCampos').style.display = 'none'; // Oculta a seção de Detalhes da Bonificação ao limpar
+            document.querySelectorAll('.error-message').forEach(erro => erro.remove());
         }
     });
 
@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             precoSolicitadoContainer.style.display = 'block'; // Mostra o campo de Preço Solicitado
         } else {
             bonificacaoSection.style.display = 'block'; // Mostra a seção de Bonificação
+            detalhesBonificacaoSection.style.display = 'none'; // Mantém a seção de Detalhes da Bonificação oculta
             precoSolicitadoContainer.style.display = 'none'; // Oculta o campo de Preço Solicitado
         }
     });
@@ -90,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         precoSolicitadoContainer.style.display = 'block';
     } else {
         bonificacaoSection.style.display = 'block';
+        detalhesBonificacaoSection.style.display = 'none'; // Mantém a seção de Detalhes da Bonificação oculta
         precoSolicitadoContainer.style.display = 'none';
     }
 
@@ -98,9 +100,19 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault(); // Evita o envio do formulário
 
         // Simulação de cálculo (substitua por sua lógica de cálculo real)
+        document.getElementById('loading').style.display = 'block';
+
         setTimeout(() => {
+            // Mostra o RESULTADO DA AÇÃO
             document.getElementById('resultadoAcaoSection').style.display = 'block';
-            document.getElementById('detalhesBonificacaoCampos').style.display = 'block'; // Exibe a seção de Detalhes da Bonificação
+            document.getElementById('botoesResultado').style.display = 'flex';
+
+            // Mostra DETALHES DA BONIFICAÇÃO (apenas se NÃO for ação direta)
+            if (!acaoDiretaCheckbox.checked) {
+                document.getElementById('detalhesBonificacaoCampos').style.display = 'block';
+            }
+
+            document.getElementById('loading').style.display = 'none';
         }, 1000); // Simula um tempo de processamento
     });
 });
