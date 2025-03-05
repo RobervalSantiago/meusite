@@ -65,21 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Lógica para o checkbox "Ação Direta no Preço"
-    const acaoDiretaCheckbox = document.getElementById('acaoDireta');
-    const bonificacaoSection = document.getElementById('bonificacaoCampos');
-    const precoSolicitadoContainer = document.getElementById('precoSolicitadoContainer');
-
-    acaoDiretaCheckbox.addEventListener('change', () => {
-        if (acaoDiretaCheckbox.checked) {
-            bonificacaoSection.style.display = 'none';
-            precoSolicitadoContainer.style.display = 'block';
-        } else {
-            bonificacaoSection.style.display = 'block';
-            precoSolicitadoContainer.style.display = 'none';
-        }
-    });
-
     document.getElementById('formAcao').addEventListener('submit', async (e) => {
         e.preventDefault();
         document.getElementById('loading').style.display = 'flex';
@@ -89,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const campo = document.getElementById(id);
             if (!campo.value.trim()) {
                 camposVazios = true;
-                campo.style.borderColor = '#ff0000';
+                campo.style.borderColor = '#FF5252';
             } else {
                 campo.style.borderColor = '';
             }
@@ -108,11 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const cliente = document.getElementById('codRazaoCliente').value;
         const produto = document.getElementById('codProduto').value;
-        const quantidade = parseFloat(document.getElementById('quantidadeAcao').value);
-        const precoPalm = parseFloat(document.getElementById('precoSistema').value);
+        const quantidade = parseFloat(document.getElementById('quantidadeAcao').value) || 0;
+        const precoPalm = parseFloat(document.getElementById('precoSistema').value) || 0;
         const produtoBonificado = document.getElementById('codProdutoBonificado').value;
-        const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value);
-        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+        const quantidadeBonificada = parseFloat(document.getElementById('quantidadeProdutoBonificado').value) || 0;
+        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value) || 0;
 
         if (quantidade + quantidadeBonificada === 0) {
             alert('A soma da quantidade e quantidade bonificada não pode ser zero!');
@@ -167,7 +152,7 @@ Código/Razão do Cliente: ${cliente}
             const campo = document.getElementById(id);
             if (!campo.value.trim()) {
                 camposVazios = true;
-                campo.style.borderColor = '#ff0000';
+                campo.style.borderColor = '#FF5252';
             } else {
                 campo.style.borderColor = '';
             }
@@ -188,7 +173,7 @@ Código/Razão do Cliente: ${cliente}
         const pedido = document.getElementById('codPedido').value;
         const produtoBonificado = document.getElementById('codProdutoBonificado').value;
         const quantidadeBonificada = document.getElementById('quantidadeProdutoBonificado').value;
-        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value);
+        const valorProdutoBonificado = parseFloat(document.getElementById('valorProdutoBonificado').value) || 0;
         const valorBonificacao = valorProdutoBonificado * quantidadeBonificada;
         const observacao = document.getElementById('observacao').value || '';
 
@@ -212,7 +197,13 @@ Código/Razão do Cliente: ${cliente}
 
     document.getElementById('copiar').addEventListener('click', () => {
         const texto = document.getElementById('resultadoAcao').textContent;
-        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
+        navigator.clipboard.writeText(texto).then(() => {
+            const btn = document.getElementById('copiar');
+            btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+            }, 2000);
+        });
     });
 
     document.getElementById('compartilhar').addEventListener('click', () => {
@@ -222,7 +213,13 @@ Código/Razão do Cliente: ${cliente}
 
     document.getElementById('copiarBonificacao').addEventListener('click', () => {
         const texto = document.getElementById('resultadoBonificacao').textContent;
-        navigator.clipboard.writeText(texto).then(() => alert('Copiado!'));
+        navigator.clipboard.writeText(texto).then(() => {
+            const btn = document.getElementById('copiarBonificacao');
+            btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+            }, 2000);
+        });
     });
 
     document.getElementById('compartilharBonificacao').addEventListener('click', () => {
