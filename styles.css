@@ -178,7 +178,7 @@ input:invalid {
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
     margin-top: 15px;
     color: #ffffff;
     display: flex;
@@ -209,35 +209,52 @@ input:invalid {
     background: linear-gradient(135deg, #25D366, #1B9448);
 }
 
-#botoesBonificacao {
+.whatsapp:hover {
+    background: linear-gradient(135deg, #1B9448, #25D366);
+}
+
+/* Estilos para os botões de Copiar e Compartilhar */
+#botoesResultado, #botoesBonificacao {
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
     gap: 15px;
+    justify-content: center; /* Centraliza os botões */
 }
 
-#botoesBonificacao .btn {
-    width: auto;
+#botoesResultado .btn, #botoesBonificacao .btn {
+    width: 150px; /* Tamanho fixo para os botões */
     padding: 10px 20px;
-}
-
-#gerarBonificacao {
     background: var(--gradiente-primario);
     box-shadow: var(--sombra);
-    color: #ffffff;
     border: none;
     border-radius: var(--borda-radius);
-    padding: 14px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
-    margin-top: 20px;
+    transition: transform 0.3s, opacity 0.3s;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#gerarBonificacao:hover {
+#botoesResultado .btn:hover, #botoesBonificacao .btn:hover {
     transform: scale(1.05);
     opacity: 0.9;
+}
+
+#botoesResultado .btn i, #botoesBonificacao .btn i {
+    margin-right: 8px;
+}
+
+/* Estilo específico para o botão de Compartilhar no WhatsApp */
+#botoesResultado .whatsapp, #botoesBonificacao .whatsapp {
+    background: linear-gradient(135deg, #25D366, #1B9448);
+}
+
+#botoesResultado .whatsapp:hover, #botoesBonificacao .whatsapp:hover {
+    background: linear-gradient(135deg, #1B9448, #25D366);
 }
 
 .result-section {
