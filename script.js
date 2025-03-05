@@ -294,20 +294,3 @@ Código/Razão do Cliente: ${cliente}
         });
     });
 });
-// Abrir modal de doação
-document.getElementById('btnDoar').addEventListener('click', () => {
-    document.getElementById('modalDoar').style.display = 'block';
-});
-
-// Fechar modal de doação
-document.querySelector('.fechar').addEventListener('click', () => {
-    document.getElementById('modalDoar').style.display = 'none';
-});
-
-// Fechar modal ao clicar fora
-window.addEventListener('click', (event) => {
-    const modal = document.getElementById('modalDoar');
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
