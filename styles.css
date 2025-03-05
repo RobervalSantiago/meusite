@@ -67,6 +67,36 @@ header h1 {
     background: var(--gradiente-primario);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; /* Texto com gradiente */
+    display: inline-block;
+    position: relative;
+    animation: float 3s ease-in-out infinite; /* Animação sutil */
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px); /* Movimento de flutuação */
+    }
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background: var(--gradiente-primario);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease-in-out;
+}
+
+header h1:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 header p {
