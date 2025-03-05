@@ -405,3 +405,86 @@ input:invalid {
 .toggle-btn i {
     margin-right: 8px;
 }
+/* Botão flutuante */
+.btn-flutuante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--gradiente-primario);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--sombra);
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 1000;
+}
+
+.btn-flutuante i {
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+.btn-flutuante:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: var(--cor-fundo);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: var(--borda-radius);
+    box-shadow: var(--sombra);
+    max-width: 300px;
+    text-align: center;
+    position: relative;
+}
+
+.fechar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--cor-texto);
+}
+
+.fechar:hover {
+    color: var(--cor-primaria);
+}
+
+.modal .qr-code {
+    width: 150px;
+    height: 150px;
+    margin: 10px auto;
+    border-radius: var(--borda-radius);
+    box-shadow: var(--sombra);
+}
+
+.modal p {
+    font-size: 0.9rem;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 10px;
+}
+
+.modal strong {
+    color: var(--cor-primaria);
+}
