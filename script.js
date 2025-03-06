@@ -178,6 +178,8 @@ Código/Razão do Cliente: ${cliente}
         const observacao = document.getElementById('observacao').value || '';
 
         const resultadoBonificacao = `
+*BONIFICAÇÃO*
+
 *Cód cliente/razão:* ${cliente}
 *Cód/vendedor:* ${consultor}
 *Autorizado por:* Fornecedor
