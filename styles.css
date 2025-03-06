@@ -48,7 +48,7 @@ body {
     padding: 2.5rem;
     border-radius: var(--borda-radius);
     box-shadow: var(--sombra);
-    max-width: 800px;
+    max-width: 1000px; /* Aumentar a largura máxima do contêiner */
     width: 100%;
     text-align: center;
     color: var(--cor-texto);
@@ -69,7 +69,6 @@ header h1 {
     -webkit-text-fill-color: transparent; /* Texto com gradiente */
     display: inline-block;
     position: relative;
-    /* Remover a animação de flutuação */
 }
 
 header h1::after {
@@ -159,7 +158,7 @@ header p {
 }
 
 input {
-    width: 100%;
+    width: 100%; /* Garantir que o input ocupe 100% da largura */
     padding: 12px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: var(--borda-radius);
@@ -193,7 +192,7 @@ input:invalid {
 }
 
 .btn {
-    width: 100%;
+    width: 100%; /* Garantir que o botão ocupe 100% da largura */
     padding: 14px;
     border: none;
     border-radius: var(--borda-radius);
@@ -351,6 +350,16 @@ input:invalid {
     .btn {
         font-size: 0.9rem;
         padding: 12px;
+    }
+
+    /* Ajustar o layout dos botões em telas menores */
+    #botoesResultado, #botoesBonificacao {
+        flex-direction: column; /* Empilhar os botões verticalmente */
+        gap: 10px;
+    }
+
+    #botoesResultado .btn, #botoesBonificacao .btn {
+        width: 100%; /* Botões ocupam 100% da largura em telas menores */
     }
 }
 
