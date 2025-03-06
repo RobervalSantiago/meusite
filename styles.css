@@ -53,7 +53,7 @@ body {
     width: 100%;
     text-align: center;
     color: var(--cor-texto);
-    margin: 20px auto;
+    margin: 0 auto; /* Centraliza o contêiner na página */
 }
 
 header {
@@ -74,6 +74,7 @@ header h1 {
     display: flex;
     align-items: center; /* Alinha o ícone e o texto verticalmente */
     gap: 10px; /* Espaço entre o ícone e o texto */
+    justify-content: center; /* Centraliza o conteúdo do h1 */
 }
 
 header h1 i {
@@ -103,6 +104,7 @@ header p {
     font-size: 1.1rem;
     color: var(--cor-texto-secundario);
     margin-bottom: 0;
+    text-align: center; /* Centraliza o texto do parágrafo */
 }
 
 .theme-toggle {
@@ -133,7 +135,16 @@ header p {
     font-size: 1.4rem;
 }
 
-/* Restante do CSS permanece inalterado */
+.form-section {
+    background: var(--cor-fundo-input);
+    backdrop-filter: blur(3px);
+    border: 1px solid var(--glassmorphism-border);
+    border-radius: var(--borda-radius);
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: var(--sombra);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
 
 .form-section:hover {
     transform: translateY(-5px);
@@ -148,6 +159,7 @@ header p {
     display: flex;
     align-items: center;
     gap: 10px;
+    justify-content: center; /* Centraliza o título da seção */
 }
 
 .form-section h2 i {
@@ -156,6 +168,7 @@ header p {
 
 .form-group {
     margin-bottom: 20px;
+    text-align: left; /* Alinha os labels e inputs à esquerda */
 }
 
 input {
@@ -165,7 +178,7 @@ input {
     border-radius: var(--borda-radius);
     font-size: 1rem;
     background: var(--cor-fundo-input);
-    backdrop-filter: blur(5px); /* Reduzir o blur para melhorar o desempenho */
+    backdrop-filter: blur(5px);
     color: var(--cor-texto);
     outline: none;
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -235,21 +248,9 @@ input:invalid {
     background: linear-gradient(135deg, #1B9448, #25D366);
 }
 
-/* Estilos para os botões de Copiar e Compartilhar */
-#botoesResultado, #botoesBonificacao {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 15px;
-    justify-content: center; /* Centraliza os botões */
-}
+/* Restante do CSS permanece inalterado */
 
-#botoesResultado .btn, #botoesBonificacao .btn {
-    width: 150px; /* Tamanho fixo para os botões */
-    padding: 10px 20px;
-    background: var(--gradiente-primario);
-    box-shadow: var(--sombra);
-    border: none;
+border: none;
     border-radius: var(--borda-radius);
     font-size: 1rem;
     font-weight: bold;
