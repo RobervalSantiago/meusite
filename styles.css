@@ -1,4 +1,3 @@
-
 :root {
     --cor-primaria: #6C63FF;
     --cor-secundaria: #00BFA6;
@@ -59,6 +58,9 @@ body {
 
 header {
     margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo do header */
 }
 
 header h1 {
@@ -71,16 +73,7 @@ header h1 {
     -webkit-text-fill-color: transparent;
     display: inline-block;
     position: relative;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-3px);
-    }
+    /* Removido a animação de flutuação */
 }
 
 header h1::after {
@@ -135,7 +128,6 @@ header p {
     font-size: 1.4rem;
 }
 
-/* Restante do CSS permanece inalterado */
 .form-section:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
