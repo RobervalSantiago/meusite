@@ -71,9 +71,14 @@ header h1 {
     background: var(--gradiente-primario);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    display: inline-block;
-    position: relative;
-    /* Removido a animação de flutuação */
+    display: flex;
+    align-items: center; /* Alinha o ícone e o texto verticalmente */
+    gap: 10px; /* Espaço entre o ícone e o texto */
+}
+
+header h1 i {
+    font-size: 2rem; /* Tamanho do ícone */
+    color: var(--cor-primaria); /* Cor do ícone */
 }
 
 header h1::after {
@@ -127,6 +132,8 @@ header p {
     color: #ffffff;
     font-size: 1.4rem;
 }
+
+/* Restante do CSS permanece inalterado */
 
 .form-section:hover {
     transform: translateY(-5px);
