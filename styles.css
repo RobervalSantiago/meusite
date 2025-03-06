@@ -4,23 +4,19 @@
     --cor-fundo: #F5F5F5; /* Fundo claro */
     --cor-texto: #2D3748; /* Texto escuro */
     --cor-texto-secundario: #718096; /* Texto secundário */
-    --cor-fundo-input: rgba(255, 255, 255, 0.9); /* Reduzir transparência (glassmorphism mais suave) */
-    --cor-fundo-input-foco: rgba(237, 242, 247, 0.95); /* Reduzir transparência ao focar */
+    --cor-fundo-input: #FFFFFF; /* Fundo sólido para inputs */
+    --cor-fundo-input-foco: #EDF2F7; /* Fundo sólido ao focar */
     --sombra: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     --borda-radius: 16px; /* Bordas mais arredondadas */
     --gradiente-primario: linear-gradient(135deg, #6C63FF, #00BFA6); /* Gradiente moderno */
-    --glassmorphism-bg: rgba(255, 255, 255, 0.2); /* Reduzir transparência (glassmorphism mais suave) */
-    --glassmorphism-border: rgba(255, 255, 255, 0.3); /* Reduzir transparência da borda */
 }
 
 body.dark {
     --cor-fundo: #1A1A1A; /* Fundo escuro */
     --cor-texto: #FFFFFF; /* Texto claro */
     --cor-texto-secundario: #A0AEC0; /* Texto secundário claro */
-    --cor-fundo-input: rgba(45, 55, 72, 0.9); /* Reduzir transparência (glassmorphism mais suave) */
-    --cor-fundo-input-foco: rgba(74, 85, 104, 0.95); /* Reduzir transparência ao focar */
-    --glassmorphism-bg: rgba(26, 26, 26, 0.2); /* Reduzir transparência (glassmorphism mais suave) */
-    --glassmorphism-border: rgba(255, 255, 255, 0.2); /* Reduzir transparência da borda */
+    --cor-fundo-input: #2D3748; /* Fundo escuro para inputs */
+    --cor-fundo-input-foco: #4A5568; /* Fundo escuro ao focar */
 }
 
 * {
@@ -42,9 +38,8 @@ body {
 }
 
 .container {
-    background: var(--glassmorphism-bg);
-    backdrop-filter: blur(2px); /* Reduzir o blur para 2px */
-    border: 1px solid var(--glassmorphism-border);
+    background: var(--cor-fundo-input);
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borda sutil */
     padding: 2.5rem;
     border-radius: var(--borda-radius);
     box-shadow: var(--sombra);
@@ -125,8 +120,7 @@ header p {
 
 .form-section {
     background: var(--cor-fundo-input);
-    backdrop-filter: blur(2px); /* Reduzir o blur para 2px */
-    border: 1px solid var(--glassmorphism-border);
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borda sutil */
     border-radius: var(--borda-radius);
     padding: 25px;
     margin-bottom: 30px;
@@ -164,7 +158,6 @@ input {
     border-radius: var(--borda-radius);
     font-size: 1rem;
     background: var(--cor-fundo-input);
-    backdrop-filter: blur(2px); /* Reduzir o blur para 2px */
     color: var(--cor-texto);
     outline: none;
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -296,8 +289,7 @@ input:invalid {
     margin-top: 25px;
     padding: 20px;
     background: var(--cor-fundo-input);
-    backdrop-filter: blur(2px); /* Reduzir o blur para 2px */
-    border: 1px solid var(--glassmorphism-border);
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borda sutil */
     border-radius: var(--borda-radius);
     white-space: pre-wrap;
     font-family: monospace;
