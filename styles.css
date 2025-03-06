@@ -7,7 +7,7 @@
     --cor-fundo-input: #FFFFFF; /* Fundo sólido para inputs */
     --cor-fundo-input-foco: #EDF2F7; /* Fundo sólido ao focar */
     --sombra: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    --borda-radius: 16px; /* Bordas mais arredondadas */
+    --borda-radius: 12px; /* Bordas mais arredondadas */
     --gradiente-primario: linear-gradient(135deg, #6C63FF, #00BFA6); /* Gradiente moderno */
 }
 
@@ -32,7 +32,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 10px; /* Reduzir o padding do body */
     color: var(--cor-texto);
     transition: background 0.3s, color 0.3s;
 }
@@ -40,24 +40,24 @@ body {
 .container {
     background: var(--cor-fundo-input);
     border: 1px solid rgba(0, 0, 0, 0.1); /* Borda sutil */
-    padding: 2.5rem;
+    padding: 1.5rem; /* Reduzir o padding do contêiner */
     border-radius: var(--borda-radius);
     box-shadow: var(--sombra);
     max-width: 1000px; /* Aumentar a largura máxima do contêiner */
     width: 100%;
     text-align: center;
     color: var(--cor-texto);
-    margin: 20px auto;
+    margin: 10px auto; /* Reduzir a margem do contêiner */
 }
 
 header {
-    margin-bottom: 40px;
+    margin-bottom: 20px; /* Reduzir o espaçamento do header */
 }
 
 header h1 {
-    font-size: 2.5rem;
+    font-size: 2rem; /* Reduzir o tamanho da fonte do título */
     color: var(--cor-primaria);
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Reduzir o espaçamento abaixo do título */
     font-weight: 700;
     background: var(--gradiente-primario);
     -webkit-background-clip: text;
@@ -85,20 +85,20 @@ header h1:hover::after {
 }
 
 header p {
-    font-size: 1.1rem;
+    font-size: 1rem; /* Reduzir o tamanho da fonte do parágrafo */
     color: var(--cor-texto-secundario);
     margin-bottom: 0;
 }
 
 .theme-toggle {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 10px; /* Ajustar a posição do botão de tema */
+    right: 10px;
     background: var(--gradiente-primario);
     border: none;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 40px; /* Reduzir o tamanho do botão de tema */
+    height: 40px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -115,15 +115,15 @@ header p {
 
 .theme-toggle i {
     color: #ffffff;
-    font-size: 1.4rem;
+    font-size: 1.2rem; /* Reduzir o tamanho do ícone */
 }
 
 .form-section {
     background: var(--cor-fundo-input);
     border: 1px solid rgba(0, 0, 0, 0.1); /* Borda sutil */
     border-radius: var(--borda-radius);
-    padding: 25px;
-    margin-bottom: 30px;
+    padding: 15px; /* Reduzir o padding das seções do formulário */
+    margin-bottom: 20px; /* Reduzir o espaçamento entre as seções */
     box-shadow: var(--sombra);
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -134,34 +134,34 @@ header p {
 }
 
 .form-section h2 {
-    font-size: 1.6rem;
+    font-size: 1.4rem; /* Reduzir o tamanho da fonte do título da seção */
     color: var(--cor-primaria);
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduzir o espaçamento abaixo do título da seção */
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px; /* Reduzir o espaçamento entre o ícone e o texto */
 }
 
 .form-section h2 i {
-    font-size: 1.4rem;
+    font-size: 1.2rem; /* Reduzir o tamanho do ícone */
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduzir o espaçamento entre os grupos de formulário */
 }
 
 input {
     width: 100%; /* Garantir que o input ocupe 100% da largura */
-    padding: 12px;
+    padding: 10px; /* Reduzir o padding dos inputs */
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: var(--borda-radius);
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reduzir o tamanho da fonte dos inputs */
     background: var(--cor-fundo-input);
     color: var(--cor-texto);
     outline: none;
     transition: border-color 0.3s, box-shadow 0.3s;
-    margin-top: 8px;
+    margin-top: 5px; /* Reduzir o espaçamento acima dos inputs */
 }
 
 input:focus {
@@ -179,21 +179,21 @@ input:invalid {
 
 .error-message {
     color: #FF5252;
-    font-size: 0.875rem;
-    margin-top: 8px;
+    font-size: 0.75rem; /* Reduzir o tamanho da fonte das mensagens de erro */
+    margin-top: 5px; /* Reduzir o espaçamento acima das mensagens de erro */
     display: block;
 }
 
 .btn {
     width: 100%; /* Garantir que o botão ocupe 100% da largura */
-    padding: 14px;
+    padding: 10px; /* Reduzir o padding dos botões */
     border: none;
     border-radius: var(--borda-radius);
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reduzir o tamanho da fonte dos botões */
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.3s, opacity 0.3s;
-    margin-top: 15px;
+    margin-top: 10px; /* Reduzir o espaçamento acima dos botões */
     color: #ffffff;
     display: flex;
     align-items: center;
@@ -203,7 +203,7 @@ input:invalid {
 }
 
 .btn i {
-    margin-right: 8px;
+    margin-right: 6px; /* Reduzir o espaçamento entre o ícone e o texto */
 }
 
 .btn:hover {
@@ -229,21 +229,21 @@ input:invalid {
 
 /* Estilos para os botões de Copiar e Compartilhar */
 #botoesResultado, #botoesBonificacao {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 15px; /* Reduzir o espaçamento acima dos botões */
+    margin-bottom: 15px;
     display: flex;
-    gap: 15px;
+    gap: 10px; /* Reduzir o espaçamento entre os botões */
     justify-content: center; /* Centraliza os botões */
 }
 
 #botoesResultado .btn, #botoesBonificacao .btn {
-    width: 150px; /* Tamanho fixo para os botões */
-    padding: 10px 20px;
+    width: 120px; /* Reduzir a largura dos botões */
+    padding: 8px 16px; /* Reduzir o padding dos botões */
     background: var(--gradiente-primario);
     box-shadow: var(--sombra);
     border: none;
     border-radius: var(--borda-radius);
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reduzir o tamanho da fonte dos botões */
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.3s, opacity 0.3s;
@@ -259,7 +259,7 @@ input:invalid {
 }
 
 #botoesResultado .btn i, #botoesBonificacao .btn i {
-    margin-right: 8px;
+    margin-right: 6px; /* Reduzir o espaçamento entre o ícone e o texto */
 }
 
 /* Estilo específico para o botão de Compartilhar no WhatsApp */
@@ -272,46 +272,46 @@ input:invalid {
 }
 
 .result-section {
-    margin-top: 30px;
+    margin-top: 20px; /* Reduzir o espaçamento acima da seção de resultados */
 }
 
 .result-section h2 {
-    margin-bottom: 20px;
-    font-size: 1.6rem;
+    margin-bottom: 15px; /* Reduzir o espaçamento abaixo do título da seção */
+    font-size: 1.4rem; /* Reduzir o tamanho da fonte do título da seção */
     color: var(--cor-primaria);
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px; /* Reduzir o espaçamento entre o ícone e o texto */
 }
 
 .resultado {
-    margin-top: 25px;
-    padding: 20px;
+    margin-top: 15px; /* Reduzir o espaçamento acima do resultado */
+    padding: 15px; /* Reduzir o padding do resultado */
     background: var(--cor-fundo-input);
     border: 1px solid rgba(0, 0, 0, 0.1); /* Borda sutil */
     border-radius: var(--borda-radius);
     white-space: pre-wrap;
     font-family: monospace;
     text-align: left;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reduzir o tamanho da fonte do resultado */
     color: var(--cor-texto);
-    line-height: 1.5;
+    line-height: 1.4; /* Reduzir o espaçamento entre as linhas */
 }
 
 .loading {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 25px;
+    margin-top: 15px; /* Reduzir o espaçamento acima do spinner */
 }
 
 .spinner {
     border: 4px solid rgba(108, 99, 255, 0.3);
     border-top: 4px solid var(--cor-primaria);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 30px; /* Reduzir o tamanho do spinner */
+    height: 30px;
     animation: spin 1s linear infinite;
 }
 
@@ -323,31 +323,31 @@ input:invalid {
 @media (max-width: 768px) {
     .container {
         width: 95%;
-        padding: 1.5rem;
+        padding: 1rem; /* Reduzir o padding do contêiner em telas menores */
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 1.8rem; /* Reduzir o tamanho da fonte do título em telas menores */
     }
 
     .form-section h2 {
-        font-size: 1.4rem;
+        font-size: 1.2rem; /* Reduzir o tamanho da fonte do título da seção em telas menores */
     }
 
     input {
-        font-size: 0.9rem;
-        padding: 10px;
+        font-size: 0.8rem; /* Reduzir o tamanho da fonte dos inputs em telas menores */
+        padding: 8px; /* Reduzir o padding dos inputs em telas menores */
     }
 
     .btn {
-        font-size: 0.9rem;
-        padding: 12px;
+        font-size: 0.8rem; /* Reduzir o tamanho da fonte dos botões em telas menores */
+        padding: 8px; /* Reduzir o padding dos botões em telas menores */
     }
 
     /* Ajustar o layout dos botões em telas menores */
     #botoesResultado, #botoesBonificacao {
         flex-direction: column; /* Empilhar os botões verticalmente */
-        gap: 10px;
+        gap: 8px; /* Reduzir o espaçamento entre os botões */
     }
 
     #botoesResultado .btn, #botoesBonificacao .btn {
@@ -356,22 +356,22 @@ input:invalid {
 }
 
 .form-group-checkbox {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduzir o espaçamento entre os grupos de checkbox */
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px; /* Reduzir o espaçamento entre o checkbox e o label */
 }
 
 .form-group-checkbox input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+    width: 16px; /* Reduzir o tamanho do checkbox */
+    height: 16px;
     accent-color: var(--cor-primaria);
     cursor: pointer;
 }
 
 .form-group-checkbox label {
     color: var(--cor-texto);
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reduzir o tamanho da fonte do label */
     cursor: pointer;
 }
 
@@ -381,12 +381,12 @@ input:invalid {
     color: #ffffff;
     border: none;
     border-radius: var(--borda-radius);
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 8px 16px; /* Reduzir o padding do botão de alternância */
+    font-size: 0.9rem; /* Reduzir o tamanho da fonte do botão de alternância */
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduzir o espaçamento abaixo do botão de alternância */
 }
 
 .toggle-btn:hover {
@@ -395,19 +395,19 @@ input:invalid {
 }
 
 .toggle-btn i {
-    margin-right: 8px;
+    margin-right: 6px; /* Reduzir o espaçamento entre o ícone e o texto */
 }
 
 /* Botão flutuante */
 .btn-flutuante {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 10px; /* Ajustar a posição do botão flutuante */
+    right: 10px;
     background: var(--gradiente-primario);
     border: none;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 50px; /* Reduzir o tamanho do botão flutuante */
+    height: 50px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -419,7 +419,7 @@ input:invalid {
 
 .btn-flutuante i {
     color: #ffffff;
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* Reduzir o tamanho do ícone */
 }
 
 .btn-flutuante:hover {
