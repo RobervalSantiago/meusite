@@ -1,3 +1,354 @@
+:root {
+    --cor-primaria: #6C63FF; /* Roxo futurista */
+    --cor-secundaria: #00BFA6; /* Verde água */
+    --cor-fundo: #F5F5F5; /* Fundo claro */
+    --cor-texto: #2D3748; /* Texto escuro */
+    --cor-texto-secundario: #718096; /* Texto secundário */
+    --cor-fundo-input: rgba(255, 255, 255, 0.8); /* Glassmorphism */
+    --cor-fundo-input-foco: rgba(237, 242, 247, 0.9); /* Glassmorphism ao focar */
+    --sombra: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    --borda-radius: 16px; /* Bordas mais arredondadas */
+    --gradiente-primario: linear-gradient(135deg, #6C63FF, #00BFA6); /* Gradiente moderno */
+    --glassmorphism-bg: rgba(255, 255, 255, 0.1); /* Efeito glassmorphism */
+    --glassmorphism-border: rgba(255, 255, 255, 0.2); /* Borda glassmorphism */
+}
+
+body.dark {
+    --cor-fundo: #1A1A1A; /* Fundo escuro */
+    --cor-texto: #FFFFFF; /* Texto claro */
+    --cor-texto-secundario: #A0AEC0; /* Texto secundário claro */
+    --cor-fundo-input: rgba(45, 55, 72, 0.8); /* Glassmorphism escuro */
+    --cor-fundo-input-foco: rgba(74, 85, 104, 0.9); /* Glassmorphism escuro ao focar */
+    --glassmorphism-bg: rgba(26, 26, 26, 0.1); /* Efeito glassmorphism escuro */
+    --glassmorphism-border: rgba(255, 255, 255, 0.1); /* Borda glassmorphism escuro */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif; /* Fonte moderna */
+}
+
+body {
+    background: var(--cor-fundo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--cor-texto);
+    transition: background 0.3s, color 0.3s;
+}
+
+.container {
+    background: var(--glassmorphism-bg);
+    backdrop-filter: blur(5px); /* Reduzir o blur para melhorar o desempenho */
+    border: 1px solid var(--glassmorphism-border);
+    padding: 2.5rem;
+    border-radius: var(--borda-radius);
+    box-shadow: var(--sombra);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    color: var(--cor-texto);
+    margin: 20px auto;
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: var(--cor-primaria);
+    margin-bottom: 15px;
+    font-weight: 700;
+    background: var(--gradiente-primario);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Texto com gradiente */
+    display: inline-block;
+    position: relative;
+    animation: float 3s ease-in-out infinite; /* Animação sutil */
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px); /* Reduzir o movimento para melhorar o desempenho */
+    }
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background: var(--gradiente-primario);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease-in-out;
+}
+
+header h1:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+header p {
+    font-size: 1.1rem;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 0;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--gradiente-primario);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--sombra);
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 1000; /* Garante que o botão fique acima de tudo */
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+.theme-toggle i {
+    color: #ffffff;
+    font-size: 1.4rem;
+}
+
+.form-section {
+    background: var(--cor-fundo-input);
+    backdrop-filter: blur(5px); /* Reduzir o blur para melhorar o desempenho */
+    border: 1px solid var(--glassmorphism-border);
+    border-radius: var(--borda-radius);
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: var(--sombra);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.form-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.form-section h2 {
+    font-size: 1.6rem;
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-section h2 i {
+    font-size: 1.4rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--borda-radius);
+    font-size: 1rem;
+    background: var(--cor-fundo-input);
+    backdrop-filter: blur(5px); /* Reduzir o blur para melhorar o desempenho */
+    color: var(--cor-texto);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-top: 8px;
+}
+
+input:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
+}
+
+input:valid {
+    border-color: var(--cor-secundaria);
+}
+
+input:invalid {
+    border-color: #FF5252;
+}
+
+.error-message {
+    color: #FF5252;
+    font-size: 0.875rem;
+    margin-top: 8px;
+    display: block;
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: var(--borda-radius);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+    margin-top: 15px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradiente-primario);
+    box-shadow: var(--sombra);
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.limpar {
+    background: linear-gradient(135deg, #FF5252, #D32F2F);
+}
+
+.copiar {
+    background: var(--gradiente-primario);
+}
+
+.whatsapp {
+    background: linear-gradient(135deg, #25D366, #1B9448);
+}
+
+.whatsapp:hover {
+    background: linear-gradient(135deg, #1B9448, #25D366);
+}
+
+/* Estilos para os botões de Copiar e Compartilhar */
+#botoesResultado, #botoesBonificacao {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center; /* Centraliza os botões */
+}
+
+#botoesResultado .btn, #botoesBonificacao .btn {
+    width: 150px; /* Tamanho fixo para os botões */
+    padding: 10px 20px;
+    background: var(--gradiente-primario);
+    box-shadow: var(--sombra);
+    border: none;
+    border-radius: var(--borda-radius);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#botoesResultado .btn:hover, #botoesBonificacao .btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+#botoesResultado .btn i, #botoesBonificacao .btn i {
+    margin-right: 8px;
+}
+
+/* Estilo específico para o botão de Compartilhar no WhatsApp */
+#botoesResultado .whatsapp, #botoesBonificacao .whatsapp {
+    background: linear-gradient(135deg, #25D366, #1B9448);
+}
+
+#botoesResultado .whatsapp:hover, #botoesBonificacao .whatsapp:hover {
+    background: linear-gradient(135deg, #1B9448, #25D366);
+}
+
+.result-section {
+    margin-top: 30px;
+}
+
+.result-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    color: var(--cor-primaria);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.resultado {
+    margin-top: 25px;
+    padding: 20px;
+    background: var(--cor-fundo-input);
+    backdrop-filter: blur(5px); /* Reduzir o blur para melhorar o desempenho */
+    border: 1px solid var(--glassmorphism-border);
+    border-radius: var(--borda-radius);
+    white-space: pre-wrap;
+    font-family: monospace;
+    text-align: left;
+    font-size: 1rem;
+    color: var(--cor-texto);
+    line-height: 1.5;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.spinner {
+    border: 4px solid rgba(108, 99, 255, 0.3);
+    border-top: 4px solid var(--cor-primaria);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .form-section h2 {
         font-size: 1.4rem;
     }
 
@@ -82,59 +433,4 @@
 .btn-flutuante:hover {
     transform: scale(1.1);
     opacity: 0.9;
-}
-
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background: var(--cor-fundo);
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: var(--borda-radius);
-    box-shadow: var(--sombra);
-    max-width: 300px;
-    text-align: center;
-    position: relative;
-}
-
-.fechar {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--cor-texto);
-}
-
-.fechar:hover {
-    color: var(--cor-primaria);
-}
-
-.modal .qr-code {
-    width: 150px;
-    height: 150px;
-    margin: 10px auto;
-    border-radius: var(--borda-radius);
-    box-shadow: var(--sombra);
-}
-
-.modal p {
-    font-size: 0.9rem;
-    color: var(--cor-texto-secundario);
-    margin-bottom: 10px;
-}
-
-.modal strong {
-    color: var(--cor-primaria);
 }
